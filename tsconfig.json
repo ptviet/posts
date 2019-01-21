@@ -8,6 +8,7 @@
     "esModuleInterop": true,
     "target": "es6",
     "noImplicitAny": false,
+    // "strict": false,
     // "skipLibCheck": true,
     "outDir": "dist"
   },

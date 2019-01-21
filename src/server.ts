@@ -8,7 +8,7 @@ dotenv.config({ path: "variables.env" });
 mongoose
   .connect(
     process.env.MONGODB_URI,
-    { useNewUrlParser: true }
+    { useCreateIndex: true, useNewUrlParser: true }
   )
   .then(() => $log.debug("MongoDB: Connected"))
   .catch(error => $log.debug(`MongoDB Error: ${error}`));
