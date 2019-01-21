@@ -1,8 +1,3 @@
-const Mutation = {
-  // Create Todo
-  async createTodo(parent, args, ctx, info) {
-    return {};
-  }
-};
+const Mutation = {};
 
 export default Mutation;
