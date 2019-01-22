@@ -107,7 +107,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var index = function index() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "NextJs TS");
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "NextJs TS!");
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (index);
@@ -121,7 +121,7 @@ var index = function index() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./pages/index.tsx */"./pages/index.tsx");
+module.exports = __webpack_require__(/*! /Users/stevenphan/VSCodeProjects/Nodejs/posts/client/pages/index.tsx */"./pages/index.tsx");
 
 
 /***/ }),
