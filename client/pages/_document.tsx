@@ -1,22 +1,126 @@
-import Document from "next/document";
-import { ServerStyleSheet } from "styled-components";
+import React from "react";
+import PropTypes from "prop-types";
+import Document, { Head, Main, NextScript } from "next/document";
+import flush from "styled-jsx/server";
+
+// Resolution order
+//
+// On the server:
+// 1. app.getInitialProps
+// 2. page.getInitialProps
+// 3. document.getInitialProps
+// 4. app.render
+// 5. page.render
+// 6. document.render
+//
+// On the server with error:
+// 1. document.getInitialProps
+// 2. app.render
+// 3. page.render
+// 4. document.render
+//
+// On the client
+// 1. app.getInitialProps
+// 2. page.getInitialProps
+// 3. app.render
+// 4. page.render
+
+// Render app and page and get the context of the page with collected side effects.
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: any) {
-    const sheet = new ServerStyleSheet();
+    let pageContext: any;
+    const page = ctx.renderPage((Component: any) => {
+      const WrappedComponent = (props: any) => {
+        pageContext = props.pageContext;
+        return <Component {...props} />;
+      };
 
-    const originalRenderPage = ctx.renderPage;
-    ctx.renderPage = () =>
-      originalRenderPage({
-        // @ts-ignore
-        enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
-      });
+      WrappedComponent.propTypes = {
+        pageContext: PropTypes.object.isRequired
+      };
 
-    const initialProps = await Document.getInitialProps(ctx);
+      return WrappedComponent;
+    });
+
+    let css;
+    // It might be undefined, e.g. after an error.
+    if (pageContext) {
+      css = pageContext.sheetsRegistry.toString();
+    }
+
     return {
-      ...initialProps,
-      // @ts-ignore
-      styles: [...initialProps.styles, ...sheet.getStyleElement()]
+      ...page,
+      pageContext,
+      // Styles fragment is rendered after the app and page rendering finish.
+      styles: (
+        <>
+          <style
+            id="jss-server-side"
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: css }}
+          />
+          {flush() || null}
+        </>
+      )
     };
   }
+
+  render() {
+    // @ts-ignore
+    const { pageContext } = this.props;
+    return (
+      <html lang="en" dir="ltr">
+        <Head>
+          <meta charSet="utf-8" />
+          {/* Use minimum-scale=1 to enable GPU rasterization */}
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+          />
+          {/* PWA primary color */}
+          <meta
+            name="theme-color"
+            content={
+              pageContext ? pageContext.theme.palette.primary.main : null
+            }
+          />
+          <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+          />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </html>
+    );
+  }
 }
+
+// import Document, { Head, Main, NextScript } from "next/document";
+
+// export default class MyDocument extends Document {
+//   static async getInitialProps(ctx: any) {
+//     const initialProps = await Document.getInitialProps(ctx);
+//     return { ...initialProps };
+//   }
+
+//   render() {
+//     return (
+//       <html>
+//         <Head />
+//         <body className="custom_class">
+//           <Main />
+//           <NextScript />
+//         </body>
+//       </html>
+//     );
+//   }
+// }
