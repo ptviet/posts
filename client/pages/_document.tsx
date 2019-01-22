@@ -85,6 +85,7 @@ export default class MyDocument extends Document {
               pageContext ? pageContext.theme.palette.primary.main : null
             }
           />
+          <link rel="shortcut icon" href="/static/favicon.ico" />
           <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
           <link
             rel="stylesheet"

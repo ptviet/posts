@@ -2142,6 +2142,9 @@ function (_Document) {
         name: "theme-color",
         content: pageContext ? pageContext.theme.palette.primary.main : null
       }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("link", {
+        rel: "shortcut icon",
+        href: "/static/favicon.ico"
+      }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("link", {
         rel: "stylesheet",
         type: "text/css",
         href: "/static/nprogress.css"

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Head from "next/head";
-import Header from "./Header";
+import Header from "./header/Header";
 
 class Page extends Component {
   render() {

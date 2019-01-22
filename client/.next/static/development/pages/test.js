@@ -55,7 +55,7 @@ var test = function test() {
 
 /***/ }),
 
-/***/ 1:
+/***/ 2:
 /*!********************************************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2Ftest&absolutePagePath=%2FUsers%2Fstevenphan%2FVSCodeProjects%2FNodejs%2Fposts%2Fclient%2Fpages%2Ftest.tsx ***!
   \********************************************************************************************************************************************************/
@@ -78,5 +78,5 @@ module.exports = dll_189a33db4b28c2455859;
 
 /***/ })
 
-},[[1,"static/runtime/webpack.js"]]]));;
+},[[2,"static/runtime/webpack.js"]]]));;
 //# sourceMappingURL=test.js.map

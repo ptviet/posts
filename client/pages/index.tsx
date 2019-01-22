@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import Link from "next/link";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
 const styles = (theme: any) => ({
   root: {
@@ -13,9 +14,11 @@ const styles = (theme: any) => ({
 const index = ({ classes }: any) => {
   return (
     <div className={classes.root}>
-      <Link href="/test">
-        <a>Go to the test page</a>
-      </Link>
+      <Button variant="contained" color="primary">
+        <Link href="/test">
+          <a>Go to the test page</a>
+        </Link>
+      </Button>
     </div>
   );
 };

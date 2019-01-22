@@ -3,26 +3,35 @@ import {
   createMuiTheme,
   createGenerateClassName
 } from "@material-ui/core/styles";
-import purple from "@material-ui/core/colors/purple";
-import green from "@material-ui/core/colors/green";
 
 // A theme with custom primary and secondary color.
 // It's optional.
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: purple[300],
-      main: purple[500],
-      dark: purple[700]
+      main: "#a5d6a7"
     },
     secondary: {
-      light: green[300],
-      main: green[500],
-      dark: green[700]
+      main: "#4dd0e1"
+    },
+    error: {
+      main: "#ff8a65"
     }
   },
   typography: {
-    useNextVariants: true
+    useNextVariants: true,
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"'
+    ].join(",")
   }
 });
 
