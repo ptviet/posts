@@ -95,6 +95,16 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
           />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+          />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+          />
         </Head>
         <body>
           <Main />
@@ -104,24 +114,3 @@ export default class MyDocument extends Document {
     );
   }
 }
-
-// import Document, { Head, Main, NextScript } from "next/document";
-
-// export default class MyDocument extends Document {
-//   static async getInitialProps(ctx: any) {
-//     const initialProps = await Document.getInitialProps(ctx);
-//     return { ...initialProps };
-//   }
-
-//   render() {
-//     return (
-//       <html>
-//         <Head />
-//         <body className="custom_class">
-//           <Main />
-//           <NextScript />
-//         </body>
-//       </html>
-//     );
-//   }
-// }

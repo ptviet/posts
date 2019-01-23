@@ -178,7 +178,7 @@ const Header = ({ classes }: any) => {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Link href="/posts">
+            <Link href="/">
               <a className={classes.link}>
                 <IconButton color="inherit">
                   <Badge badgeContent={4} color="secondary">

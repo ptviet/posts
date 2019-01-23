@@ -18,20 +18,22 @@ export const DesktopMenu = ({ anchorEl, isMenuOpen, handleMenuClose }: any) => (
     onClose={handleMenuClose}
   >
     <MenuItem
-      onClick={() =>
+      onClick={() => {
+        handleMenuClose();
         Router.push({
           pathname: "/profile"
-        })
-      }
+        });
+      }}
     >
       My Profile
     </MenuItem>
     <MenuItem
-      onClick={() =>
+      onClick={() => {
+        handleMenuClose();
         Router.push({
           pathname: "/myposts"
-        })
-      }
+        });
+      }}
     >
       My Posts
     </MenuItem>
