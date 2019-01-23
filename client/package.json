@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next -p 3000",
     "build": "next build",
-    "start": "next start",
+    "start": "NODE_ENV=production next start -p $PORT",
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
     "ts:check": "tsc --noEmit"
