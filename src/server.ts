@@ -6,14 +6,24 @@ import createServer from "./createServer";
 dotenv.config({ path: "variables.env" });
 
 mongoose
-  .connect(
-    process.env.MONGODB_URI,
-    { useCreateIndex: true, useNewUrlParser: true }
-  )
+  .connect(process.env.MONGODB_URI, {
+    useCreateIndex: true,
+    useNewUrlParser: true
+  })
   .then(() => $log.debug("MongoDB: Connected"))
   .catch(error => $log.debug(`MongoDB Error: ${error}`));
 
 const server = createServer();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
-server.listen(PORT).then(({ url }) => $log.debug(`Server running on ${url}`));
+server.start(
+  {
+    cors: {
+      credentials: true,
+      origin: process.env.FRONTEND_URL
+    }
+  },
+  deets => {
+    $log.debug(`Server is now running on: http://localhost:${deets.port}`);
+  }
+);

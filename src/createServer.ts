@@ -1,29 +1,22 @@
-import { ApolloServer, gql } from "apollo-server";
-import dotenv from "dotenv";
-import fs from "fs";
+import { GraphQLServer } from "graphql-yoga";
 import resolvers from "./resolvers";
 import User from "./models/User";
 import Post from "./models/Post";
 
-dotenv.config({ path: "variables.env" });
+const typeDefs = "src/schema/schema.graphql";
 
-const typeDefs = gql(
-  fs.readFileSync(__dirname.concat("/typeDefs.gql"), "utf8")
-);
-
+// Create the GraphQL Yoga Server
 const createServer = () => {
-  return new ApolloServer({
-    cors: {
-      credentials: true,
-      origin: process.env.FRONTEND_URL
-    },
+  const server = new GraphQLServer({
     typeDefs,
     resolvers,
-    context: {
-      User,
-      Post
-    }
+    resolverValidationOptions: {
+      requireResolversForResolveType: false
+    },
+    context: req => ({ ...req, User, Post })
   });
+
+  return server;
 };
 
 export default createServer;

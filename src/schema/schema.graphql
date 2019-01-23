@@ -8,6 +8,15 @@ type User {
   favorites: [Post]
 }
 
+type AuthResponse {
+  _id: ID
+  username: String
+  email: String
+  avatar: String
+  joinDate: String
+  favorites: [Post]
+}
+
 type Post {
   _id: ID
   title: String!
@@ -32,7 +41,8 @@ type Query {
 }
 
 type Mutation {
-  signup(username: String!, email: String!, password: String!): User!
+  signin(username: String!, password: String!): AuthResponse!
+  signup(username: String!, email: String!, password: String!): AuthResponse!
   addPost(
     title: String!
     imageUrl: String!
