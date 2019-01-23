@@ -1,31 +1,11 @@
 import React from "react";
-import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Post from "./Post";
 import PostModel from "../../models/Post";
 import PostCarousel from "./PostCarousel";
-
-const ALL_POSTS_QUERY = gql`
-  query ALL_POSTS_QUERY {
-    posts {
-      _id
-      title
-      imageUrl
-      categories
-      description
-      createdDate
-      likes
-      createdBy {
-        _id
-        username
-        email
-        avatar
-      }
-    }
-  }
-`;
+import { ALL_POSTS_QUERY } from "../../lib/Queries";
 
 const Posts = () => {
   return (
@@ -52,7 +32,7 @@ const Posts = () => {
                   width: "50%",
                   textAlign: "center",
                   margin: "0 auto",
-                  padding: "20px",
+                  padding: "15px",
                   marginBottom: "20px"
                 }}
               >
@@ -70,4 +50,3 @@ const Posts = () => {
 };
 
 export default Posts;
-export { ALL_POSTS_QUERY };

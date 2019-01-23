@@ -7,8 +7,8 @@ import Posts from "../components/posts/Posts";
 
 const styles = (theme: any) => ({
   root: {
-    textAlign: "center"
-    // paddingTop: theme.spacing.unit * 2
+    textAlign: "center",
+    paddingTop: theme.spacing.unit
   },
   link: {
     textDecoration: "none",

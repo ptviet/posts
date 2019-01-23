@@ -1,4 +1,14 @@
 import mongoose from "mongoose";
+import md5 from "md5";
+
+// Set default random gravatar
+const generateAvatar = () => {
+  const random = Date.now()
+    .toString()
+    .replace(/\s+/g, "");
+
+  return `http://gravatar.com/avatar/${md5(random)}?d=identicon`;
+};
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -19,7 +29,8 @@ const UserSchema = new mongoose.Schema({
     trim: true
   },
   avatar: {
-    type: String
+    type: String,
+    default: generateAvatar
   },
   joinDate: {
     type: Date,
