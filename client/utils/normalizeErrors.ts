@@ -1,9 +1,9 @@
-interface Error {
+interface IError {
   path: string;
   message: string;
 }
 
-export const normalizeErrors = (errors: Error[]) => {
+export const normalizeErrors = (errors: IError[]) => {
   const errMap: { [key: string]: string } = {};
 
   errors.forEach(err => {

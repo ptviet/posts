@@ -1,11 +1,11 @@
 import * as React from "react";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
-import Home from "../components/Home";
+import Page from "../components/Page";
 
-describe("<Home />", () => {
+describe("<Page />", () => {
   it("should render and match snapshot", () => {
-    const wrapper = shallow(<Home />);
+    const wrapper = shallow(<Page />);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 });

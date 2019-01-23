@@ -12,10 +12,10 @@ import InputBase from "@material-ui/core/InputBase";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
+import Chat from "@material-ui/icons/Chat";
+import LockOpen from "@material-ui/icons/LockOpen";
 import Badge from "@material-ui/core/Badge";
-import AccountCircle from "@material-ui/icons/AccountCircle";
+import Create from "@material-ui/icons/Create";
 import { DesktopMenu, MobileMenu } from "./Nav";
 import SideNav from "./SideNav";
 
@@ -173,13 +173,15 @@ const Header = ({ classes }: any) => {
           <div className={classes.sectionDesktop}>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
-                <MailIcon />
+                <Typography variant="h6">
+                  ALL POSTS <Chat />
+                </Typography>
               </Badge>
             </IconButton>
             <IconButton color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
+              <Typography variant="h6">
+                SIGN IN <LockOpen />
+              </Typography>
             </IconButton>
             <IconButton
               aria-owns={isMenuOpen ? "material-appbar" : undefined}
@@ -187,7 +189,9 @@ const Header = ({ classes }: any) => {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <Typography variant="h6">
+                SIGN UP <Create />
+              </Typography>
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
