@@ -1,13 +1,24 @@
 import React from "react";
+import { ApolloProvider } from "react-apollo";
 import App, { Container } from "next/app";
-import Head from "next/head";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import JssProvider from "react-jss/lib/JssProvider";
 import getPageContext from "../lib/getPageContext";
 import Page from "../components/Page";
+import withApolloClient from "../lib/withApolloClient";
 
 class MyApp extends App {
+  static async getInitialProps({ Component, ctx }: any) {
+    let pageProps = { query: null };
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+    // Expose the query to the user
+    pageProps.query = ctx.query;
+    return { pageProps };
+  }
+
   componentDidMount() {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
@@ -17,7 +28,8 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    // @ts-ignore
+    const { Component, apollo, pageProps } = this.props;
     const pageContext = getPageContext();
     return (
       <Container>
@@ -36,9 +48,11 @@ class MyApp extends App {
             <CssBaseline />
             {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server-side. */}
-            <Page>
-              <Component pageContext={pageContext} {...pageProps} />
-            </Page>
+            <ApolloProvider client={apollo}>
+              <Page>
+                <Component pageContext={pageContext} {...pageProps} />
+              </Page>
+            </ApolloProvider>
           </MuiThemeProvider>
         </JssProvider>
       </Container>
@@ -46,4 +60,4 @@ class MyApp extends App {
   }
 }
 
-export default MyApp;
+export default withApolloClient(MyApp);

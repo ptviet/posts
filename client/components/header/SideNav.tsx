@@ -10,14 +10,14 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 
 const styles: any = (theme: any) => ({
-  list: {
+  sideNavList: {
     width: 200
   }
 });
 
 const SideNav = ({ classes, toggleDrawer, isOpen }: any) => {
   const sideList = (
-    <div className={classes.list}>
+    <div className={classes.sideNavList}>
       <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem button key={text}>

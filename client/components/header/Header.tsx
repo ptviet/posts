@@ -14,6 +14,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Chat from "@material-ui/icons/Chat";
 import LockOpen from "@material-ui/icons/LockOpen";
+import AccountBox from "@material-ui/icons/AccountBox";
 import Badge from "@material-ui/core/Badge";
 import Create from "@material-ui/icons/Create";
 import { DesktopMenu, MobileMenu } from "./Nav";
@@ -52,6 +53,12 @@ const styles: any = (theme: any) => ({
       display: "block"
     }
   },
+  navBtnText: {
+    display: "none",
+    [theme.breakpoints.up("md")]: {
+      display: "block"
+    }
+  },
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -64,7 +71,7 @@ const styles: any = (theme: any) => ({
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing.unit * 3,
-      width: "50%"
+      width: "auto"
     }
   },
   searchIcon: {
@@ -171,27 +178,48 @@ const Header = ({ classes }: any) => {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <Typography variant="h6">
-                  ALL POSTS <Chat />
-                </Typography>
-              </Badge>
-            </IconButton>
-            <IconButton color="inherit">
-              <Typography variant="h6">
-                SIGN IN <LockOpen />
-              </Typography>
-            </IconButton>
+            <Link href="/posts">
+              <a className={classes.link}>
+                <IconButton color="inherit">
+                  <Badge badgeContent={4} color="secondary">
+                    <span className={classes.navBtnText}>
+                      <Typography variant="button">ALL POSTS </Typography>
+                    </span>
+                    <Chat />
+                  </Badge>
+                </IconButton>
+              </a>
+            </Link>
+            <Link href="/signin">
+              <a className={classes.link}>
+                <IconButton color="inherit">
+                  <span className={classes.navBtnText}>
+                    <Typography variant="button">SIGN IN</Typography>
+                  </span>
+                  <LockOpen />
+                </IconButton>
+              </a>
+            </Link>
+            <Link href="/signup">
+              <a className={classes.link}>
+                <IconButton color="inherit">
+                  <span className={classes.navBtnText}>
+                    <Typography variant="button">SIGN UP</Typography>
+                  </span>
+                  <Create />
+                </IconButton>
+              </a>
+            </Link>
             <IconButton
               aria-owns={isMenuOpen ? "material-appbar" : undefined}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <Typography variant="h6">
-                SIGN UP <Create />
-              </Typography>
+              <span className={classes.navBtnText}>
+                <Typography variant="button">MY ACCOUNT</Typography>
+              </span>
+              <AccountBox />
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>

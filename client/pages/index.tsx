@@ -23,6 +23,9 @@ const index = ({ classes }: any) => {
           <a className={classes.link}>View Posts</a>
         </Link>
       </Button>
+      <Button variant="contained" color="secondary">
+        Click
+      </Button>
     </div>
   );
 };
