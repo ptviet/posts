@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Router from "next/router";
-import Link from "next/link";
 import NProgress from "nprogress";
 import { withStyles } from "@material-ui/core/styles";
 import { fade } from "@material-ui/core/styles/colorManipulator";
@@ -11,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-// import MoreIcon from "@material-ui/icons/MoreVert";
+import Fab from "@material-ui/core/Fab";
 import Chat from "@material-ui/icons/Chat";
 import LockOpen from "@material-ui/icons/LockOpen";
 import AccountBalance from "@material-ui/icons/AccountBalance";
@@ -50,10 +49,12 @@ const styles: any = (theme: any) => ({
     marginRight: 20
   },
   title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block"
-    }
+    display: "block"
+  },
+  fab: {
+    top: 5,
+    right: 10,
+    position: "fixed"
   },
   navBtnText: {
     display: "none",
@@ -69,7 +70,7 @@ const styles: any = (theme: any) => ({
       backgroundColor: fade(theme.palette.common.white, 0.25)
     },
     marginRight: theme.spacing.unit * 2,
-    marginLeft: 0,
+    marginLeft: theme.spacing.unit,
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing.unit * 3,
@@ -159,16 +160,16 @@ const Header = ({ classes }: any) => {
                 >
                   <MenuIcon />
                 </IconButton> */}
-                <Typography
-                  className={classes.title}
-                  variant="h6"
+                <IconButton
+                  onClick={() =>
+                    Router.push({
+                      pathname: "/"
+                    })
+                  }
                   color="inherit"
-                  noWrap
                 >
-                  <Link href="/">
-                    <a className={classes.link}>POSTS</a>
-                  </Link>
-                </Typography>
+                  <Typography variant="h6">POSTS</Typography>
+                </IconButton>
                 <div className={classes.search}>
                   <div className={classes.searchIcon}>
                     <SearchIcon />
@@ -183,40 +184,49 @@ const Header = ({ classes }: any) => {
                 </div>
                 <div className={classes.grow} />
                 <div className={classes.sectionDesktop}>
-                  <Link href="/">
-                    <a className={classes.link}>
-                      <IconButton color="inherit">
-                        <Badge badgeContent={4} color="secondary">
-                          <span className={classes.navBtnText}>
-                            <Typography variant="button">ALL POSTS </Typography>
-                          </span>
-                          <Chat />
-                        </Badge>
-                      </IconButton>
-                    </a>
-                  </Link>
+                  <IconButton
+                    onClick={() =>
+                      Router.push({
+                        pathname: "/"
+                      })
+                    }
+                    color="inherit"
+                  >
+                    <Badge badgeContent={4} color="secondary">
+                      <span className={classes.navBtnText}>
+                        <Typography variant="button">ALL POSTS </Typography>
+                      </span>
+                      <Chat />
+                    </Badge>
+                  </IconButton>
                   {!currentUser && (
                     <>
-                      <Link href="/signin">
-                        <a className={classes.link}>
-                          <IconButton color="inherit">
-                            <span className={classes.navBtnText}>
-                              <Typography variant="button">SIGN IN</Typography>
-                            </span>
-                            <LockOpen />
-                          </IconButton>
-                        </a>
-                      </Link>
-                      <Link href="/signup">
-                        <a className={classes.link}>
-                          <IconButton color="inherit">
-                            <span className={classes.navBtnText}>
-                              <Typography variant="button">SIGN UP</Typography>
-                            </span>
-                            <PersonAdd />
-                          </IconButton>
-                        </a>
-                      </Link>
+                      <IconButton
+                        onClick={() =>
+                          Router.push({
+                            pathname: "/signin"
+                          })
+                        }
+                        color="inherit"
+                      >
+                        <span className={classes.navBtnText}>
+                          <Typography variant="button">SIGN IN</Typography>
+                        </span>
+                        <LockOpen />
+                      </IconButton>
+                      <IconButton
+                        onClick={() =>
+                          Router.push({
+                            pathname: "/signup"
+                          })
+                        }
+                        color="inherit"
+                      >
+                        <span className={classes.navBtnText}>
+                          <Typography variant="button">SIGN UP</Typography>
+                        </span>
+                        <PersonAdd />
+                      </IconButton>
                     </>
                   )}
                   {currentUser && (
@@ -237,13 +247,16 @@ const Header = ({ classes }: any) => {
                   )}
                 </div>
                 <div className={classes.sectionMobile}>
-                  <IconButton
+                  <Fab
+                    size="medium"
+                    color="primary"
                     aria-haspopup="true"
                     onClick={handleMobileMenuOpen}
-                    color="inherit"
+                    aria-label="Add"
+                    className={classes.fab}
                   >
                     <MenuIcon />
-                  </IconButton>
+                  </Fab>
                 </div>
               </Toolbar>
             </AppBar>
