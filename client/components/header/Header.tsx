@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import MoreIcon from "@material-ui/icons/MoreVert";
+// import MoreIcon from "@material-ui/icons/MoreVert";
 import Chat from "@material-ui/icons/Chat";
 import LockOpen from "@material-ui/icons/LockOpen";
 import AccountBalance from "@material-ui/icons/AccountBalance";
@@ -148,17 +148,17 @@ const Header = ({ classes }: any) => {
       {({ data: { currentUser } }) => {
         return (
           <div className={classes.root}>
-            <SideNav toggleDrawer={toggleDrawer} isOpen={sideNav} />
+            {/* <SideNav toggleDrawer={toggleDrawer} isOpen={sideNav} /> */}
             <AppBar position="static">
               <Toolbar>
-                <IconButton
+                {/* <IconButton
                   className={classes.menuButton}
                   color="inherit"
                   aria-label="Open drawer"
                   onClick={event => toggleDrawer(true)}
                 >
                   <MenuIcon />
-                </IconButton>
+                </IconButton> */}
                 <Typography
                   className={classes.title}
                   variant="h6"
@@ -242,7 +242,7 @@ const Header = ({ classes }: any) => {
                     onClick={handleMobileMenuOpen}
                     color="inherit"
                   >
-                    <MoreIcon />
+                    <MenuIcon />
                   </IconButton>
                 </div>
               </Toolbar>

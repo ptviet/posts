@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Router from "next/router";
 import PropTypes from "prop-types";
+import { withSnackbar } from "notistack";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -10,6 +11,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Mutation } from "react-apollo";
 import { SIGNUP_MUTATION } from "../../lib/Mutations";
@@ -51,9 +53,10 @@ const styles: any = (theme: any) => ({
 const initialFormState = { username: "", email: "", password: "" };
 
 const SignUp = (props: any) => {
-  const { classes } = props;
+  const { classes, enqueueSnackbar } = props;
   const [form, setForm] = useState(initialFormState);
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   const onChange = (event: any) => {
     setForm({
@@ -82,12 +85,21 @@ const SignUp = (props: any) => {
   const onSubmit = async (event: any, signupMutation: any) => {
     event.preventDefault();
     if (validatePassword() && validateEmail()) {
-      await signupMutation();
-      setForm(initialFormState);
-      setConfirmPassword("");
-      Router.push({
-        pathname: "/"
-      });
+      setSubmitted(true);
+      try {
+        await signupMutation();
+        setForm(initialFormState);
+        setConfirmPassword("");
+        setSubmitted(false);
+        enqueueSnackbar("You are now signed in.", {
+          variant: "success"
+        });
+        Router.push({
+          pathname: "/"
+        });
+      } catch (error) {
+        setSubmitted(false);
+      }
     }
   };
 
@@ -159,11 +171,13 @@ const SignUp = (props: any) => {
                 variant="contained"
                 color="secondary"
                 className={classes.submit}
+                disabled={submitted}
               >
                 Sign up
               </Button>
             </form>
             <br />
+            {(loading || submitted) && <CircularProgress color="primary" />}
             {error && (
               <Typography variant="body1" color="error">
                 {error.message.replace("GraphQL error: ", "")}
@@ -180,4 +194,4 @@ SignUp.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SignUp);
+export default withStyles(styles)(withSnackbar(SignUp));

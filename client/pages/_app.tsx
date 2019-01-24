@@ -1,6 +1,8 @@
 import React from "react";
 import { ApolloProvider } from "react-apollo";
 import App, { Container } from "next/app";
+import { SnackbarProvider } from "notistack";
+import Button from "@material-ui/core/Button";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import JssProvider from "react-jss/lib/JssProvider";
@@ -49,9 +51,23 @@ class MyApp extends App {
             {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server-side. */}
             <ApolloProvider client={apollo}>
-              <Page>
-                <Component pageContext={pageContext} {...pageProps} />
-              </Page>
+              <SnackbarProvider
+                maxSnack={1}
+                hideIconVariant={false}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center"
+                }}
+                action={
+                  <Button color="inherit" size="small">
+                    Dismiss
+                  </Button>
+                }
+              >
+                <Page>
+                  <Component pageContext={pageContext} {...pageProps} />
+                </Page>
+              </SnackbarProvider>
             </ApolloProvider>
           </MuiThemeProvider>
         </JssProvider>

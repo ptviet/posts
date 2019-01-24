@@ -1,4 +1,5 @@
 import { Mutation } from "react-apollo";
+import { withSnackbar } from "notistack";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -17,7 +18,16 @@ const styles: any = (theme: any) => ({
 });
 
 const SignOut = (props: any) => {
-  const { classes, nav } = props;
+  const { classes, nav, enqueueSnackbar } = props;
+
+  const onSignOut = async (event: any, signoutMutation: any) => {
+    event.preventDefault();
+    await signoutMutation();
+    enqueueSnackbar("See you later!", {
+      variant: "success"
+    });
+  };
+
   return (
     <Mutation
       mutation={SIGN_OUT_MUTATION}
@@ -25,12 +35,7 @@ const SignOut = (props: any) => {
     >
       {signout =>
         nav ? (
-          <MenuItem
-            onClick={e => {
-              e.preventDefault();
-              signout();
-            }}
-          >
+          <MenuItem onClick={e => onSignOut(e, signout)}>
             <IconButton color="inherit">
               <span className={classes.navBtnText}>
                 <Typography variant="button">SIGN OUT</Typography>
@@ -40,13 +45,7 @@ const SignOut = (props: any) => {
             <p>SIGN OUT</p>
           </MenuItem>
         ) : (
-          <IconButton
-            color="inherit"
-            onClick={e => {
-              e.preventDefault();
-              signout();
-            }}
-          >
+          <IconButton color="inherit" onClick={e => onSignOut(e, signout)}>
             <span className={classes.navBtnText}>
               <Typography variant="button">SIGN OUT</Typography>
             </span>
@@ -58,4 +57,4 @@ const SignOut = (props: any) => {
   );
 };
 
-export default withStyles(styles)(SignOut);
+export default withStyles(styles)(withSnackbar(SignOut));
