@@ -12,6 +12,16 @@ const Query = {
     const user = await User.findById(ctx.request.userId);
     return user;
   },
+  // GET CATEGORIES
+  async categories(_, args, { Category }) {
+    const cats = await Category.find({})
+      .sort({ createdDate: "desc" })
+      .populate({
+        path: "createdBy",
+        model: "User"
+      });
+    return cats;
+  },
   // GET POSTS
   async posts(_, args, { Post }) {
     const posts = await Post.find({})

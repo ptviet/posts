@@ -17,6 +17,24 @@ export const CURRENT_USER_QUERY = gql`
   }
 `;
 
+export const ALL_CATEGORIES_QUERY = gql`
+  query ALL_CATEGORIES_QUERY {
+    categories {
+      _id
+      name
+      description
+      createdDate
+      createdBy {
+        _id
+        username
+        email
+        permission
+        avatar
+      }
+    }
+  }
+`;
+
 export const ALL_POSTS_QUERY = gql`
   query ALL_POSTS_QUERY {
     posts {

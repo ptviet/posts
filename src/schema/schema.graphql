@@ -52,6 +52,7 @@ type Message {
 
 type Query {
   currentUser: AuthResponse
+  categories: [Category]!
   posts: [Post]!
 }
 
