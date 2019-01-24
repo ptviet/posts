@@ -20,6 +20,7 @@ import PersonAdd from "@material-ui/icons/PersonAdd";
 import { DesktopMenu, MobileMenu } from "./Nav";
 import SideNav from "./SideNav";
 import SignOut from "../auth/SignOut";
+import CurrentUser from "../auth/CurrentUser";
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -143,110 +144,126 @@ const Header = ({ classes }: any) => {
   };
 
   return (
-    <div className={classes.root}>
-      <SideNav toggleDrawer={toggleDrawer} isOpen={sideNav} />
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Open drawer"
-            onClick={event => toggleDrawer(true)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            className={classes.title}
-            variant="h6"
-            color="inherit"
-            noWrap
-          >
-            <Link href="/">
-              <a className={classes.link}>POSTS</a>
-            </Link>
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
+    <CurrentUser>
+      {({ data: { currentUser } }) => {
+        return (
+          <div className={classes.root}>
+            <SideNav toggleDrawer={toggleDrawer} isOpen={sideNav} />
+            <AppBar position="static">
+              <Toolbar>
+                <IconButton
+                  className={classes.menuButton}
+                  color="inherit"
+                  aria-label="Open drawer"
+                  onClick={event => toggleDrawer(true)}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Typography
+                  className={classes.title}
+                  variant="h6"
+                  color="inherit"
+                  noWrap
+                >
+                  <Link href="/">
+                    <a className={classes.link}>POSTS</a>
+                  </Link>
+                </Typography>
+                <div className={classes.search}>
+                  <div className={classes.searchIcon}>
+                    <SearchIcon />
+                  </div>
+                  <InputBase
+                    placeholder="Search…"
+                    classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput
+                    }}
+                  />
+                </div>
+                <div className={classes.grow} />
+                <div className={classes.sectionDesktop}>
+                  <Link href="/">
+                    <a className={classes.link}>
+                      <IconButton color="inherit">
+                        <Badge badgeContent={4} color="secondary">
+                          <span className={classes.navBtnText}>
+                            <Typography variant="button">ALL POSTS </Typography>
+                          </span>
+                          <Chat />
+                        </Badge>
+                      </IconButton>
+                    </a>
+                  </Link>
+                  {!currentUser && (
+                    <>
+                      <Link href="/signin">
+                        <a className={classes.link}>
+                          <IconButton color="inherit">
+                            <span className={classes.navBtnText}>
+                              <Typography variant="button">SIGN IN</Typography>
+                            </span>
+                            <LockOpen />
+                          </IconButton>
+                        </a>
+                      </Link>
+                      <Link href="/signup">
+                        <a className={classes.link}>
+                          <IconButton color="inherit">
+                            <span className={classes.navBtnText}>
+                              <Typography variant="button">SIGN UP</Typography>
+                            </span>
+                            <PersonAdd />
+                          </IconButton>
+                        </a>
+                      </Link>
+                    </>
+                  )}
+                  {currentUser && (
+                    <>
+                      <IconButton
+                        aria-owns={isMenuOpen ? "material-appbar" : undefined}
+                        aria-haspopup="true"
+                        onClick={handleProfileMenuOpen}
+                        color="inherit"
+                      >
+                        <span className={classes.navBtnText}>
+                          <Typography variant="button">MY ACCOUNT</Typography>
+                        </span>
+                        <AccountBalance />
+                      </IconButton>
+                      <SignOut nav={false} />
+                    </>
+                  )}
+                </div>
+                <div className={classes.sectionMobile}>
+                  <IconButton
+                    aria-haspopup="true"
+                    onClick={handleMobileMenuOpen}
+                    color="inherit"
+                  >
+                    <MoreIcon />
+                  </IconButton>
+                </div>
+              </Toolbar>
+            </AppBar>
+            <DesktopMenu
+              currentUser={currentUser}
+              anchorEl={anchorEl}
+              isMenuOpen={isMenuOpen}
+              handleMenuClose={handleMenuClose}
+            />
+            <MobileMenu
+              currentUser={currentUser}
+              mobileMoreAnchorEl={mobileMoreAnchorEl}
+              isMobileMenuOpen={isMobileMenuOpen}
+              handleMobileMenuClose={handleMobileMenuClose}
+              handleProfileMenuOpen={handleProfileMenuOpen}
             />
           </div>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <Link href="/">
-              <a className={classes.link}>
-                <IconButton color="inherit">
-                  <Badge badgeContent={4} color="secondary">
-                    <span className={classes.navBtnText}>
-                      <Typography variant="button">ALL POSTS </Typography>
-                    </span>
-                    <Chat />
-                  </Badge>
-                </IconButton>
-              </a>
-            </Link>
-            <Link href="/signin">
-              <a className={classes.link}>
-                <IconButton color="inherit">
-                  <span className={classes.navBtnText}>
-                    <Typography variant="button">SIGN IN</Typography>
-                  </span>
-                  <LockOpen />
-                </IconButton>
-              </a>
-            </Link>
-            <Link href="/signup">
-              <a className={classes.link}>
-                <IconButton color="inherit">
-                  <span className={classes.navBtnText}>
-                    <Typography variant="button">SIGN UP</Typography>
-                  </span>
-                  <PersonAdd />
-                </IconButton>
-              </a>
-            </Link>
-            <IconButton
-              aria-owns={isMenuOpen ? "material-appbar" : undefined}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <span className={classes.navBtnText}>
-                <Typography variant="button">MY ACCOUNT</Typography>
-              </span>
-              <AccountBalance />
-            </IconButton>
-            <SignOut />
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-      <DesktopMenu
-        anchorEl={anchorEl}
-        isMenuOpen={isMenuOpen}
-        handleMenuClose={handleMenuClose}
-      />
-      <MobileMenu
-        mobileMoreAnchorEl={mobileMoreAnchorEl}
-        isMobileMenuOpen={isMobileMenuOpen}
-        handleMobileMenuClose={handleMobileMenuClose}
-        handleProfileMenuOpen={handleProfileMenuOpen}
-      />
-    </div>
+        );
+      }}
+    </CurrentUser>
   );
 };
 

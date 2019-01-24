@@ -42,6 +42,7 @@ export const DesktopMenu = ({ anchorEl, isMenuOpen, handleMenuClose }: any) => (
 );
 
 export const MobileMenu = ({
+  currentUser,
   mobileMoreAnchorEl,
   isMobileMenuOpen,
   handleMobileMenuClose,
@@ -68,39 +69,43 @@ export const MobileMenu = ({
       </IconButton>
       <p>ALL POSTS</p>
     </MenuItem>
-    <MenuItem
-      onClick={() =>
-        Router.push({
-          pathname: "/signin"
-        })
-      }
-    >
-      <IconButton color="inherit">
-        <LockOpen />
-      </IconButton>
-      <p>SIGN IN</p>
-    </MenuItem>
-    <MenuItem
-      onClick={() =>
-        Router.push({
-          pathname: "/signup"
-        })
-      }
-    >
-      <IconButton color="inherit">
-        <PersonAdd />
-      </IconButton>
-      <p>SIGN UP</p>
-    </MenuItem>
-    <MenuItem>
-      <SignOut />
-      <p>SIGN OUT</p>
-    </MenuItem>
-    <MenuItem onClick={handleProfileMenuOpen}>
-      <IconButton color="inherit">
-        <AccountBalance />
-      </IconButton>
-      <p>My ACCOUNT</p>
-    </MenuItem>
+
+    {!currentUser && (
+      <MenuItem
+        onClick={() =>
+          Router.push({
+            pathname: "/signin"
+          })
+        }
+      >
+        <IconButton color="inherit">
+          <LockOpen />
+        </IconButton>
+        <p>SIGN IN</p>
+      </MenuItem>
+    )}
+    {!currentUser && (
+      <MenuItem
+        onClick={() =>
+          Router.push({
+            pathname: "/signup"
+          })
+        }
+      >
+        <IconButton color="inherit">
+          <PersonAdd />
+        </IconButton>
+        <p>SIGN UP</p>
+      </MenuItem>
+    )}
+    {currentUser && (
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton color="inherit">
+          <AccountBalance />
+        </IconButton>
+        <p>MY ACCOUNT</p>
+      </MenuItem>
+    )}
+    {currentUser && <SignOut nav={true} />}
   </Menu>
 );

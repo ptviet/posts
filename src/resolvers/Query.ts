@@ -9,8 +9,7 @@ const Query = {
     }
     // Query the current user
     const { User } = ctx;
-    const user = await User.findOne({ _id: ctx.request.userId });
-
+    const user = await User.findById(ctx.request.userId);
     return user;
   },
   // GET POSTS
