@@ -67,18 +67,28 @@ const Mutation = {
 
     return newUser;
   },
+  // ADD CATEGORY
+  async addCategory(_, { name, description }, ctx) {
+    checkAuth(ctx);
+    const { Category } = ctx;
+    const newCategory = await new Category({
+      name,
+      description,
+      createdBy: ctx.request.userId
+    }).save();
+
+    return newCategory;
+  },
   // ADD POST
-  async addPost(
-    _,
-    { title, imageUrl, categories, description, creatorId },
-    { Post }
-  ) {
+  async addPost(_, { title, imageUrl, categories, description }, ctx) {
+    checkAuth(ctx);
+    const { Post } = ctx;
     const newPost = await new Post({
       title,
       imageUrl,
       categories,
       description,
-      createdBy: creatorId
+      createdBy: ctx.request.userId
     }).save();
 
     return newPost;

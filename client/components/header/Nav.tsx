@@ -4,6 +4,7 @@ import PersonAdd from "@material-ui/icons/PersonAdd";
 import Chat from "@material-ui/icons/Chat";
 import LockOpen from "@material-ui/icons/LockOpen";
 import AccountBalance from "@material-ui/icons/AccountBalance";
+import Create from "@material-ui/icons/Create";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
@@ -69,7 +70,6 @@ export const MobileMenu = ({
       </IconButton>
       <p>ALL POSTS</p>
     </MenuItem>
-
     {!currentUser && (
       <MenuItem
         onClick={() =>
@@ -96,6 +96,20 @@ export const MobileMenu = ({
           <PersonAdd />
         </IconButton>
         <p>SIGN UP</p>
+      </MenuItem>
+    )}
+    {currentUser && (
+      <MenuItem
+        onClick={() =>
+          Router.push({
+            pathname: "/newpost"
+          })
+        }
+      >
+        <IconButton color="inherit">
+          <Create />
+        </IconButton>
+        <p>NEW POST</p>
       </MenuItem>
     )}
     {currentUser && (

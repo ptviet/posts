@@ -7,6 +7,7 @@ type User {
   username: String!
   email: String!
   password: String!
+  permission: String
   avatar: String
   joinDate: String
   favorites: [Post]
@@ -16,6 +17,7 @@ type AuthResponse {
   _id: ID
   username: String
   email: String
+  permission: String
   avatar: String
   joinDate: String
   favorites: [Post]
@@ -25,12 +27,20 @@ type Post {
   _id: ID
   title: String!
   imageUrl: String!
-  categories: [String]!
+  categories: [Category]!
   description: String!
   createdDate: String
   likes: Int
   createdBy: User!
   messages: [Message]
+}
+
+type Category {
+  _id: ID
+  name: String!
+  description: String
+  createdDate: String
+  createdBy: User!
 }
 
 type Message {
@@ -49,11 +59,11 @@ type Mutation {
   signin(username: String!, password: String!): AuthResponse!
   signout: ResponseMessage
   signup(username: String!, email: String!, password: String!): AuthResponse!
+  addCategory(name: String!, description: String): Category!
   addPost(
     title: String!
     imageUrl: String!
     categories: [String]!
     description: String!
-    creatorId: ID!
   ): Post!
 }

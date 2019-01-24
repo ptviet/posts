@@ -8,7 +8,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import PersonAdd from "@material-ui/icons/PersonAdd";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -114,7 +114,7 @@ const SignUp = (props: any) => {
           <CssBaseline />
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
+              <PersonAdd />
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign Up

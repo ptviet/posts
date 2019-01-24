@@ -6,10 +6,12 @@ export const CURRENT_USER_QUERY = gql`
       _id
       username
       email
+      permission
       avatar
       joinDate
       favorites {
         _id
+        title
       }
     }
   }
@@ -21,7 +23,10 @@ export const ALL_POSTS_QUERY = gql`
       _id
       title
       imageUrl
-      categories
+      categories {
+        _id
+        name
+      }
       description
       createdDate
       likes
@@ -29,6 +34,7 @@ export const ALL_POSTS_QUERY = gql`
         _id
         username
         email
+        permission
         avatar
       }
     }

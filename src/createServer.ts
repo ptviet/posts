@@ -2,6 +2,8 @@ import { GraphQLServer } from "graphql-yoga";
 import resolvers from "./resolvers";
 import User from "./models/User";
 import Post from "./models/Post";
+import Category from "./models/Category";
+import Message from "./models/Message";
 
 const typeDefs = "src/schema/schema.graphql";
 
@@ -13,7 +15,7 @@ const createServer = () => {
     resolverValidationOptions: {
       requireResolversForResolveType: false
     },
-    context: req => ({ ...req, User, Post })
+    context: req => ({ ...req, User, Category, Post, Message })
   });
 
   return server;

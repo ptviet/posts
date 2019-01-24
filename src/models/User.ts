@@ -28,6 +28,10 @@ const UserSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  permission: {
+    type: String,
+    default: "USER"
+  },
   avatar: {
     type: String,
     default: generateAvatar

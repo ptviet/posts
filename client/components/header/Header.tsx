@@ -16,8 +16,9 @@ import LockOpen from "@material-ui/icons/LockOpen";
 import AccountBalance from "@material-ui/icons/AccountBalance";
 import Badge from "@material-ui/core/Badge";
 import PersonAdd from "@material-ui/icons/PersonAdd";
+import Create from "@material-ui/icons/Create";
 import { DesktopMenu, MobileMenu } from "./Nav";
-import SideNav from "./SideNav";
+// import SideNav from "./SideNav";
 import SignOut from "../auth/SignOut";
 import CurrentUser from "../auth/CurrentUser";
 
@@ -231,6 +232,19 @@ const Header = ({ classes }: any) => {
                   )}
                   {currentUser && (
                     <>
+                      <IconButton
+                        onClick={() =>
+                          Router.push({
+                            pathname: "/newpost"
+                          })
+                        }
+                        color="inherit"
+                      >
+                        <span className={classes.navBtnText}>
+                          <Typography variant="button">NEW POST</Typography>
+                        </span>
+                        <Create />
+                      </IconButton>
                       <IconButton
                         aria-owns={isMenuOpen ? "material-appbar" : undefined}
                         aria-haspopup="true"

@@ -10,7 +10,8 @@ const PostSchema = new mongoose.Schema({
     required: true
   },
   categories: {
-    type: [String],
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Category",
     required: true
   },
   description: {
@@ -30,23 +31,10 @@ const PostSchema = new mongoose.Schema({
     required: true,
     ref: "User"
   },
-  messages: [
-    {
-      messageBody: {
-        type: String,
-        required: true
-      },
-      messageDate: {
-        type: Date,
-        default: Date.now
-      },
-      messageUser: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: "User"
-      }
-    }
-  ]
+  messages: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Message"
+  }
 });
 
 const Post = mongoose.model("Post", PostSchema);
