@@ -14,11 +14,12 @@ import SearchIcon from "@material-ui/icons/Search";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Chat from "@material-ui/icons/Chat";
 import LockOpen from "@material-ui/icons/LockOpen";
-import AccountBox from "@material-ui/icons/AccountBox";
+import AccountBalance from "@material-ui/icons/AccountBalance";
 import Badge from "@material-ui/core/Badge";
-import Create from "@material-ui/icons/Create";
+import PersonAdd from "@material-ui/icons/PersonAdd";
 import { DesktopMenu, MobileMenu } from "./Nav";
 import SideNav from "./SideNav";
+import SignOut from "../auth/SignOut";
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -206,7 +207,7 @@ const Header = ({ classes }: any) => {
                   <span className={classes.navBtnText}>
                     <Typography variant="button">SIGN UP</Typography>
                   </span>
-                  <Create />
+                  <PersonAdd />
                 </IconButton>
               </a>
             </Link>
@@ -219,8 +220,9 @@ const Header = ({ classes }: any) => {
               <span className={classes.navBtnText}>
                 <Typography variant="button">MY ACCOUNT</Typography>
               </span>
-              <AccountBox />
+              <AccountBalance />
             </IconButton>
+            <SignOut />
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

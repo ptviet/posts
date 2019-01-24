@@ -5,6 +5,7 @@ import { createToken, checkAuth } from "./Utils";
 dotenv.config({ path: "variables.env" });
 
 const Mutation = {
+  // SIGN IN
   async signin(_, { username, password }, ctx) {
     const { User } = ctx;
 
@@ -32,6 +33,13 @@ const Mutation = {
     // Return the user
     return user;
   },
+  // SIGN OUT
+  async signout(_, args, ctx) {
+    ctx.response.clearCookie(process.env.TOKEN);
+    return { message: "See you later!" };
+  },
+
+  // SIGN UP
   async signup(_, { username, email, password }, ctx) {
     const { User } = ctx;
 
@@ -59,6 +67,7 @@ const Mutation = {
 
     return newUser;
   },
+  // ADD POST
   async addPost(
     _,
     { title, imageUrl, categories, description, creatorId },

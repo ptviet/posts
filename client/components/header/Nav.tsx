@@ -1,13 +1,14 @@
 import React from "react";
 import Router from "next/router";
-import Create from "@material-ui/icons/Create";
+import PersonAdd from "@material-ui/icons/PersonAdd";
 import Chat from "@material-ui/icons/Chat";
 import LockOpen from "@material-ui/icons/LockOpen";
-import AccountBox from "@material-ui/icons/AccountBox";
+import AccountBalance from "@material-ui/icons/AccountBalance";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import IconButton from "@material-ui/core/IconButton";
+import SignOut from "../auth/SignOut";
 
 export const DesktopMenu = ({ anchorEl, isMenuOpen, handleMenuClose }: any) => (
   <Menu
@@ -87,13 +88,17 @@ export const MobileMenu = ({
       }
     >
       <IconButton color="inherit">
-        <Create />
+        <PersonAdd />
       </IconButton>
       <p>SIGN UP</p>
     </MenuItem>
+    <MenuItem>
+      <SignOut />
+      <p>SIGN OUT</p>
+    </MenuItem>
     <MenuItem onClick={handleProfileMenuOpen}>
       <IconButton color="inherit">
-        <AccountBox />
+        <AccountBalance />
       </IconButton>
       <p>My ACCOUNT</p>
     </MenuItem>

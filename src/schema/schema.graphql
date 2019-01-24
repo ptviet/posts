@@ -1,3 +1,7 @@
+type ResponseMessage {
+  message: String
+}
+
 type User {
   _id: ID
   username: String!
@@ -43,6 +47,7 @@ type Query {
 
 type Mutation {
   signin(username: String!, password: String!): AuthResponse!
+  signout: ResponseMessage
   signup(username: String!, email: String!, password: String!): AuthResponse!
   addPost(
     title: String!

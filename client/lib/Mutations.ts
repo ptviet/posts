@@ -15,6 +15,14 @@ export const SIGNIN_MUTATION = gql`
   }
 `;
 
+export const SIGN_OUT_MUTATION = gql`
+  mutation SIGN_OUT_MUTATION {
+    signout {
+      message
+    }
+  }
+`;
+
 export const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
     $username: String!
