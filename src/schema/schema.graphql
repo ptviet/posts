@@ -37,6 +37,7 @@ type Message {
 }
 
 type Query {
+  currentUser: AuthResponse
   posts: [Post]!
 }
 

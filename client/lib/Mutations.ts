@@ -34,9 +34,9 @@ export const SIGNUP_MUTATION = gql`
   }
 `;
 
-export const ADD_POST_MUTATION = gql`
-  mutation ADD_POST_MUTATION {
-    addPost {
-    }
-  }
-`;
+// export const ADD_POST_MUTATION = gql`
+//   mutation ADD_POST_MUTATION {
+//     addPost {
+//     }
+//   }
+// `;

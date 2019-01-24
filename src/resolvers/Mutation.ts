@@ -1,16 +1,8 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { createToken, checkAuth } from "./Utils";
 
 dotenv.config({ path: "variables.env" });
-
-const createToken = async user => {
-  const { username, email } = user;
-  const token = await jwt.sign({ username, email }, process.env.APP_SECRET, {
-    expiresIn: "1d"
-  });
-  return token;
-};
 
 const Mutation = {
   async signin(_, { username, password }, ctx) {
