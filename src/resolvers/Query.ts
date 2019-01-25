@@ -41,6 +41,54 @@ const Query = {
       })
       .exec();
     return posts;
+  },
+  // INFINITE SCROLL POSTS
+  async infiniteScrollPosts(_, { pageNumber, pageSize }, { Post }) {
+    let posts;
+    if (pageNumber === 1) {
+      posts = await Post.find({})
+        .sort({ createdDate: "desc" })
+        .limit(pageSize)
+        .populate({
+          path: "categories",
+          model: "Category"
+        })
+        .populate({
+          path: "createdBy",
+          model: "User"
+        })
+        .populate({
+          path: "messages",
+          model: "Message",
+          populate: { path: "messageUser", model: "User" }
+        })
+        .exec();
+    } else {
+      const skips = pageSize * (pageNumber - 1);
+      posts = await Post.find({})
+        .sort({ createdDate: "desc" })
+        .skip(skips)
+        .limit(pageSize)
+        .populate({
+          path: "categories",
+          model: "Category"
+        })
+        .populate({
+          path: "createdBy",
+          model: "User"
+        })
+        .populate({
+          path: "messages",
+          model: "Message",
+          populate: { path: "messageUser", model: "User" }
+        })
+        .exec();
+    }
+
+    const total = await Post.countDocuments();
+    const hasMore = total > pageSize * pageNumber;
+
+    return { posts, hasMore };
   }
 };
 

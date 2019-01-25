@@ -35,6 +35,11 @@ type Post {
   messages: [Message]
 }
 
+type Pagination {
+  posts: [Post]
+  hasMore: Boolean
+}
+
 type Category {
   _id: ID
   name: String!
@@ -54,6 +59,7 @@ type Query {
   currentUser: AuthResponse
   categories: [Category]!
   posts: [Post]!
+  infiniteScrollPosts(pageNumber: Int!, pageSize: Int!): Pagination
 }
 
 type Mutation {

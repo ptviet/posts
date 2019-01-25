@@ -33,7 +33,7 @@ const PostCarousel = (props: any) => {
     <Slider {...settings}>
       {posts.map((post: any) => (
         <div key={post._id}>
-          <Link href={`/post/${post._id}`}>
+          <Link as={`/post/${post._id}`} href={`/post?_id=${post._id}`}>
             <a
               style={{
                 textDecoration: "none",
