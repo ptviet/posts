@@ -55,6 +55,14 @@ export const ALL_POSTS_QUERY = gql`
         permission
         avatar
       }
+      messages {
+        _id
+        messageBody
+        messageDate
+        messageUser {
+          _id
+        }
+      }
     }
   }
 `;

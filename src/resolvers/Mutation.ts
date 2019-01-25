@@ -83,16 +83,64 @@ const Mutation = {
   async addPost(_, { title, imageUrl, categories, description }, ctx) {
     checkAuth(ctx);
     const { Post } = ctx;
-    const newPost = await new Post({
+
+    let newPost = new Post({
       title,
       imageUrl,
       categories,
       description,
       createdBy: ctx.request.userId
-    }).save();
+    });
+
+    newPost = await newPost.save().then(post =>
+      post
+        .populate({
+          path: "categories",
+          model: "Category"
+        })
+        .populate({
+          path: "createdBy",
+          model: "User"
+        })
+        .populate({
+          path: "messages",
+          model: "Message",
+          populate: { path: "messageUser", model: "User" }
+        })
+        .execPopulate()
+    );
 
     return newPost;
   }
+
+  // async addPost(_, { title, imageUrl, categories, description }, ctx) {
+  //   checkAuth(ctx);
+  //   const { Post } = ctx;
+  //   const newPost = await new Post({
+  //     title,
+  //     imageUrl,
+  //     categories,
+  //     description,
+  //     createdBy: ctx.request.userId
+  //   })
+  //     .save()
+  //     .populate({
+  //       path: "categories",
+  //       model: "Category"
+  //     })
+  //     .populate({
+  //       path: "createdBy",
+  //       model: "User"
+  //     })
+  //     .populate({
+  //       path: "messages",
+  //       model: "Message",
+  //       populate: { path: "messageUser", model: "User" }
+  //     })
+  //     .exec();
+
+  //   return newPost;
+  // }
 };
 
 export default Mutation;

@@ -81,10 +81,6 @@ export const ADD_POST_MUTATION = gql`
         messageDate
         messageUser {
           _id
-          username
-          permission
-          email
-          avatar
         }
       }
     }

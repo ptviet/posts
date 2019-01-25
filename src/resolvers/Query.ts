@@ -27,9 +27,19 @@ const Query = {
     const posts = await Post.find({})
       .sort({ createdDate: "desc" })
       .populate({
+        path: "categories",
+        model: "Category"
+      })
+      .populate({
         path: "createdBy",
         model: "User"
-      });
+      })
+      .populate({
+        path: "messages",
+        model: "Message",
+        populate: { path: "messageUser", model: "User" }
+      })
+      .exec();
     return posts;
   }
 };

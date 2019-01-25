@@ -26,7 +26,10 @@ const theme = createMuiTheme({
     tonalOffset: 0.2
   },
   typography: {
-    useNextVariants: true
+    useNextVariants: true,
+    fontWeightLight: "lighter",
+    fontWeightMedium: "bolder",
+    fontWeightRegular: "normal"
   }
 });
 

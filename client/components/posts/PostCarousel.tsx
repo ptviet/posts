@@ -4,10 +4,21 @@ import PropTypes from "prop-types";
 import Slider from "react-slick";
 import PostModel from "../../models/Post";
 import Typography from "@material-ui/core/Typography";
+import Card from "@material-ui/core/Card";
+import Avatar from "@material-ui/core/Avatar";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
+import { withStyles } from "@material-ui/core/styles";
 
-interface PostProps {
-  posts: PostModel[];
-}
+export const styles: any = (theme: any) => ({
+  card: {
+    maxWidth: "auto"
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%" // 16:9
+  }
+});
 
 const settings = {
   dots: true,
@@ -18,11 +29,11 @@ const settings = {
   autoplay: true
 };
 
-const PostCarousel = (props: PostProps) => {
-  const { posts } = props;
+const PostCarousel = (props: any) => {
+  const { posts, classes } = props;
   return (
     <Slider {...settings}>
-      {posts.map(post => (
+      {posts.map((post: any) => (
         <div key={post._id}>
           <Link href={`/post/${post._id}`}>
             <a
@@ -31,19 +42,28 @@ const PostCarousel = (props: PostProps) => {
                 color: "inherit"
               }}
             >
-              <Typography variant="overline" gutterBottom>
+              {/* <Typography variant="overline" gutterBottom>
                 {post.title}
-              </Typography>
-              <img
-                src="http://react-responsive-carousel.js.org/assets/1.jpeg"
-                style={{
-                  height: "auto",
-                  width: "100%",
-                  display: "block",
-                  objectFit: "cover"
-                }}
-                alt={post.title}
-              />
+              </Typography> */}
+              <Card className={classes.card} id="imagePreview">
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="Avatar">
+                      <img
+                        src={post.createdBy.avatar}
+                        alt={post.createdBy.username}
+                      />
+                    </Avatar>
+                  }
+                  title={post.title}
+                  subheader={`By ${post.createdBy.username}`}
+                />
+                <CardMedia
+                  className={classes.media}
+                  image={post.imageUrl}
+                  title="Image Preview"
+                />
+              </Card>
             </a>
           </Link>
         </div>
@@ -53,7 +73,8 @@ const PostCarousel = (props: PostProps) => {
 };
 
 PostCarousel.propTypes = {
-  posts: PropTypes.array.isRequired
+  posts: PropTypes.array.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
-export default PostCarousel;
+export default withStyles(styles)(PostCarousel);
