@@ -1,9 +1,9 @@
 import React from "react";
 
-import Posts from "../components/posts/Posts";
+// import Posts from "../components/posts/Posts";
 
 const Index = () => {
-  return <Posts />;
+  return <p>Full Screen Carousel</p>;
 };
 
 export default Index;

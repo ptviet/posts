@@ -2,6 +2,7 @@ import React from "react";
 import { Query } from "react-apollo";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import SyncIcon from "@material-ui/icons/Sync";
 import Typography from "@material-ui/core/Typography";
@@ -17,6 +18,17 @@ const styles = (theme: any) => ({
   root: {
     // textAlign: "center",
     paddingTop: theme.spacing.unit
+  },
+  grid: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    overflow: "hidden"
+    // backgroundColor: theme.palette.background.paper,
+  },
+  gridList: {
+    width: "100%",
+    height: "auto"
   },
   link: {
     textDecoration: "none",
@@ -80,27 +92,40 @@ const Posts = ({ classes }: any) => {
         }
         return (
           <div className={classes.root}>
-            <div
+            {/* <div
               style={{
                 width: "50%",
-                // textAlign: "center",
                 margin: "0 auto",
                 padding: "15px",
                 marginBottom: "20px"
               }}
             >
               <PostCarousel posts={infiniteScrollPosts.posts} />
-            </div>
-            {infiniteScrollPosts.posts.map((post: PostModel) => (
-              <Post key={post._id} post={post} />
-            ))}
+            </div> */}
+
+            <Grid container spacing={24} style={{ padding: 24 }}>
+              {infiniteScrollPosts.posts.map((post: PostModel) => (
+                <Grid key={post._id} item xs={12} sm={6} lg={4} xl={3}>
+                  <Post post={post} />
+                </Grid>
+              ))}
+            </Grid>
+
             {hasMore && (
-              <Button
-                color="inherit"
-                onClick={event => fetchMorePosts(event, fetchMore)}
+              <div
+                style={{
+                  textAlign: "center",
+                  marginBottom: "10px",
+                  marginTop: "10px"
+                }}
               >
-                <SyncIcon />
-              </Button>
+                <Button
+                  color="inherit"
+                  onClick={event => fetchMorePosts(event, fetchMore)}
+                >
+                  <SyncIcon />
+                </Button>
+              </div>
             )}
           </div>
         );

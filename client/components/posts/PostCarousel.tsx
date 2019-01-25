@@ -7,8 +7,9 @@ import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import { withStyles } from "@material-ui/core/styles";
+import { millisecToDate } from "../../lib/formatDate";
 
-export const styles: any = (theme: any) => ({
+const styles: any = (theme: any) => ({
   card: {
     maxWidth: "auto"
   },
@@ -43,7 +44,7 @@ const PostCarousel = (props: any) => {
               {/* <Typography variant="overline" gutterBottom>
                 {post.title}
               </Typography> */}
-              <Card className={classes.card} id="imagePreview">
+              <Card className={classes.card}>
                 <CardHeader
                   avatar={
                     <Avatar aria-label="Avatar">
@@ -54,7 +55,8 @@ const PostCarousel = (props: any) => {
                     </Avatar>
                   }
                   title={post.title}
-                  subheader={`Posted by ${post.createdBy.username}`}
+                  subheader={`Posted by ${post.createdBy.username} -
+                    ${millisecToDate(post.createdDate)}`}
                 />
                 <CardMedia
                   className={classes.media}

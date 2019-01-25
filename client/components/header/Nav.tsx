@@ -59,7 +59,7 @@ export const MobileMenu = ({
     <MenuItem
       onClick={() =>
         Router.push({
-          pathname: "/"
+          pathname: "/posts"
         })
       }
     >
