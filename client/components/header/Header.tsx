@@ -20,7 +20,7 @@ import Create from "@material-ui/icons/Create";
 import { DesktopMenu, MobileMenu } from "./Nav";
 // import SideNav from "./SideNav";
 import SignOut from "../auth/SignOut";
-import CurrentUser from "../auth/CurrentUser";
+import Auth from "../auth/Auth";
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -146,7 +146,7 @@ const Header = ({ classes }: any) => {
   };
 
   return (
-    <CurrentUser>
+    <Auth>
       {({ data: { currentUser } }) => {
         return (
           <div className={classes.root}>
@@ -290,7 +290,7 @@ const Header = ({ classes }: any) => {
           </div>
         );
       }}
-    </CurrentUser>
+    </Auth>
   );
 };
 

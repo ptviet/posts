@@ -3,7 +3,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { Query } from "react-apollo";
 import { CURRENT_USER_QUERY } from "../../lib/Queries";
 
-const CurrentUser = (props: any) => (
+const Auth = (props: any) => (
   <Query {...props} query={CURRENT_USER_QUERY}>
     {payload => {
       if (payload.error) {
@@ -18,8 +18,8 @@ const CurrentUser = (props: any) => (
   </Query>
 );
 
-CurrentUser.propTypes = {
+Auth.propTypes = {
   children: PropTypes.func.isRequired
 };
 
-export default CurrentUser;
+export default Auth;

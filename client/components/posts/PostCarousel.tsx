@@ -2,8 +2,6 @@ import React from "react";
 import Link from "next/link";
 import PropTypes from "prop-types";
 import Slider from "react-slick";
-import PostModel from "../../models/Post";
-import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -56,7 +54,7 @@ const PostCarousel = (props: any) => {
                     </Avatar>
                   }
                   title={post.title}
-                  subheader={`By ${post.createdBy.username}`}
+                  subheader={`Posted by ${post.createdBy.username}`}
                 />
                 <CardMedia
                   className={classes.media}
