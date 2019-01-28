@@ -12,6 +12,7 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 import Badge from "@material-ui/core/Badge";
+import Chip from "@material-ui/core/Chip";
 import Divider from "@material-ui/core/Divider";
 import Tooltip from "@material-ui/core/Tooltip";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
@@ -29,6 +30,9 @@ import { FRONTEND_URL } from "../../config";
 const styles: any = (theme: any) => ({
   card: {
     maxWidth: "100%"
+  },
+  chip: {
+    margin: theme.spacing.unit
   },
   media: {
     height: 0,
@@ -84,6 +88,17 @@ const Post = (props: any) => {
     }, 1500);
   };
 
+  const handleCategoryClick = (event: any, catId: any) => {
+    event.preventDefault();
+    Router.push(
+      {
+        pathname: "/category",
+        query: { _id: catId }
+      },
+      `/category/${catId}`
+    );
+  };
+
   return (
     <Card className={classes.card}>
       <CardHeader
@@ -120,11 +135,16 @@ const Post = (props: any) => {
         <Typography component="p">{post.title}</Typography>
       </CardContent>
       <Divider variant="middle" />
-      {/* <input
-        ref={linkRef}
-        style={{ display: "none" }}
-        value={`${FRONTEND_URL}/post/${post._id}`}
-      /> */}
+      {post.categories.map((cat: any) => (
+        <Chip
+          key={cat._id}
+          color="secondary"
+          label={cat.name}
+          onClick={event => handleCategoryClick(event, cat._id)}
+          className={classes.chip}
+        />
+      ))}
+      <Divider variant="middle" />
       <CardActions className={classes.actions} disableActionSpacing>
         <IconButton aria-label="Add to favorites">
           <FavoriteIcon />

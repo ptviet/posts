@@ -43,7 +43,8 @@ const SinglePost = (props: any) => {
 };
 
 SinglePost.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  _id: PropTypes.string.isRequired
 };
 
 export default withStyles(styles as any)(SinglePost);
