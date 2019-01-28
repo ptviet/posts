@@ -13,7 +13,7 @@ import Badge from "@material-ui/core/Badge";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import Comment from "@material-ui/icons/Comment";
+import Textsms from "@material-ui/icons/Textsms";
 import ShareIcon from "@material-ui/icons/Share";
 import SendIcon from "@material-ui/icons/Send";
 import { millisecToDate } from "../../lib/formatDate";
@@ -74,7 +74,7 @@ const Post = (props: any) => {
         </IconButton>
         <IconButton aria-label="Share">
           <Badge badgeContent={3} color="secondary">
-            <Comment />
+            <Textsms />
           </Badge>
         </IconButton>
         <IconButton

@@ -40,6 +40,46 @@ export const ALL_CATEGORIES_QUERY = gql`
   }
 `;
 
+export const GET_SINGLE_POST_QUERY = gql`
+  query GET_SINGLE_POST_QUERY($postId: String!) {
+    post(postId: $postId) {
+      _id
+      title
+      imageUrl
+      categories {
+        _id
+        name
+      }
+      description
+      createdDate
+      likes
+      createdBy {
+        _id
+        username
+        name
+        email
+        permission
+        avatar
+        isLocked
+      }
+      messages {
+        _id
+        messageBody
+        messageDate
+        messageUser {
+          _id
+          username
+          name
+          email
+          permission
+          avatar
+          isLocked
+        }
+      }
+    }
+  }
+`;
+
 export const INFINITE_SCROLL_POSTS_QUERY = gql`
   query INFINITE_SCROLL_POSTS_QUERY($pageNumber: Int! = 1, $pageSize: Int! = ${pageSize}) {
     infiniteScrollPosts(pageNumber: $pageNumber, pageSize: $pageSize) {
