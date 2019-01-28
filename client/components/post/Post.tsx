@@ -13,6 +13,7 @@ import Badge from "@material-ui/core/Badge";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import ArrowBack from "@material-ui/icons/ArrowBack";
 import Textsms from "@material-ui/icons/Textsms";
 import ShareIcon from "@material-ui/icons/Share";
 import SendIcon from "@material-ui/icons/Send";
@@ -35,7 +36,7 @@ const styles: any = (theme: any) => ({
 });
 
 const Post = (props: any) => {
-  const { classes, post } = props;
+  const { classes, post, returnEnabled } = props;
 
   return (
     <Card className={classes.card}>
@@ -44,6 +45,13 @@ const Post = (props: any) => {
           <Avatar aria-label="Avatar">
             <img src={post.createdBy.avatar} alt={post.createdBy.username} />
           </Avatar>
+        }
+        action={
+          returnEnabled && (
+            <IconButton onClick={() => Router.back()}>
+              <ArrowBack />
+            </IconButton>
+          )
         }
         subheader={millisecToDate(post.createdDate)}
         title={`Posted by ${post.createdBy.name}`}
@@ -77,21 +85,23 @@ const Post = (props: any) => {
             <Textsms />
           </Badge>
         </IconButton>
-        <IconButton
-          className={classes.showMore}
-          aria-label="Show more"
-          onClick={() =>
-            Router.push(
-              {
-                pathname: "/post",
-                query: { _id: post._id }
-              },
-              `/post/${post._id}`
-            )
-          }
-        >
-          <SendIcon className={classes.showMore} />
-        </IconButton>
+        {!returnEnabled && (
+          <IconButton
+            className={classes.showMore}
+            aria-label="Show more"
+            onClick={() =>
+              Router.push(
+                {
+                  pathname: "/post",
+                  query: { _id: post._id }
+                },
+                `/post/${post._id}`
+              )
+            }
+          >
+            <SendIcon className={classes.showMore} />
+          </IconButton>
+        )}
       </CardActions>
     </Card>
   );
@@ -99,7 +109,8 @@ const Post = (props: any) => {
 
 Post.propTypes = {
   post: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  returnEnabled: PropTypes.bool.isRequired
 };
 
 export default withStyles(styles)(Post);

@@ -1,19 +1,6 @@
 import React from "react";
-import Profile from "../components/auth/Profile";
-import Signin from "./signin";
-import Auth from "../components/auth/Auth";
+import Profile from "../components/account/Profile";
 
-const ProfilePage = () => {
-  return (
-    <Auth>
-      {({ data: { currentUser } }) => {
-        if (!currentUser) {
-          return <Signin />;
-        }
-        return <Profile />;
-      }}
-    </Auth>
-  );
-};
+const ProfilePage = () => <Profile />;
 
 export default ProfilePage;

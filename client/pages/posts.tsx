@@ -1,9 +1,6 @@
 import React from "react";
+import Posts from "../components/post/Posts";
 
-import Posts from "../components/posts/Posts";
+const posts = () => <Posts />;
 
-const index = () => {
-  return <Posts />;
-};
-
-export default index;
+export default posts;

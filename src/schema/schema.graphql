@@ -63,7 +63,7 @@ type Query {
   currentUser: AuthResponse
   categories: [Category]!
   posts: [Post]!
-  post: Post
+  post(postId: String!): Post
   infiniteScrollPosts(pageNumber: Int!, pageSize: Int!): Pagination
 }
 

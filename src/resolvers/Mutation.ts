@@ -103,11 +103,11 @@ const Mutation = {
           path: "createdBy",
           model: "User"
         })
-        .populate({
-          path: "messages",
-          model: "Message",
-          populate: { path: "messageUser", model: "User" }
-        })
+        // .populate({
+        //   path: "messages",
+        //   model: "Message",
+        //   populate: { path: "messageUser", model: "User" }
+        // })
         .execPopulate()
     );
 

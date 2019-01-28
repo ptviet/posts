@@ -88,17 +88,17 @@ export const ADD_POST_MUTATION = gql`
       }
       messages {
         _id
-        messageBody
-        messageDate
-        messageUser {
-          _id
-          username
-          name
-          permission
-          email
-          avatar
-          isLocked
-        }
+        # messageBody
+        # messageDate
+        # messageUser {
+        #   _id
+        #   username
+        #   name
+        #   permission
+        #   email
+        #   avatar
+        #   isLocked
+        # }
       }
     }
   }
