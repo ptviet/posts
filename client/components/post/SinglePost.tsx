@@ -9,7 +9,7 @@ import { GET_SINGLE_POST_QUERY } from "../../lib/Queries";
 
 const styles = (theme: any) => ({
   root: {
-    width: "65%",
+    width: "60%",
     margin: "auto",
     paddingTop: theme.spacing.unit * 3,
     paddingBottom: theme.spacing.unit * 3
