@@ -10,7 +10,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Post from "./Post";
 import PostModel from "../../models/Post";
 import PaginationModel from "../../models/Pagination";
-import PostCarousel from "./PostCarousel";
+// import PostCarousel from "./PostCarousel";
 import { INFINITE_SCROLL_POSTS_QUERY } from "../../lib/Queries";
 import { pageSize } from "../../config";
 
@@ -106,7 +106,7 @@ const Posts = ({ classes }: any) => {
             <Grid container spacing={16} style={{ padding: 16 }}>
               {infiniteScrollPosts.posts.map((post: PostModel) => (
                 <Grid key={post._id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-                  <Post post={post} />
+                  <Post post={post} returnEnabled={false} />
                 </Grid>
               ))}
             </Grid>

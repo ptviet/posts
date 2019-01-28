@@ -106,17 +106,17 @@ export const INFINITE_SCROLL_POSTS_QUERY = gql`
         }
         messages {
           _id
-          messageBody
-          messageDate
-          messageUser {
-            _id
-            username
-            name
-            email
-            permission
-            avatar
-            isLocked
-          }
+          # messageBody
+          # messageDate
+          # messageUser {
+          #   _id
+          #   username
+          #   name
+          #   email
+          #   permission
+          #   avatar
+          #   isLocked
+          # }
         }
       }
     }
@@ -146,16 +146,16 @@ export const ALL_POSTS_QUERY = gql`
       }
       messages {
         _id
-        messageBody
-        messageDate
-        messageUser {
-          _id
-          username
-          name
-          email
-          permission
-          avatar
-        }
+        # messageBody
+        # messageDate
+        # messageUser {
+        #   _id
+        #   username
+        #   name
+        #   email
+        #   permission
+        #   avatar
+        # }
       }
     }
   }

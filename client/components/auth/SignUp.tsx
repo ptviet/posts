@@ -16,6 +16,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { Mutation } from "react-apollo";
 import { SIGNUP_MUTATION } from "../../lib/Mutations";
 import { CURRENT_USER_QUERY } from "../../lib/Queries";
+import Auth from "./Auth";
 
 const styles: any = (theme: any) => ({
   main: {
@@ -104,98 +105,115 @@ const SignUp = (props: any) => {
   };
 
   return (
-    <Mutation
-      mutation={SIGNUP_MUTATION}
-      variables={form}
-      refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-    >
-      {(signup, { error, loading }) => (
-        <main className={classes.main}>
-          <CssBaseline />
-          <Paper className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <PersonAdd />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign Up
-            </Typography>
-            <form className={classes.form} onSubmit={e => onSubmit(e, signup)}>
-              <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="name">Name</InputLabel>
-                <Input
-                  id="name"
-                  name="name"
-                  autoComplete="name"
-                  onChange={onChange}
-                  value={form.name}
-                  autoFocus
-                />
-              </FormControl>
-              <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="username">Username</InputLabel>
-                <Input
-                  id="username"
-                  name="username"
-                  autoComplete="username"
-                  onChange={onChange}
-                  value={form.username}
-                />
-              </FormControl>
-              <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="email">Email Address</InputLabel>
-                <Input
-                  id="email"
-                  name="email"
-                  autoComplete="email"
-                  onChange={onChange}
-                  value={form.email}
-                />
-              </FormControl>
-              <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="password">Password</InputLabel>
-                <Input
-                  name="password"
-                  type="password"
-                  id="password"
-                  onChange={onChange}
-                  value={form.password}
-                  autoComplete="current-password"
-                />
-              </FormControl>
-              <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="confirmPassword">
-                  Confirm Password
-                </InputLabel>
-                <Input
-                  name="confirmPassword"
-                  type="password"
-                  id="confirmPassword"
-                  onChange={event => setConfirmPassword(event.target.value)}
-                  value={confirmPassword}
-                />
-              </FormControl>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="secondary"
-                className={classes.submit}
-                disabled={submitted}
-              >
-                Sign up
-              </Button>
-            </form>
-            <br />
-            {(loading || submitted) && <CircularProgress color="primary" />}
-            {error && (
-              <Typography variant="body1" color="error">
-                {error.message.replace("GraphQL error: ", "")}
-              </Typography>
+    <Auth>
+      {({ data: { currentUser } }) => {
+        if (currentUser) {
+          Router.push("/");
+        }
+
+        return (
+          <Mutation
+            mutation={SIGNUP_MUTATION}
+            variables={form}
+            refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+          >
+            {(signup, { error, loading }) => (
+              <main className={classes.main}>
+                <CssBaseline />
+                <Paper className={classes.paper}>
+                  <Avatar className={classes.avatar}>
+                    <PersonAdd />
+                  </Avatar>
+                  <Typography component="h1" variant="h5">
+                    Sign Up
+                  </Typography>
+                  <form
+                    className={classes.form}
+                    onSubmit={e => onSubmit(e, signup)}
+                  >
+                    <FormControl margin="normal" required fullWidth>
+                      <InputLabel htmlFor="name">Name</InputLabel>
+                      <Input
+                        id="name"
+                        name="name"
+                        autoComplete="name"
+                        onChange={onChange}
+                        value={form.name}
+                        autoFocus
+                      />
+                    </FormControl>
+                    <FormControl margin="normal" required fullWidth>
+                      <InputLabel htmlFor="username">Username</InputLabel>
+                      <Input
+                        id="username"
+                        name="username"
+                        autoComplete="username"
+                        onChange={onChange}
+                        value={form.username}
+                      />
+                    </FormControl>
+                    <FormControl margin="normal" required fullWidth>
+                      <InputLabel htmlFor="email">Email Address</InputLabel>
+                      <Input
+                        id="email"
+                        name="email"
+                        autoComplete="email"
+                        onChange={onChange}
+                        value={form.email}
+                      />
+                    </FormControl>
+                    <FormControl margin="normal" required fullWidth>
+                      <InputLabel htmlFor="password">Password</InputLabel>
+                      <Input
+                        name="password"
+                        type="password"
+                        id="password"
+                        onChange={onChange}
+                        value={form.password}
+                        autoComplete="current-password"
+                      />
+                    </FormControl>
+                    <FormControl margin="normal" required fullWidth>
+                      <InputLabel htmlFor="confirmPassword">
+                        Confirm Password
+                      </InputLabel>
+                      <Input
+                        name="confirmPassword"
+                        type="password"
+                        id="confirmPassword"
+                        onChange={event =>
+                          setConfirmPassword(event.target.value)
+                        }
+                        value={confirmPassword}
+                      />
+                    </FormControl>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="secondary"
+                      className={classes.submit}
+                      disabled={submitted}
+                    >
+                      Sign up
+                    </Button>
+                  </form>
+                  <br />
+                  {(loading || submitted) && (
+                    <CircularProgress color="primary" />
+                  )}
+                  {error && (
+                    <Typography variant="body1" color="error">
+                      {error.message.replace("GraphQL error: ", "")}
+                    </Typography>
+                  )}
+                </Paper>
+              </main>
             )}
-          </Paper>
-        </main>
-      )}
-    </Mutation>
+          </Mutation>
+        );
+      }}
+    </Auth>
   );
 };
 

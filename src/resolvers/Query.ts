@@ -57,11 +57,11 @@ const Query = {
         path: "createdBy",
         model: "User"
       })
-      .populate({
-        path: "messages",
-        model: "Message",
-        populate: { path: "messageUser", model: "User" }
-      })
+      // .populate({
+      //   path: "messages",
+      //   model: "Message",
+      //   populate: { path: "messageUser", model: "User" }
+      // })
       .exec();
 
     return posts;
@@ -81,11 +81,11 @@ const Query = {
           path: "createdBy",
           model: "User"
         })
-        .populate({
-          path: "messages",
-          model: "Message",
-          populate: { path: "messageUser", model: "User" }
-        })
+        // .populate({
+        //   path: "messages",
+        //   model: "Message",
+        //   populate: { path: "messageUser", model: "User" }
+        // })
         .exec();
     } else {
       const skips = pageSize * (pageNumber - 1);
@@ -101,11 +101,11 @@ const Query = {
           path: "createdBy",
           model: "User"
         })
-        .populate({
-          path: "messages",
-          model: "Message",
-          populate: { path: "messageUser", model: "User" }
-        })
+        // .populate({
+        //   path: "messages",
+        //   model: "Message",
+        //   populate: { path: "messageUser", model: "User" }
+        // })
         .exec();
     }
 

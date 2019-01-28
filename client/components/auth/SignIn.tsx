@@ -16,6 +16,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { Mutation } from "react-apollo";
 import { SIGNIN_MUTATION } from "../../lib/Mutations";
 import { CURRENT_USER_QUERY } from "../../lib/Queries";
+import Auth from "./Auth";
 
 const styles: any = (theme: any) => ({
   main: {
@@ -83,66 +84,81 @@ const SignIn = (props: any) => {
   };
 
   return (
-    <Mutation
-      mutation={SIGNIN_MUTATION}
-      variables={form}
-      refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-    >
-      {(signin, { error, loading }) => (
-        <main className={classes.main}>
-          <CssBaseline />
-          <Paper className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOpen />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign in
-            </Typography>
-            <form className={classes.form} onSubmit={e => onSubmit(e, signin)}>
-              <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="username">Username</InputLabel>
-                <Input
-                  id="username"
-                  name="username"
-                  autoComplete="username"
-                  onChange={onChange}
-                  value={form.username}
-                  autoFocus
-                />
-              </FormControl>
-              <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="password">Password</InputLabel>
-                <Input
-                  name="password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={onChange}
-                  value={form.password}
-                />
-              </FormControl>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="secondary"
-                className={classes.submit}
-                disabled={submitted}
-              >
-                Sign in
-              </Button>
-            </form>
-            <br />
-            {(loading || submitted) && <CircularProgress color="primary" />}
-            {error && (
-              <Typography variant="body1" color="error">
-                {error.message.replace("GraphQL error: ", "")}
-              </Typography>
+    <Auth>
+      {({ data: { currentUser } }) => {
+        if (currentUser) {
+          Router.push("/");
+        }
+
+        return (
+          <Mutation
+            mutation={SIGNIN_MUTATION}
+            variables={form}
+            refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+          >
+            {(signin, { error, loading }) => (
+              <main className={classes.main}>
+                <CssBaseline />
+                <Paper className={classes.paper}>
+                  <Avatar className={classes.avatar}>
+                    <LockOpen />
+                  </Avatar>
+                  <Typography component="h1" variant="h5">
+                    Sign in
+                  </Typography>
+                  <form
+                    className={classes.form}
+                    onSubmit={e => onSubmit(e, signin)}
+                  >
+                    <FormControl margin="normal" required fullWidth>
+                      <InputLabel htmlFor="username">Username</InputLabel>
+                      <Input
+                        id="username"
+                        name="username"
+                        autoComplete="username"
+                        onChange={onChange}
+                        value={form.username}
+                        autoFocus
+                      />
+                    </FormControl>
+                    <FormControl margin="normal" required fullWidth>
+                      <InputLabel htmlFor="password">Password</InputLabel>
+                      <Input
+                        name="password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        onChange={onChange}
+                        value={form.password}
+                      />
+                    </FormControl>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="secondary"
+                      className={classes.submit}
+                      disabled={submitted}
+                    >
+                      Sign in
+                    </Button>
+                  </form>
+                  <br />
+                  {(loading || submitted) && (
+                    <CircularProgress color="primary" />
+                  )}
+                  {error && (
+                    <Typography variant="body1" color="error">
+                      {error.message.replace("GraphQL error: ", "")}
+                    </Typography>
+                  )}
+                </Paper>
+              </main>
             )}
-          </Paper>
-        </main>
-      )}
-    </Mutation>
+          </Mutation>
+        );
+      }}
+    </Auth>
   );
 };
 
