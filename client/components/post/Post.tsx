@@ -134,7 +134,7 @@ const Post = (props: any) => {
       <CardContent>
         <Typography component="p">{post.title}</Typography>
       </CardContent>
-      <Divider variant="middle" />
+      {/* <Divider variant="middle" /> */}
       {post.categories.map((cat: any) => (
         <Chip
           key={cat._id}
@@ -144,7 +144,7 @@ const Post = (props: any) => {
           className={classes.chip}
         />
       ))}
-      <Divider variant="middle" />
+      {/* <Divider variant="middle" /> */}
       <CardActions className={classes.actions} disableActionSpacing>
         <IconButton aria-label="Add to favorites">
           <FavoriteIcon />
@@ -215,6 +215,7 @@ const Post = (props: any) => {
               </Typography>
             ))}
           </CardContent>
+          {commentAreaOpen && <Divider variant="middle" />}
         </Collapse>
       )}
       <Collapse in={commentAreaOpen} timeout="auto" unmountOnExit>
