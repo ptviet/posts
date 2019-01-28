@@ -17,6 +17,11 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     trim: true
   },
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
   email: {
     type: String,
     required: true,
@@ -25,8 +30,7 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
-    trim: true
+    required: true
   },
   permission: {
     type: String,
@@ -39,6 +43,10 @@ const UserSchema = new mongoose.Schema({
   joinDate: {
     type: Date,
     default: Date.now
+  },
+  isLocked: {
+    type: Boolean,
+    default: false
   },
   favorites: {
     type: [mongoose.Schema.Types.ObjectId],

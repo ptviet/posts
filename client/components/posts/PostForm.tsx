@@ -21,7 +21,10 @@ import { withStyles } from "@material-ui/core/styles";
 import CategoryModel from "../../models/Category";
 import { Mutation, Query } from "react-apollo";
 import { ADD_POST_MUTATION } from "../../lib/Mutations";
-import { ALL_CATEGORIES_QUERY, ALL_POSTS_QUERY } from "../../lib/Queries";
+import {
+  ALL_CATEGORIES_QUERY,
+  INFINITE_SCROLL_POSTS_QUERY
+} from "../../lib/Queries";
 import { styles, MenuProps, getStyles, getCategoryName } from "./PostFormUtils";
 
 const initialFormState = {
@@ -54,7 +57,7 @@ const PostForm = (props: any) => {
         variant: "success"
       });
       Router.push({
-        pathname: "/"
+        pathname: "/posts"
       });
     } catch (error) {
       setSubmitted(false);
@@ -81,7 +84,7 @@ const PostForm = (props: any) => {
           <Mutation
             mutation={ADD_POST_MUTATION}
             variables={form}
-            refetchQueries={[{ query: ALL_POSTS_QUERY }]}
+            refetchQueries={[{ query: INFINITE_SCROLL_POSTS_QUERY }]}
           >
             {(addPost, { error: err, loading: isLoading }) => (
               <div className={classes.root}>
@@ -115,7 +118,6 @@ const PostForm = (props: any) => {
                           id="imageUrl"
                           name="imageUrl"
                           autoComplete="imageUrl"
-                          autoFocus
                           onChange={onChange}
                           value={form.imageUrl}
                         />
@@ -181,8 +183,8 @@ const PostForm = (props: any) => {
                           type="description"
                           id="description"
                           multiline={true}
-                          rowsMax="6"
-                          rows="6"
+                          rowsMax="16"
+                          rows="16"
                           onChange={onChange}
                           value={form.description}
                         />

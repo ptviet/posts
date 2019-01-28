@@ -5,12 +5,14 @@ export const SIGNIN_MUTATION = gql`
     signin(username: $username, password: $password) {
       _id
       username
+      name
       permission
       email
       avatar
       joinDate
       favorites {
         _id
+        title
       }
     }
   }
@@ -26,13 +28,20 @@ export const SIGN_OUT_MUTATION = gql`
 
 export const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
+    $name: String!
     $username: String!
     $email: String!
     $password: String!
   ) {
-    signup(username: $username, email: $email, password: $password) {
+    signup(
+      name: $name
+      username: $username
+      email: $email
+      password: $password
+    ) {
       _id
       username
+      name
       permission
       email
       avatar
@@ -71,9 +80,11 @@ export const ADD_POST_MUTATION = gql`
       createdBy {
         _id
         username
+        name
         permission
         email
         avatar
+        isLocked
       }
       messages {
         _id
@@ -81,6 +92,12 @@ export const ADD_POST_MUTATION = gql`
         messageDate
         messageUser {
           _id
+          username
+          name
+          permission
+          email
+          avatar
+          isLocked
         }
       }
     }

@@ -16,7 +16,8 @@ import { pageSize } from "../../config";
 
 const styles = (theme: any) => ({
   root: {
-    // textAlign: "center",
+    width: "96%",
+    margin: "auto",
     paddingTop: theme.spacing.unit
   },
   grid: {
@@ -24,7 +25,6 @@ const styles = (theme: any) => ({
     flexWrap: "wrap",
     justifyContent: "space-around",
     overflow: "hidden"
-    // backgroundColor: theme.palette.background.paper,
   },
   gridList: {
     width: "100%",
@@ -103,9 +103,9 @@ const Posts = ({ classes }: any) => {
               <PostCarousel posts={infiniteScrollPosts.posts} />
             </div> */}
 
-            <Grid container spacing={24} style={{ padding: 24 }}>
+            <Grid container spacing={16} style={{ padding: 16 }}>
               {infiniteScrollPosts.posts.map((post: PostModel) => (
-                <Grid key={post._id} item xs={12} sm={6} lg={4} xl={3}>
+                <Grid key={post._id} item xs={12} sm={6} md={4} lg={3} xl={2}>
                   <Post post={post} />
                 </Grid>
               ))}

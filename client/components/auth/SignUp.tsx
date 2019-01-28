@@ -50,7 +50,7 @@ const styles: any = (theme: any) => ({
   }
 });
 
-const initialFormState = { username: "", email: "", password: "" };
+const initialFormState = { name: "", username: "", email: "", password: "" };
 
 const SignUp = (props: any) => {
   const { classes, enqueueSnackbar } = props;
@@ -121,6 +121,17 @@ const SignUp = (props: any) => {
             </Typography>
             <form className={classes.form} onSubmit={e => onSubmit(e, signup)}>
               <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="name">Name</InputLabel>
+                <Input
+                  id="name"
+                  name="name"
+                  autoComplete="name"
+                  onChange={onChange}
+                  value={form.name}
+                  autoFocus
+                />
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="username">Username</InputLabel>
                 <Input
                   id="username"
@@ -128,7 +139,6 @@ const SignUp = (props: any) => {
                   autoComplete="username"
                   onChange={onChange}
                   value={form.username}
-                  autoFocus
                 />
               </FormControl>
               <FormControl margin="normal" required fullWidth>
@@ -137,7 +147,6 @@ const SignUp = (props: any) => {
                   id="email"
                   name="email"
                   autoComplete="email"
-                  autoFocus
                   onChange={onChange}
                   value={form.email}
                 />

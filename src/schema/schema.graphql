@@ -5,21 +5,25 @@ type ResponseMessage {
 type User {
   _id: ID
   username: String!
+  name: String!
   email: String!
   password: String!
   permission: String
   avatar: String
   joinDate: String
+  isLocked: Boolean
   favorites: [Post]
 }
 
 type AuthResponse {
   _id: ID
   username: String
+  name: String!
   email: String
   permission: String
   avatar: String
   joinDate: String
+  isLocked: Boolean
   favorites: [Post]
 }
 
@@ -31,7 +35,7 @@ type Post {
   description: String!
   createdDate: String
   likes: Int
-  createdBy: User!
+  createdBy: AuthResponse!
   messages: [Message]
 }
 
@@ -45,14 +49,14 @@ type Category {
   name: String!
   description: String
   createdDate: String
-  createdBy: User!
+  createdBy: AuthResponse!
 }
 
 type Message {
   _id: ID
   messageBody: String!
   messageDate: String
-  messageUser: User!
+  messageUser: AuthResponse!
 }
 
 type Query {
@@ -65,7 +69,12 @@ type Query {
 type Mutation {
   signin(username: String!, password: String!): AuthResponse!
   signout: ResponseMessage
-  signup(username: String!, email: String!, password: String!): AuthResponse!
+  signup(
+    name: String!
+    username: String!
+    email: String!
+    password: String!
+  ): AuthResponse!
   addCategory(name: String!, description: String): Category!
   addPost(
     title: String!

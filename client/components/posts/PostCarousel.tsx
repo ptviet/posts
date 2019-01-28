@@ -55,7 +55,7 @@ const PostCarousel = (props: any) => {
                     </Avatar>
                   }
                   title={post.title}
-                  subheader={`Posted by ${post.createdBy.username} -
+                  subheader={`Posted by ${post.createdBy.name} -
                     ${millisecToDate(post.createdDate)}`}
                 />
                 <CardMedia

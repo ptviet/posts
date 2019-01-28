@@ -6,10 +6,12 @@ export const CURRENT_USER_QUERY = gql`
     currentUser {
       _id
       username
+      name
       email
       permission
       avatar
       joinDate
+      isLocked
       favorites {
         _id
         title
@@ -28,9 +30,11 @@ export const ALL_CATEGORIES_QUERY = gql`
       createdBy {
         _id
         username
+        name
         email
         permission
         avatar
+        isLocked
       }
     }
   }
@@ -54,9 +58,11 @@ export const INFINITE_SCROLL_POSTS_QUERY = gql`
         createdBy {
           _id
           username
+          name
           email
           permission
           avatar
+          isLocked
         }
         messages {
           _id
@@ -65,9 +71,11 @@ export const INFINITE_SCROLL_POSTS_QUERY = gql`
           messageUser {
             _id
             username
+            name
             email
             permission
             avatar
+            isLocked
           }
         }
       }
@@ -91,6 +99,7 @@ export const ALL_POSTS_QUERY = gql`
       createdBy {
         _id
         username
+        name
         email
         permission
         avatar
@@ -102,6 +111,7 @@ export const ALL_POSTS_QUERY = gql`
         messageUser {
           _id
           username
+          name
           email
           permission
           avatar

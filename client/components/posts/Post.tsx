@@ -9,11 +9,13 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
+import Badge from "@material-ui/core/Badge";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import Comment from "@material-ui/icons/Comment";
 import ShareIcon from "@material-ui/icons/Share";
-import MoreIcon from "@material-ui/icons/More";
+import SendIcon from "@material-ui/icons/Send";
 import { millisecToDate } from "../../lib/formatDate";
 
 const styles: any = (theme: any) => ({
@@ -44,7 +46,7 @@ const Post = (props: any) => {
           </Avatar>
         }
         subheader={millisecToDate(post.createdDate)}
-        title={`Posted by ${post.createdBy.username}`}
+        title={`Posted by ${post.createdBy.name}`}
       />
       <Link as={`/post/${post._id}`} href={`/post?_id=${post._id}`}>
         <a
@@ -70,6 +72,11 @@ const Post = (props: any) => {
         <IconButton aria-label="Share">
           <ShareIcon />
         </IconButton>
+        <IconButton aria-label="Share">
+          <Badge badgeContent={3} color="secondary">
+            <Comment />
+          </Badge>
+        </IconButton>
         <IconButton
           className={classes.showMore}
           aria-label="Show more"
@@ -83,7 +90,7 @@ const Post = (props: any) => {
             )
           }
         >
-          <MoreIcon className={classes.showMore} />
+          <SendIcon className={classes.showMore} />
         </IconButton>
       </CardActions>
     </Card>

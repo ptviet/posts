@@ -40,7 +40,7 @@ const Mutation = {
   },
 
   // SIGN UP
-  async signup(_, { username, email, password }, ctx) {
+  async signup(_, { name, username, email, password }, ctx) {
     const { User } = ctx;
 
     const user = await User.findOne({ username });
@@ -50,6 +50,7 @@ const Mutation = {
     // Hash the password
     const hashedPwd = await bcrypt.hash(password, 10);
     const newUser = await new User({
+      name,
       username,
       email,
       password: hashedPwd

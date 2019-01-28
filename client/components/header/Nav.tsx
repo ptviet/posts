@@ -4,7 +4,7 @@ import PersonAdd from "@material-ui/icons/PersonAdd";
 import Chat from "@material-ui/icons/Chat";
 import LockOpen from "@material-ui/icons/LockOpen";
 import AccountBalance from "@material-ui/icons/AccountBalance";
-import Create from "@material-ui/icons/Create";
+import AddBox from "@material-ui/icons/AddBox";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
@@ -57,11 +57,12 @@ export const MobileMenu = ({
     onClose={handleMobileMenuClose}
   >
     <MenuItem
-      onClick={() =>
+      onClick={() => {
+        handleMobileMenuClose();
         Router.push({
           pathname: "/posts"
-        })
-      }
+        });
+      }}
     >
       <IconButton color="inherit">
         <Badge badgeContent={4} color="secondary">
@@ -72,11 +73,12 @@ export const MobileMenu = ({
     </MenuItem>
     {!currentUser && (
       <MenuItem
-        onClick={() =>
+        onClick={() => {
+          handleMobileMenuClose();
           Router.push({
             pathname: "/signin"
-          })
-        }
+          });
+        }}
       >
         <IconButton color="inherit">
           <LockOpen />
@@ -86,11 +88,12 @@ export const MobileMenu = ({
     )}
     {!currentUser && (
       <MenuItem
-        onClick={() =>
+        onClick={() => {
+          handleMobileMenuClose();
           Router.push({
             pathname: "/signup"
-          })
-        }
+          });
+        }}
       >
         <IconButton color="inherit">
           <PersonAdd />
@@ -100,14 +103,15 @@ export const MobileMenu = ({
     )}
     {currentUser && (
       <MenuItem
-        onClick={() =>
+        onClick={() => {
+          handleMobileMenuClose();
           Router.push({
             pathname: "/newpost"
-          })
-        }
+          });
+        }}
       >
         <IconButton color="inherit">
-          <Create />
+          <AddBox />
         </IconButton>
         <p>NEW POST</p>
       </MenuItem>
