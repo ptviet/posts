@@ -168,7 +168,7 @@ const Post = (props: any) => {
         </ClickAwayListener>
         <IconButton
           aria-label="Comment"
-          onClick={toggleCommentArea}
+          onClick={returnEnabled && toggleCommentArea}
           aria-expanded={commentAreaOpen}
         >
           <Badge badgeContent={3} color="secondary">
@@ -207,22 +207,26 @@ const Post = (props: any) => {
       </CardActions>
       {(expanded || commentAreaOpen) && <Divider variant="middle" />}
       {returnEnabled && (
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            {post.description.split("\n").map((line: string, index: number) => (
-              <Typography paragraph key={index}>
-                {line}
-              </Typography>
-            ))}
-          </CardContent>
-          {commentAreaOpen && <Divider variant="middle" />}
-        </Collapse>
+        <>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              {post.description
+                .split("\n")
+                .map((line: string, index: number) => (
+                  <Typography paragraph key={index}>
+                    {line}
+                  </Typography>
+                ))}
+            </CardContent>
+            {commentAreaOpen && <Divider variant="middle" />}
+          </Collapse>
+          <Collapse in={commentAreaOpen} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography component="p">COMMENTS HERE</Typography>
+            </CardContent>
+          </Collapse>
+        </>
       )}
-      <Collapse in={commentAreaOpen} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography component="p">COMMENTS HERE</Typography>
-        </CardContent>
-      </Collapse>
     </Card>
   );
 };

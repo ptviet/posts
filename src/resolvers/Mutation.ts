@@ -10,9 +10,16 @@ const Mutation = {
     const { User } = ctx;
 
     const user = await User.findOne({ username });
+
     if (!user) {
       throw new Error("Invalid credentials.");
     }
+
+    // Check if the account is locked
+    if (user.isLocked) {
+      throw new Error("Your account is locked.");
+    }
+
     // Verify the password
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) {
@@ -43,10 +50,16 @@ const Mutation = {
   async signup(_, { name, username, email, password }, ctx) {
     const { User } = ctx;
 
-    const user = await User.findOne({ username });
+    let user = await User.findOne({ username });
     if (user) {
       throw new Error("Username unavailable.");
     }
+
+    user = await User.findOne({ email });
+    if (user) {
+      throw new Error("Email unavailable.");
+    }
+
     // Hash the password
     const hashedPwd = await bcrypt.hash(password, 10);
     const newUser = await new User({
