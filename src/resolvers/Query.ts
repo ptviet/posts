@@ -24,10 +24,31 @@ const Query = {
 
     return cats;
   },
+  // GET POSTS BY CATEGORY ID
+  async postsByCatId(_, { catId }, { Post }) {
+    console.log(catId);
+    const posts = await Post.find({ categories: catId })
+      .sort({ createdDate: "desc" })
+      .populate({
+        path: "categories",
+        model: "Category"
+      })
+      .populate({
+        path: "createdBy",
+        model: "User"
+      })
+      // .populate({
+      //   path: "messages",
+      //   model: "Message",
+      //   populate: { path: "messageUser", model: "User" }
+      // })
+      .exec();
+
+    return posts;
+  },
   // GET ONE POST
   async post(_, { postId }, { Post }) {
     const post = await Post.findById(postId)
-      .sort({ createdDate: "desc" })
       .populate({
         path: "categories",
         model: "Category"

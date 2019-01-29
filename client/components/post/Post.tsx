@@ -67,7 +67,9 @@ const Post = (props: any) => {
   };
 
   const toggleCommentArea = () => {
-    setCommentAreaOpen(!commentAreaOpen);
+    if (returnEnabled) {
+      setCommentAreaOpen(!commentAreaOpen);
+    }
   };
 
   const handleTooltipClose = () => {
@@ -168,7 +170,7 @@ const Post = (props: any) => {
         </ClickAwayListener>
         <IconButton
           aria-label="Comment"
-          onClick={returnEnabled && toggleCommentArea}
+          onClick={toggleCommentArea}
           aria-expanded={commentAreaOpen}
         >
           <Badge badgeContent={3} color="secondary">

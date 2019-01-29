@@ -40,6 +40,44 @@ export const ALL_CATEGORIES_QUERY = gql`
   }
 `;
 
+export const POSTS_BY_CATEGORY_QUERY = gql`
+  query POSTS_BY_CATEGORY_QUERY($catId: String!) {
+    postsByCatId(catId: $catId) {
+      _id
+      title
+      imageUrl
+      categories {
+        _id
+        name
+      }
+      description
+      createdDate
+      likes
+      createdBy {
+        _id
+        username
+        name
+        email
+        permission
+        avatar
+      }
+      messages {
+        _id
+        # messageBody
+        # messageDate
+        # messageUser {
+        #   _id
+        #   username
+        #   name
+        #   email
+        #   permission
+        #   avatar
+        # }
+      }
+    }
+  }
+`;
+
 export const GET_SINGLE_POST_QUERY = gql`
   query GET_SINGLE_POST_QUERY($postId: String!) {
     post(postId: $postId) {
