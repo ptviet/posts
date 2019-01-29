@@ -1,6 +1,6 @@
 import React from "react";
-import Category from "../components/post/Category";
+import ByCategory from "../components/post/ByCategory";
 
-const CategoryPage = (props: any) => <Category _id={props.query._id} />;
+const CategoryPage = (props: any) => <ByCategory _id={props.query._id} />;
 
 export default CategoryPage;

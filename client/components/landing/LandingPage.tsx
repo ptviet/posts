@@ -1,23 +1,24 @@
 import React from "react";
+import Link from "next/link";
 import { Query } from "react-apollo";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
+import Card from "@material-ui/core/Card";
+import CardMedia from "@material-ui/core/CardMedia";
 import { withStyles } from "@material-ui/core/styles";
 import SyncIcon from "@material-ui/icons/Sync";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Post from "./Post";
 import PostModel from "../../models/Post";
-import Masonry from "react-responsive-masonry";
+// @ts-ignore
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import PaginationModel from "../../models/Pagination";
 import { INFINITE_SCROLL_POSTS_QUERY } from "../../lib/Queries";
 import { pageSize } from "../../config";
 
 const styles = (theme: any) => ({
   root: {
-    width: "96%",
+    width: "80%",
     margin: "auto",
     paddingTop: theme.spacing.unit,
     display: "flex",
@@ -25,13 +26,13 @@ const styles = (theme: any) => ({
     justifyContent: "space-around",
     overflow: "hidden"
   },
-  gridList: {
-    width: "100%",
-    height: "auto"
-  },
   link: {
     textDecoration: "none",
     color: "inherit"
+  },
+  media: {
+    // ⚠️ object-fit is not supported by IE 11.
+    objectFit: "cover"
   }
 });
 
@@ -82,35 +83,46 @@ const LandingPage = ({ classes }: any) => {
             </Typography>
           );
         }
-        if (infiniteScrollPosts.posts.length === 0) {
+        const posts: PostModel[] = infiniteScrollPosts.posts;
+        if (posts.length === 0) {
           return (
             <Typography className={classes.root} variant="body1">
               No Posts Found.
             </Typography>
           );
         }
-        // infiniteScrollPosts.posts
         return (
           <div className={classes.root}>
-            {/* <GridList className={classes.gridList} cols={3}>
-              {infiniteScrollPosts.posts.map(post => (
-                <GridListTile
-                  key={post._id}
-                  cols={Math.floor(Math.random() * 2 + 1)}
-                >
-                  <img src={post.imageUrl} alt={post.title} />
-                </GridListTile>
-              ))}
-            </GridList> */}
-            <Masonry columnsCount={3} gutter="10px">
-              {infiniteScrollPosts.posts.map(post => (
-                <img
-                  key={post._id}
-                  src={post.imageUrl}
-                  style={{ width: "100%", display: "block" }}
-                />
-              ))}
-            </Masonry>
+            <ResponsiveMasonry
+              columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+            >
+              <Masonry gutter="16px">
+                {posts.map((post: PostModel) => (
+                  <Link
+                    key={post._id}
+                    as={`/post/${post._id}`}
+                    href={`/post?_id=${post._id}`}
+                  >
+                    <a
+                      style={{
+                        textDecoration: "none",
+                        color: "inherit"
+                      }}
+                    >
+                      <Card>
+                        <CardMedia
+                          component="img"
+                          className={classes.media}
+                          image={post.imageUrl}
+                          title={post.title}
+                        />
+                      </Card>
+                    </a>
+                  </Link>
+                ))}
+              </Masonry>
+            </ResponsiveMasonry>
+
             {hasMore && (
               <div
                 style={{

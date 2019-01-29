@@ -1,5 +1,5 @@
 import React from "react";
-import LandingPage from "../components/post/LandingPage";
+import LandingPage from "../components/landing/LandingPage";
 
 const Index = () => {
   return <LandingPage />;

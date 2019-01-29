@@ -31,7 +31,7 @@ const styles = (theme: any) => ({
   }
 });
 
-const Category = (props: any) => {
+const ByCategory = (props: any) => {
   const { _id, classes } = props;
   return (
     <Query query={POSTS_BY_CATEGORY_QUERY} variables={{ catId: _id }}>
@@ -69,9 +69,9 @@ const Category = (props: any) => {
   );
 };
 
-Category.propTypes = {
+ByCategory.propTypes = {
   _id: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles as any)(Category);
+export default withStyles(styles as any)(ByCategory);
