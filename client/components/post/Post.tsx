@@ -69,6 +69,14 @@ const Post = (props: any) => {
   const toggleCommentArea = () => {
     if (returnEnabled) {
       setCommentAreaOpen(!commentAreaOpen);
+    } else {
+      Router.push(
+        {
+          pathname: "/post",
+          query: { _id: post._id }
+        },
+        `/post/${post._id}`
+      );
     }
   };
 

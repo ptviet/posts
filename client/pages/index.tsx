@@ -1,7 +1,8 @@
 import React from "react";
+import LandingPage from "../components/post/LandingPage";
 
 const Index = () => {
-  return <p>Full Screen Carousel</p>;
+  return <LandingPage />;
 };
 
 export default Index;
