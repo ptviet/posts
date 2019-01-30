@@ -9,7 +9,7 @@
     "start": "nodemon",
     "client": "cd client && npm run dev",
     "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\"",
-    "heroku-postbuild": "npm install && cd client && npm install && npm run dev"
+    "heroku-postbuild": "npm install && cd client && npm install && npm run build && npm run dev"
   },
   "author": "",
   "license": "ISC",
