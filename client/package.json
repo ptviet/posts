@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "nodemon server/index.ts",
     "//": "next -p 3000",
-    "build": "next build",
-    "start": "NODE_ENV=production next start -p $PORT",
+    "build": "next build && tsc --project tsconfig.server.json",
+    "start": "NODE_ENV=production node .next/production-server/server.js",
+    "///": "NODE_ENV=production next start -p $PORT",
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
     "ts:check": "tsc --noEmit"
