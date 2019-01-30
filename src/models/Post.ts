@@ -37,6 +37,9 @@ const PostSchema = new mongoose.Schema({
   }
 });
 
+// Indexing example
+// PostSchema.index({ title: "text", description: "text" });
+
 const Post = mongoose.model("Post", PostSchema);
 
 export default Post;

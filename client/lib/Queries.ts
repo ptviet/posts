@@ -144,6 +144,16 @@ export const GET_SINGLE_POST_QUERY = gql`
   }
 `;
 
+export const SEARCH_POSTS_QUERY = gql`
+  query SEARCH_POSTS_QUERY($searchTerm: String!) {
+    search(searchTerm: $searchTerm) {
+      _id
+      title
+      imageUrl
+    }
+  }
+`;
+
 export const INFINITE_SCROLL_POSTS_QUERY = gql`
   query INFINITE_SCROLL_POSTS_QUERY($pageNumber: Int! = 1, $pageSize: Int! = ${pageSize}) {
     infiniteScrollPosts(pageNumber: $pageNumber, pageSize: $pageSize) {

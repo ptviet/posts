@@ -64,6 +64,7 @@ type Query {
   categories: [Category]!
   posts: [Post]!
   post(postId: String!): Post
+  search(searchTerm: String!): [Post]!
   postsByCatId(catId: String!, pageNumber: Int!, pageSize: Int!): Pagination
   postsByUserId(userId: String!, pageNumber: Int!, pageSize: Int!): Pagination
   infiniteScrollPosts(pageNumber: Int!, pageSize: Int!): Pagination

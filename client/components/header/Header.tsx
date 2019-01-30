@@ -7,9 +7,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
 import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
 import Fab from "@material-ui/core/Fab";
 import Chat from "@material-ui/icons/Chat";
 import LockOpen from "@material-ui/icons/LockOpen";
@@ -21,6 +19,7 @@ import { DesktopMenu, MobileMenu } from "./Nav";
 // import SideNav from "./SideNav";
 import SignOut from "../auth/SignOut";
 import Auth from "../auth/Auth";
+import Search from "./Search";
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -171,18 +170,7 @@ const Header = ({ classes }: any) => {
                 >
                   <Typography variant="h6">POSTS</Typography>
                 </IconButton>
-                <div className={classes.search}>
-                  <div className={classes.searchIcon}>
-                    <SearchIcon />
-                  </div>
-                  <InputBase
-                    placeholder="Search…"
-                    classes={{
-                      root: classes.inputRoot,
-                      input: classes.inputInput
-                    }}
-                  />
-                </div>
+                <Search />
                 <div className={classes.grow} />
                 <div className={classes.sectionDesktop}>
                   <IconButton

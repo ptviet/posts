@@ -136,6 +136,19 @@ const Query = {
 
     return posts;
   },
+  // SEARCH POSTS
+  async search(_, { searchTerm }, { Post }) {
+    const query = {
+      $or: [
+        { title: { $regex: searchTerm, $options: "i" } },
+        { description: { $regex: searchTerm, $options: "i" } }
+      ]
+    };
+    const posts = await Post.find(query)
+      .sort({ createdDate: "desc" })
+      .exec();
+    return posts;
+  },
   // INFINITE SCROLL POSTS
   async infiniteScrollPosts(_, { pageNumber, pageSize }, { Post }) {
     let posts;
