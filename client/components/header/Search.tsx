@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import _ from "lodash";
 import Router from "next/router";
 import classnames from "classnames";
+import Paper from "@material-ui/core/Paper";
 import Downshift, { resetIdCounter } from "downshift";
 import { ApolloConsumer } from "react-apollo";
 import { fade } from "@material-ui/core/styles/colorManipulator";
@@ -60,11 +61,11 @@ const styles: any = (theme: any) => ({
     position: "absolute",
     width: "65%",
     zIndex: "2",
+    marginTop: theme.spacing.unit,
     border: `1px solid ${theme.palette.primary.main}`
   },
   dropdownItem: {
     borderBottom: `1px solid ${theme.palette.primary.main}`,
-    backgroundColor: theme.palette.common.white,
     padding: "1rem",
     transition: "all 0.2s",
     display: "flex",
@@ -76,7 +77,8 @@ const styles: any = (theme: any) => ({
     paddingLeft: "2rem"
   },
   img: {
-    marginRight: 10
+    marginRight: 10,
+    marginLeft: 10
   }
 });
 
@@ -101,8 +103,10 @@ const Search = (props: any) => {
       });
       await setPosts(searchResults.data.search);
       await setLoading(false);
-      await setSubmitted(false);
     } else {
+      if (searchTerm.length === 0) {
+        await setPosts([]);
+      }
       await setSubmitted(false);
     }
   }, 500);
@@ -155,7 +159,7 @@ const Search = (props: any) => {
             )}
           </ApolloConsumer>
           {isOpen && (
-            <div className={classes.dropdown}>
+            <Paper className={classes.dropdown} square>
               {posts.map((post: PostModel, index) => (
                 <div
                   className={classnames(classes.dropdownItem, {
@@ -164,25 +168,21 @@ const Search = (props: any) => {
                   {...getItemProps({ item: post })}
                   key={post._id}
                 >
-                  <Avatar aria-label={post.title}>
+                  <Avatar aria-label={post.title} className={classes.img}>
                     <img src={post.imageUrl} alt={post.title} />
                   </Avatar>
 
                   <Typography variant="caption">{post.title}</Typography>
                 </div>
               ))}
-              {!posts.length &&
-                !loading &&
-                submitted &&
-                // @ts-ignore
-                inputValue.length >= 3 && (
-                  <div className={classes.dropdownItem}>
-                    <Typography variant="caption">
-                      Nothing found for {inputValue}
-                    </Typography>
-                  </div>
-                )}
-            </div>
+              {!posts.length && !loading && submitted && (
+                <div className={classes.dropdownItem}>
+                  <Typography variant="caption">
+                    Nothing found for "{inputValue}"
+                  </Typography>
+                </div>
+              )}
+            </Paper>
           )}
         </SearchDiv>
       )}
