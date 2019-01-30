@@ -32,10 +32,10 @@
     "ts-log-debug": "^4.0.4",
     "nodemon": "^1.18.9",
     "ts-node": "^7.0.1",
+    "concurrently": "^4.1.0",
     "typescript": "^3.2.4"
   },
   "devDependencies": {
-    "concurrently": "^4.1.0",
     "eslint": "^5.12.1",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",
