@@ -54,6 +54,7 @@
     "react-slick": "^0.23.2",
     "styled-jsx": "^3.2.0",
     "ts-log-debug": "^4.0.4",
+    "typescript": "^3.2.4",
     "waait": "^1.0.2"
   },
   "devDependencies": {
@@ -71,7 +72,6 @@
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",
     "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.2.4",
     "enzyme-to-json": "^3.3.5"
   },
   "eslintConfig": {

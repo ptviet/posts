@@ -1,6 +1,6 @@
 import { createServer } from "http";
 import { parse } from "url";
-import next from "next";
+const next = require("next");
 import { $log } from "ts-log-debug";
 
 import { routes } from "./routes";
