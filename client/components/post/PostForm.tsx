@@ -208,7 +208,6 @@ const PostForm = (props: any) => {
                             </FormControl>
                             <Button
                               type="submit"
-                              fullWidth
                               variant="contained"
                               color="secondary"
                               className={classes.submit}

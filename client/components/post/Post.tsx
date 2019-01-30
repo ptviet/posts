@@ -26,6 +26,7 @@ import SendIcon from "@material-ui/icons/Send";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { millisecToDate } from "../../lib/formatDate";
 import { FRONTEND_URL } from "../../config";
+import _ from "lodash";
 
 const styles: any = (theme: any) => ({
   card: {
@@ -62,13 +63,25 @@ const Post = (props: any) => {
   const [commentAreaOpen, setCommentAreaOpen] = useState(false);
   const [tooltipOpen, setTooltipOpen] = React.useState(false);
 
+  const scrollToBottom = _.debounce(() => {
+    const element: any = document.getElementById("footer");
+
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest"
+    });
+  }, 200);
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
+    scrollToBottom();
   };
 
   const toggleCommentArea = () => {
     if (returnEnabled) {
       setCommentAreaOpen(!commentAreaOpen);
+      scrollToBottom();
     } else {
       Router.push(
         {
@@ -110,136 +123,76 @@ const Post = (props: any) => {
   };
 
   return (
-    <Card className={classes.card}>
-      <CardHeader
-        avatar={
-          <Link
-            as={`/user/${post.createdBy._id}`}
-            href={`/user?_id=${post.createdBy._id}`}
-          >
-            <a>
-              <Avatar aria-label="Avatar">
-                <img src={post.createdBy.avatar} alt={post.createdBy._id} />
-              </Avatar>
-            </a>
-          </Link>
-        }
-        action={
-          returnEnabled && (
-            <IconButton onClick={() => Router.back()}>
-              <ArrowBack />
-            </IconButton>
-          )
-        }
-        subheader={millisecToDate(post.createdDate)}
-        title={
-          <Link
-            as={`/user/${post.createdBy._id}`}
-            href={`/user?_id=${post.createdBy._id}`}
-          >
-            <a
-              style={{
-                textDecoration: "none",
-                color: "inherit"
-              }}
+    <>
+      <Card className={classes.card}>
+        <CardHeader
+          avatar={
+            <Link
+              as={`/user/${post.createdBy._id}`}
+              href={`/user?_id=${post.createdBy._id}`}
             >
-              Posted by {post.createdBy.name}
-            </a>
-          </Link>
-        }
-      />
-      <Link as={`/post/${post._id}`} href={`/post?_id=${post._id}`}>
-        <a
-          style={{
-            textDecoration: "none",
-            color: "inherit"
-          }}
-        >
-          <CardMedia
-            className={classes.media}
-            image={post.imageUrl}
-            title={post.title}
-          />
-        </a>
-      </Link>
-      <CardContent>
-        <Typography component="p">{post.title}</Typography>
-      </CardContent>
-      {/* <Divider variant="middle" /> */}
-      {post.categories.map((cat: any) => (
-        <Chip
-          key={cat._id}
-          color="secondary"
-          label={cat.name}
-          onClick={event => handleCategoryClick(event, cat._id)}
-          className={classes.chip}
+              <a>
+                <Avatar aria-label="Avatar">
+                  <img src={post.createdBy.avatar} alt={post.createdBy._id} />
+                </Avatar>
+              </a>
+            </Link>
+          }
+          action={
+            returnEnabled && (
+              <IconButton onClick={() => Router.back()}>
+                <ArrowBack />
+              </IconButton>
+            )
+          }
+          subheader={millisecToDate(post.createdDate)}
+          title={
+            <Link
+              as={`/user/${post.createdBy._id}`}
+              href={`/user?_id=${post.createdBy._id}`}
+            >
+              <a
+                style={{
+                  textDecoration: "none",
+                  color: "inherit"
+                }}
+              >
+                Posted by {post.createdBy.name}
+              </a>
+            </Link>
+          }
         />
-      ))}
-      {/* <Divider variant="middle" /> */}
-      <CardActions className={classes.actions} disableActionSpacing>
-        <IconButton aria-label="Add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <ClickAwayListener onClickAway={handleTooltipClose}>
-          <Tooltip
-            PopperProps={{
-              disablePortal: true
+        <Link as={`/post/${post._id}`} href={`/post?_id=${post._id}`}>
+          <a
+            style={{
+              textDecoration: "none",
+              color: "inherit"
             }}
-            onClose={handleTooltipClose}
-            open={tooltipOpen}
-            disableFocusListener
-            disableHoverListener
-            disableTouchListener
-            title="Link Copied"
           >
-            <IconButton aria-label="Share" onClick={handleTooltipOpen}>
-              <ShareIcon />
-            </IconButton>
-          </Tooltip>
-        </ClickAwayListener>
-        <IconButton
-          aria-label="Comment"
-          onClick={toggleCommentArea}
-          aria-expanded={commentAreaOpen}
-        >
-          <Badge badgeContent={3} color="secondary">
-            <Textsms />
-          </Badge>
-        </IconButton>
-        {!returnEnabled && (
-          <IconButton
-            className={classes.showMore}
-            aria-label="Show more"
-            onClick={() =>
-              Router.push(
-                {
-                  pathname: "/post",
-                  query: { _id: post._id }
-                },
-                `/post/${post._id}`
-              )
-            }
-          >
-            <SendIcon className={classes.showMore} />
-          </IconButton>
-        )}
+            <CardMedia
+              className={classes.media}
+              image={post.imageUrl}
+              title={post.title}
+            />
+          </a>
+        </Link>
+        <CardContent>
+          <Typography component="p">{post.title}</Typography>
+        </CardContent>
+        {/* <Divider variant="middle" /> */}
+        {post.categories.map((cat: any) => (
+          <Chip
+            key={cat._id}
+            color="secondary"
+            label={cat.name}
+            onClick={event => handleCategoryClick(event, cat._id)}
+            className={classes.chip}
+          />
+        ))}
+
         {returnEnabled && (
-          <IconButton
-            className={classnames(classes.expand, {
-              [classes.expandOpen]: expanded
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="Show more"
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        )}
-      </CardActions>
-      {(expanded || commentAreaOpen) && <Divider variant="middle" />}
-      {returnEnabled && (
-        <>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <Divider variant="middle" />
             <CardContent>
               {post.description
                 .split("\n")
@@ -249,16 +202,81 @@ const Post = (props: any) => {
                   </Typography>
                 ))}
             </CardContent>
-            {commentAreaOpen && <Divider variant="middle" />}
           </Collapse>
-          <Collapse in={commentAreaOpen} timeout="auto" unmountOnExit>
-            <CardContent>
-              <Typography component="p">COMMENTS HERE</Typography>
-            </CardContent>
-          </Collapse>
-        </>
-      )}
-    </Card>
+        )}
+        <CardActions className={classes.actions} disableActionSpacing>
+          <IconButton aria-label="Add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <ClickAwayListener onClickAway={handleTooltipClose}>
+            <Tooltip
+              PopperProps={{
+                disablePortal: true
+              }}
+              onClose={handleTooltipClose}
+              open={tooltipOpen}
+              disableFocusListener
+              disableHoverListener
+              disableTouchListener
+              title="Link Copied"
+            >
+              <IconButton aria-label="Share" onClick={handleTooltipOpen}>
+                <ShareIcon />
+              </IconButton>
+            </Tooltip>
+          </ClickAwayListener>
+          <IconButton
+            aria-label="Comment"
+            onClick={toggleCommentArea}
+            aria-expanded={commentAreaOpen}
+          >
+            <Badge badgeContent={3} color="secondary">
+              <Textsms />
+            </Badge>
+          </IconButton>
+          {!returnEnabled && (
+            <IconButton
+              className={classes.showMore}
+              aria-label="Show more"
+              onClick={() =>
+                Router.push(
+                  {
+                    pathname: "/post",
+                    query: { _id: post._id }
+                  },
+                  `/post/${post._id}`
+                )
+              }
+            >
+              <SendIcon className={classes.showMore} />
+            </IconButton>
+          )}
+          {returnEnabled && (
+            <IconButton
+              className={classnames(classes.expand, {
+                [classes.expandOpen]: expanded
+              })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="Show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          )}
+        </CardActions>
+        {commentAreaOpen && <Divider variant="middle" />}
+        {returnEnabled && (
+          <>
+            <Collapse in={commentAreaOpen} timeout="auto" unmountOnExit>
+              <CardContent>
+                <Typography component="p">COMMENTS HERE</Typography>
+              </CardContent>
+            </Collapse>
+          </>
+        )}
+      </Card>
+      <div id="bottomPage" />
+    </>
   );
 };
 

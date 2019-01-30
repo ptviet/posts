@@ -11,6 +11,7 @@ class Page extends Component {
         </Head>
         <Header />
         <div>{this.props.children}</div>
+        <div id="footer" />
       </div>
     );
   }
