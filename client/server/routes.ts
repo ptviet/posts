@@ -12,3 +12,4 @@ routes.add("posts", "/posts", "posts");
 routes.add("post", "/post/:_id", "post");
 routes.add("newpost", "/newpost", "newpost");
 routes.add("category", "/category/:_id", "category");
+routes.add("user", "/user/:_id", "user");

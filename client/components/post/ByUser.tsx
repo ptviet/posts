@@ -1,17 +1,15 @@
 import React from "react";
-import { Query } from "react-apollo";
 import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
+import { Query } from "react-apollo";
 import { withStyles } from "@material-ui/core/styles";
 import SyncIcon from "@material-ui/icons/Sync";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Grid from "@material-ui/core/Grid";
 import Post from "./Post";
 import PostModel from "../../models/Post";
-import PaginationModel from "../../models/Pagination";
-// import PostCarousel from "./PostCarousel";
-import { INFINITE_SCROLL_POSTS_QUERY } from "../../lib/Queries";
+import { POSTS_BY_USERID_INFINITE_SCROLL_QUERY } from "../../lib/Queries";
 import { pageSize } from "../../config";
 
 const styles = (theme: any) => ({
@@ -36,7 +34,8 @@ const styles = (theme: any) => ({
   }
 });
 
-const Posts = ({ classes }: any) => {
+const ByUser = (props: any) => {
+  const { _id, classes } = props;
   let pageNumber = 1;
   let hasMore = true;
 
@@ -45,17 +44,18 @@ const Posts = ({ classes }: any) => {
     event.preventDefault();
     await fetchMoreFunc({
       variables: {
+        userId: _id,
         pageNumber,
         pageSize
       },
       updateQuery: (prev: any, { fetchMoreResult }: any) => {
-        hasMore = fetchMoreResult.infiniteScrollPosts.hasMore;
+        hasMore = fetchMoreResult.postsByUserId.hasMore;
         const updated = {
-          infiniteScrollPosts: {
-            ...prev.infiniteScrollPosts,
+          postsByUserId: {
+            ...prev.postsByUserId,
             posts: [
-              ...prev.infiniteScrollPosts.posts,
-              ...fetchMoreResult.infiniteScrollPosts.posts
+              ...prev.postsByUserId.posts,
+              ...fetchMoreResult.postsByUserId.posts
             ],
             hasMore
           }
@@ -64,15 +64,13 @@ const Posts = ({ classes }: any) => {
       }
     });
   };
-
   return (
     <Query
-      query={INFINITE_SCROLL_POSTS_QUERY}
-      variables={{ pageNumber, pageSize }}
+      query={POSTS_BY_USERID_INFINITE_SCROLL_QUERY}
+      variables={{ userId: _id, pageNumber, pageSize }}
     >
       {({ data, error, loading, fetchMore }) => {
-        const infiniteScrollPosts: PaginationModel = data.infiniteScrollPosts;
-        hasMore = infiniteScrollPosts.hasMore;
+        hasMore = data.postsByUserId.hasMore;
         if (loading) {
           return <CircularProgress className={classes.root} color="primary" />;
         }
@@ -83,7 +81,8 @@ const Posts = ({ classes }: any) => {
             </Typography>
           );
         }
-        if (infiniteScrollPosts.posts.length === 0) {
+        const posts: PostModel[] = data.postsByUserId.posts;
+        if (posts.length === 0) {
           return (
             <Typography className={classes.root} variant="body1">
               No Posts Found.
@@ -92,25 +91,13 @@ const Posts = ({ classes }: any) => {
         }
         return (
           <div className={classes.root}>
-            {/* <div
-              style={{
-                width: "50%",
-                margin: "0 auto",
-                padding: "15px",
-                marginBottom: "20px"
-              }}
-            >
-              <PostCarousel posts={infiniteScrollPosts.posts} />
-            </div> */}
-
             <Grid container spacing={16} style={{ padding: 16 }}>
-              {infiniteScrollPosts.posts.map((post: PostModel) => (
+              {posts.map((post: PostModel) => (
                 <Grid key={post._id} item xs={12} sm={6} md={4} lg={3} xl={2}>
                   <Post post={post} returnEnabled={false} />
                 </Grid>
               ))}
             </Grid>
-
             {hasMore && (
               <div
                 style={{
@@ -134,8 +121,9 @@ const Posts = ({ classes }: any) => {
   );
 };
 
-Posts.propTypes = {
+ByUser.propTypes = {
+  _id: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles as any)(Posts);
+export default withStyles(styles as any)(ByUser);

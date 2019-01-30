@@ -2,12 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 import { withStyles } from "@material-ui/core/styles";
+import SyncIcon from "@material-ui/icons/Sync";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Post from "./Post";
 import PostModel from "../../models/Post";
-import { POSTS_BY_CATEGORY_QUERY } from "../../lib/Queries";
+import { POSTS_BY_CATEGORY_INFINITE_SCROLL_QUERY } from "../../lib/Queries";
+import { pageSize } from "../../config";
 
 const styles = (theme: any) => ({
   root: {
@@ -33,9 +36,41 @@ const styles = (theme: any) => ({
 
 const ByCategory = (props: any) => {
   const { _id, classes } = props;
+  let pageNumber = 1;
+  let hasMore = true;
+
+  const fetchMorePosts = async (event: any, fetchMoreFunc: any) => {
+    pageNumber += 1;
+    event.preventDefault();
+    await fetchMoreFunc({
+      variables: {
+        catId: _id,
+        pageNumber,
+        pageSize
+      },
+      updateQuery: (prev: any, { fetchMoreResult }: any) => {
+        hasMore = fetchMoreResult.postsByCatId.hasMore;
+        const updated = {
+          postsByCatId: {
+            ...prev.postsByCatId,
+            posts: [
+              ...prev.postsByCatId.posts,
+              ...fetchMoreResult.postsByCatId.posts
+            ],
+            hasMore
+          }
+        };
+        return updated;
+      }
+    });
+  };
   return (
-    <Query query={POSTS_BY_CATEGORY_QUERY} variables={{ catId: _id }}>
-      {({ data, error, loading }) => {
+    <Query
+      query={POSTS_BY_CATEGORY_INFINITE_SCROLL_QUERY}
+      variables={{ catId: _id, pageNumber, pageSize }}
+    >
+      {({ data, error, loading, fetchMore }) => {
+        hasMore = data.postsByCatId.hasMore;
         if (loading) {
           return <CircularProgress className={classes.root} color="primary" />;
         }
@@ -46,7 +81,8 @@ const ByCategory = (props: any) => {
             </Typography>
           );
         }
-        if (data.postsByCatId.length === 0) {
+        const posts: PostModel[] = data.postsByCatId.posts;
+        if (posts.length === 0) {
           return (
             <Typography className={classes.root} variant="body1">
               No Posts Found.
@@ -56,12 +92,28 @@ const ByCategory = (props: any) => {
         return (
           <div className={classes.root}>
             <Grid container spacing={16} style={{ padding: 16 }}>
-              {data.postsByCatId.map((post: PostModel) => (
+              {posts.map((post: PostModel) => (
                 <Grid key={post._id} item xs={12} sm={6} md={4} lg={3} xl={2}>
                   <Post post={post} returnEnabled={false} />
                 </Grid>
               ))}
             </Grid>
+            {hasMore && (
+              <div
+                style={{
+                  textAlign: "center",
+                  marginBottom: "10px",
+                  marginTop: "10px"
+                }}
+              >
+                <Button
+                  color="inherit"
+                  onClick={event => fetchMorePosts(event, fetchMore)}
+                >
+                  <SyncIcon />
+                </Button>
+              </div>
+            )}
           </div>
         );
       }}

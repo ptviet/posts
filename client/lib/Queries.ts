@@ -40,40 +40,66 @@ export const ALL_CATEGORIES_QUERY = gql`
   }
 `;
 
-export const POSTS_BY_CATEGORY_QUERY = gql`
-  query POSTS_BY_CATEGORY_QUERY($catId: String!) {
-    postsByCatId(catId: $catId) {
-      _id
-      title
-      imageUrl
-      categories {
-        _id
-        name
-      }
-      description
-      createdDate
-      likes
-      createdBy {
-        _id
-        username
-        name
-        email
-        permission
-        avatar
-      }
-      messages {
-        _id
-        # messageBody
-        # messageDate
-        # messageUser {
-        #   _id
-        #   username
-        #   name
-        #   email
-        #   permission
-        #   avatar
-        # }
-      }
+export const POSTS_BY_CATEGORY_INFINITE_SCROLL_QUERY = gql`
+  query POSTS_BY_CATEGORY_INFINITE_SCROLL_QUERY($catId: String!, $pageNumber: Int! = 1, $pageSize: Int! = ${pageSize}) {
+    postsByCatId(catId: $catId, pageNumber: $pageNumber, pageSize: $pageSize) {
+      hasMore
+      posts
+        {
+          _id
+          title
+          imageUrl
+          categories {
+            _id
+            name
+          }
+          description
+          createdDate
+          likes
+          createdBy {
+            _id
+            username
+            name
+            email
+            permission
+            avatar
+          }
+          messages {
+            _id
+          }
+        }
+    }
+  }
+`;
+
+export const POSTS_BY_USERID_INFINITE_SCROLL_QUERY = gql`
+  query POSTS_BY_USERID_INFINITE_SCROLL_QUERY($userId: String!, $pageNumber: Int! = 1, $pageSize: Int! = ${pageSize}) {
+    postsByUserId(userId: $userId, pageNumber: $pageNumber, pageSize: $pageSize) {
+      hasMore
+      posts
+        {
+          _id
+          title
+          imageUrl
+          categories {
+            _id
+            name
+          }
+          description
+          createdDate
+          likes
+          createdBy {
+            _id
+            username
+            name
+            email
+            permission
+            avatar
+          }
+          messages {
+            _id
+          }
+        }
     }
   }
 `;
@@ -144,17 +170,6 @@ export const INFINITE_SCROLL_POSTS_QUERY = gql`
         }
         messages {
           _id
-          # messageBody
-          # messageDate
-          # messageUser {
-          #   _id
-          #   username
-          #   name
-          #   email
-          #   permission
-          #   avatar
-          #   isLocked
-          # }
         }
       }
     }
@@ -184,16 +199,6 @@ export const ALL_POSTS_QUERY = gql`
       }
       messages {
         _id
-        # messageBody
-        # messageDate
-        # messageUser {
-        #   _id
-        #   username
-        #   name
-        #   email
-        #   permission
-        #   avatar
-        # }
       }
     }
   }

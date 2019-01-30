@@ -113,9 +113,16 @@ const Post = (props: any) => {
     <Card className={classes.card}>
       <CardHeader
         avatar={
-          <Avatar aria-label="Avatar">
-            <img src={post.createdBy.avatar} alt={post.createdBy.username} />
-          </Avatar>
+          <Link
+            as={`/user/${post.createdBy._id}`}
+            href={`/user?_id=${post.createdBy._id}`}
+          >
+            <a>
+              <Avatar aria-label="Avatar">
+                <img src={post.createdBy.avatar} alt={post.createdBy._id} />
+              </Avatar>
+            </a>
+          </Link>
         }
         action={
           returnEnabled && (
@@ -125,7 +132,21 @@ const Post = (props: any) => {
           )
         }
         subheader={millisecToDate(post.createdDate)}
-        title={`Posted by ${post.createdBy.name}`}
+        title={
+          <Link
+            as={`/user/${post.createdBy._id}`}
+            href={`/user?_id=${post.createdBy._id}`}
+          >
+            <a
+              style={{
+                textDecoration: "none",
+                color: "inherit"
+              }}
+            >
+              Posted by {post.createdBy.name}
+            </a>
+          </Link>
+        }
       />
       <Link as={`/post/${post._id}`} href={`/post?_id=${post._id}`}>
         <a
