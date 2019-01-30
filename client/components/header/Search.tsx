@@ -108,21 +108,20 @@ const Search = (props: any) => {
   }, 500);
 
   const goToPost = (post: PostModel) => {
-    Router.push(
-      {
-        pathname: "/post",
-        query: { _id: post._id }
-      },
-      `/post/${post._id}`
-    );
+    if (post) {
+      Router.push(
+        {
+          pathname: "/post",
+          query: { _id: post._id }
+        },
+        `/post/${post._id}`
+      );
+    }
   };
 
   resetIdCounter();
   return (
-    <Downshift
-      onChange={goToPost}
-      itemToString={(post: PostModel) => (post === null ? "" : post.title)}
-    >
+    <Downshift onChange={goToPost} itemToString={(post: PostModel) => ""}>
       {({
         getRootProps,
         getInputProps,
