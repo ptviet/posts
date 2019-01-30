@@ -7,9 +7,9 @@
     "tsc": "tsc",
     "server": "nodemon",
     "start": "nodemon",
-    "client": "cd client && npm start",
+    "client": "cd client && npm run dev",
     "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\"",
-    "heroku-postbuild": "npm install && cd client && npm install && npm run build && npm run start"
+    "heroku-postbuild": "npm install && cd client && npm install && npm run dev"
   },
   "author": "",
   "license": "ISC",
@@ -31,12 +31,12 @@
     "md5": "^2.2.1",
     "mongoose": "^5.4.5",
     "ts-log-debug": "^4.0.4",
+    "nodemon": "^1.18.9",
     "typescript": "^3.2.4"
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
     "eslint": "^5.12.1",
-    "nodemon": "^1.18.9",
     "ts-node": "^7.0.1",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",
