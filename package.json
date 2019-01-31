@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "server:dev": "nodemon",
-    "server": "node dist/server.js",
+    "server": "NODE_ENV=production node dist/server.js -p $PORT",
     "client:dev": "cd client && npm run dev",
     "client": "cd client && npm start",
     "dev": "concurrently --names \"server:dev,client:dev\" \"npm run server:dev --silent\" \"npm run client:dev --silent\"",
@@ -43,5 +43,9 @@
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",
     "tslint-plugin-prettier": "^2.0.1"
+  },
+  "engines": {
+    "node": "11.6.0",
+    "npm": "6.5.0"
   }
 }
