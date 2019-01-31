@@ -13,7 +13,7 @@ const handle = routes.getRequestHandler(app);
 app.prepare().then(() => {
   createServer((req: any, res: any) => {
     const parsedUrl = parse(req.url, true);
-
+    res.statusCode = 200;
     handle(req, res, parsedUrl);
   }).listen(port, (err: any) => {
     if (err) {
