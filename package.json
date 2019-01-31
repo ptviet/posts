@@ -25,6 +25,7 @@
     "@types/mongoose": "^5.3.8",
     "@types/node": "^10.12.18",
     "bcryptjs": "^2.4.3",
+    "concurrently": "^4.1.0",
     "cookie-parser": "^1.4.3",
     "dotenv": "^6.2.0",
     "graphql": "^14.1.1",
@@ -32,10 +33,9 @@
     "jsonwebtoken": "^8.4.0",
     "md5": "^2.2.1",
     "mongoose": "^5.4.5",
-    "ts-log-debug": "^4.0.4",
     "nodemon": "^1.18.9",
+    "ts-log-debug": "^4.0.4",
     "ts-node": "^7.0.1",
-    "concurrently": "^4.1.0",
     "typescript": "^3.2.4"
   },
   "devDependencies": {
