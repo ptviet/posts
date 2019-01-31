@@ -4,7 +4,7 @@ import next from "next";
 import { $log } from "ts-log-debug";
 import { routes } from "./routes";
 
-const port = process.env.FE_PORT || 3000;
+const port = process.env.PORT || 3000;
 const dev = process.env.NODE_ENV !== "production";
 // @ts-ignore
 const app = next({ dev });
