@@ -7,7 +7,7 @@ const generateAvatar = () => {
     .toString()
     .replace(/\s+/g, "");
 
-  return `http://gravatar.com/avatar/${md5(random)}?d=identicon`;
+  return `https://gravatar.com/avatar/${md5(random)}?d=identicon`;
 };
 
 const UserSchema = new mongoose.Schema({
