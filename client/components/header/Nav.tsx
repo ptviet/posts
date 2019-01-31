@@ -106,7 +106,7 @@ export const MobileMenu = ({
         onClick={() => {
           handleMobileMenuClose();
           Router.push({
-            pathname: "/newpost"
+            pathname: "/post/new"
           });
         }}
       >

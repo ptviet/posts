@@ -1,12 +1,13 @@
 import { createServer } from "http";
 import { parse } from "url";
-const next = require("next");
+import next from "next";
 import { $log } from "ts-log-debug";
 
 import { routes } from "./routes";
 
 const port = process.env.PORT || 3000;
 const dev = process.env.NODE_ENV !== "production";
+// @ts-ignore
 const app = next({ dev });
 const handle = routes.getRequestHandler(app);
 

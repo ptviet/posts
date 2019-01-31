@@ -184,7 +184,7 @@ const Header = ({ classes }: any) => {
                       <IconButton
                         onClick={() =>
                           Router.push({
-                            pathname: "/newpost"
+                            pathname: "/post/new"
                           })
                         }
                         color="inherit"
