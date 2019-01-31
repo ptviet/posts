@@ -1,6 +1,7 @@
 {
-  "name": "client",
+  "name": "posts",
   "version": "0.1.0",
+  "description": "posts",
   "private": true,
   "scripts": {
     "dev": "nodemon server/server.ts",

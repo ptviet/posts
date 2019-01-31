@@ -1,7 +1,7 @@
 {
-  "name": "posts",
+  "name": "posts-be",
   "version": "1.0.0",
-  "description": "posts",
+  "description": "posts-be",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
