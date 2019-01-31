@@ -25,7 +25,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import SendIcon from "@material-ui/icons/Send";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { millisecToDate } from "../../lib/formatDate";
-import { FRONTEND_URL } from "../../config";
+// import { FRONTEND_URL } from "../../config";
 import _ from "lodash";
 
 const styles: any = (theme: any) => ({
@@ -105,8 +105,8 @@ const Post = (props: any) => {
   const handleTooltipOpen = () => {
     setTooltipOpen(true);
     const textField = document.createElement("textarea");
-    textField.innerText = `${FRONTEND_URL}/post/${post._id}`;
-    // textField.innerText = `${getUrl()}/post/${post._id}`;
+    textField.innerText = `${getUrl()}/post/${post._id}`;
+    // textField.innerText = `${FRONTEND_URL}/post/${post._id}`;
     document.body.appendChild(textField);
     textField.select();
     document.execCommand("copy");
