@@ -4,11 +4,14 @@
   "description": "posts",
   "main": "dist/server.js",
   "scripts": {
-    "tsc": "tsc",
-    "server": "nodemon",
-    "client": "cd client && npm run dev",
+    "build": "tsc",
+    "server:dev": "nodemon",
+    "server": "node dist/server.js",
+    "client:dev": "cd client && npm run dev",
+    "client": "cd client && npm start",
+    "dev": "concurrently --names \"server:dev,client:dev\" \"npm run server:dev --silent\" \"npm run client:dev --silent\"",
     "start": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\"",
-    "heroku-postbuild": "npm install && cd client && npm install && npm run build"
+    "heroku-postbuild": "npm install && npm run build && cd client && npm install && npm run build"
   },
   "author": "",
   "license": "ISC",
