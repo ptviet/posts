@@ -10,6 +10,7 @@ const createApolloClient = ({ headers }: any) =>
       operation.setContext({
         fetchOptions: {
           credentials: "include"
+          // mode: "no-cors"
         },
         headers
       });
