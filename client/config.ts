@@ -5,5 +5,5 @@ export const GRAPHQL_URI =
 export const FRONTEND_URL =
   process.env.NODE_ENV === "production"
     ? process.env.FRONTEND_URL
-    : "http://localhost:3000";
+    : "http://localhost:40002";
 export const pageSize = 18;

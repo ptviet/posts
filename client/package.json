@@ -4,9 +4,9 @@
   "description": "posts",
   "private": true,
   "scripts": {
-    "dev": "nodemon server/server.ts",
+    "dev": "PORT=40002 nodemon server/server.ts",
     "build": "next build && tsc --project tsconfig.server.json",
-    "start": "NODE_ENV=production node .next/production-server/server.js PORT=$PORT",
+    "start": "NODE_ENV=production PORT=40002 node .next/production-server/server.js",
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
     "ts:check": "tsc --noEmit"

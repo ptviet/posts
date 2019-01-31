@@ -62,7 +62,7 @@ server.start(
   {
     cors: {
       credentials: true,
-      origin: process.env.FRONTEND_URL
+      origin: [process.env.FRONTEND_URL, "http://localhost:40002"]
     },
     port: process.env.PORT || 40001
   },
