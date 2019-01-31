@@ -73,6 +73,11 @@ const Post = (props: any) => {
     });
   }, 200);
 
+  const getUrl = () => {
+    const url = window.location.protocol + "//" + window.location.host;
+    return url;
+  };
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
     scrollToBottom();
@@ -101,6 +106,7 @@ const Post = (props: any) => {
     setTooltipOpen(true);
     const textField = document.createElement("textarea");
     textField.innerText = `${FRONTEND_URL}/post/${post._id}`;
+    // textField.innerText = `${getUrl()}/post/${post._id}`;
     document.body.appendChild(textField);
     textField.select();
     document.execCommand("copy");

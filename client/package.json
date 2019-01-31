@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon server/server.ts",
     "build": "next build && tsc --project tsconfig.server.json",
-    "start": "NODE_ENV=production node .next/production-server/server.js",
+    "start": "NODE_ENV=production FRONTEND_URL=http://ezipost.herokuapp.com node .next/production-server/server.js",
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
     "ts:check": "tsc --noEmit"

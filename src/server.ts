@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
-import bodyParser from "body-parser";
+// import bodyParser from "body-parser";
 import { $log } from "ts-log-debug";
 import dotenv from "dotenv";
 import createServer from "./createServer";
@@ -25,17 +25,16 @@ const server = createServer();
 // Use Express middleware to handle cookies (JWT)
 server.express.use(cookieParser());
 
-server.express.use(bodyParser.json());
+// server.express.use(bodyParser.json());
 
-server.express.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", process.env.APP_SECRET);
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.statusCode = 200;
-  next();
-});
+// server.express.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", process.env.APP_SECRET);
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 // Decode the JWT to get userId on each request
 server.express.use((req, res, next) => {
