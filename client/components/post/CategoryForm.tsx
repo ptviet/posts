@@ -29,13 +29,11 @@ import { styles, MenuProps, getStyles, getCategoryName } from './PostFormUtils';
 import Auth from '../auth/Auth';
 
 const initialFormState = {
-  title: '',
-  imageUrl: '',
-  categories: [],
+  name: '',
   description: ''
 };
 
-const PostForm = (props: any) => {
+const CategoryForm = (props: any) => {
   const { classes, enqueueSnackbar } = props;
   const [form, setForm] = useState(initialFormState);
   const [submitted, setSubmitted] = useState(false);
@@ -49,20 +47,20 @@ const PostForm = (props: any) => {
 
   const onSubmit = async (event: any, addPostMutation: any) => {
     event.preventDefault();
-    setSubmitted(true);
-    try {
-      await addPostMutation();
-      setForm(initialFormState);
-      setSubmitted(false);
-      enqueueSnackbar('Post created.', {
-        variant: 'success'
-      });
-      Router.push({
-        pathname: '/posts'
-      });
-    } catch (error) {
-      setSubmitted(false);
-    }
+    // setSubmitted(true);
+    // try {
+    //   await addPostMutation();
+    //   setForm(initialFormState);
+    //   setSubmitted(false);
+    //   enqueueSnackbar('Post created.', {
+    //     variant: 'success'
+    //   });
+    //   Router.push({
+    //     pathname: '/posts'
+    //   });
+    // } catch (error) {
+    //   setSubmitted(false);
+    // }
   };
 
   return (
@@ -116,91 +114,22 @@ const PostForm = (props: any) => {
                             <Create />
                           </Avatar>
                           <Typography component='h1' variant='h5'>
-                            CREATE A NEW POST
+                            CREATE A NEW CATEGORY
                           </Typography>
                           <form
                             className={classes.form}
                             onSubmit={e => onSubmit(e, addPost)}
                           >
                             <FormControl margin='normal' required fullWidth>
-                              <InputLabel htmlFor='title'>Title</InputLabel>
+                              <InputLabel htmlFor='name'>Name</InputLabel>
                               <Input
-                                id='title'
-                                name='title'
-                                autoComplete='title'
+                                id='name'
+                                name='name'
+                                autoComplete='name'
                                 onChange={onChange}
-                                value={form.title}
+                                value={form.name}
                                 autoFocus
                               />
-                            </FormControl>
-                            <FormControl margin='normal' required fullWidth>
-                              <InputLabel htmlFor='email'>Image URL</InputLabel>
-                              <Input
-                                id='imageUrl'
-                                name='imageUrl'
-                                autoComplete='imageUrl'
-                                onChange={onChange}
-                                value={form.imageUrl}
-                              />
-                            </FormControl>
-                            {form.imageUrl && (
-                              <FormControl margin='normal' required fullWidth>
-                                <Card
-                                  className={classes.card}
-                                  id='imagePreview'
-                                >
-                                  <CardMedia
-                                    className={classes.media}
-                                    image={form.imageUrl}
-                                    title='Image Preview'
-                                  />
-                                </Card>
-                              </FormControl>
-                            )}
-                            <FormControl margin='normal' required fullWidth>
-                              <InputLabel htmlFor='categories'>
-                                Categories
-                              </InputLabel>
-                              <Select
-                                multiple
-                                name='categories'
-                                value={form.categories}
-                                onChange={onChange}
-                                input={<Input id='categories' />}
-                                renderValue={(selected: any) => {
-                                  return (
-                                    <div className={classes.chips}>
-                                      {selected.map((value: any) => (
-                                        <Chip
-                                          key={value}
-                                          label={getCategoryName(
-                                            value,
-                                            data.categories
-                                          )}
-                                          className={classes.chip}
-                                        />
-                                      ))}
-                                    </div>
-                                  );
-                                }}
-                                MenuProps={MenuProps}
-                              >
-                                {data.categories.map(
-                                  (category: CategoryModel) => (
-                                    <MenuItem
-                                      key={category._id}
-                                      value={category._id}
-                                      style={getStyles(
-                                        category._id,
-                                        form.categories,
-                                        classes
-                                      )}
-                                    >
-                                      {category.name}
-                                    </MenuItem>
-                                  )
-                                )}
-                              </Select>
                             </FormControl>
                             <FormControl margin='normal' required fullWidth>
                               <InputLabel htmlFor='description'>
@@ -211,8 +140,8 @@ const PostForm = (props: any) => {
                                 type='description'
                                 id='description'
                                 multiline={true}
-                                rowsMax='16'
-                                rows='16'
+                                rowsMax='6'
+                                rows='6'
                                 onChange={onChange}
                                 value={form.description}
                               />
@@ -250,8 +179,8 @@ const PostForm = (props: any) => {
   );
 };
 
-PostForm.propTypes = {
+CategoryForm.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(withSnackbar(PostForm));
+export default withStyles(styles)(withSnackbar(CategoryForm));
