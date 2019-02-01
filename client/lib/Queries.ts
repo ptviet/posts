@@ -41,7 +41,7 @@ export const ALL_CATEGORIES_QUERY = gql`
 `;
 
 export const POSTS_BY_CATEGORY_INFINITE_SCROLL_QUERY = gql`
-  query POSTS_BY_CATEGORY_INFINITE_SCROLL_QUERY($catId: String!, $pageNumber: Int! = 1, $pageSize: Int! = ${pageSize}) {
+  query POSTS_BY_CATEGORY_INFINITE_SCROLL_QUERY($catId: String!, $pageNumber: Int = 1, $pageSize: Int = ${pageSize}) {
     postsByCatId(catId: $catId, pageNumber: $pageNumber, pageSize: $pageSize) {
       hasMore
       posts
@@ -73,7 +73,7 @@ export const POSTS_BY_CATEGORY_INFINITE_SCROLL_QUERY = gql`
 `;
 
 export const POSTS_BY_USERID_INFINITE_SCROLL_QUERY = gql`
-  query POSTS_BY_USERID_INFINITE_SCROLL_QUERY($userId: String!, $pageNumber: Int! = 1, $pageSize: Int! = ${pageSize}) {
+  query POSTS_BY_USERID_INFINITE_SCROLL_QUERY($userId: String!, $pageNumber: Int = 1, $pageSize: Int = ${pageSize}) {
     postsByUserId(userId: $userId, pageNumber: $pageNumber, pageSize: $pageSize) {
       hasMore
       posts
@@ -155,7 +155,7 @@ export const SEARCH_POSTS_QUERY = gql`
 `;
 
 export const INFINITE_SCROLL_POSTS_QUERY = gql`
-  query INFINITE_SCROLL_POSTS_QUERY($pageNumber: Int! = 1, $pageSize: Int! = ${pageSize}) {
+  query INFINITE_SCROLL_POSTS_QUERY($pageNumber: Int = 1, $pageSize: Int = ${pageSize}) {
     infiniteScrollPosts(pageNumber: $pageNumber, pageSize: $pageSize) {
       hasMore
       posts {
