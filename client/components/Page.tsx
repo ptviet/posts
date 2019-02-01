@@ -11,8 +11,16 @@ class Page extends Component {
           <title>Posts</title>
         </Head>
         <Header />
-        <div>{this.props.children}</div>
-        <footer id="footer">
+        <div style={{ paddingTop: 60 }}>{this.props.children}</div>
+        <footer
+          id="footer"
+          style={{
+            left: 0,
+            bottom: 0,
+            height: 50,
+            width: "100%"
+          }}
+        >
           <div
             style={{
               boxSizing: "border-box",

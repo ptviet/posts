@@ -109,7 +109,16 @@ const Header = ({ classes }: any) => {
     <Auth>
       {({ data: { currentUser } }) => {
         return (
-          <div className={classes.root}>
+          <div
+            className={classes.root}
+            style={{
+              position: "fixed",
+              left: 0,
+              top: 0,
+              width: "100%",
+              zIndex: 2
+            }}
+          >
             {/* <SideNav toggleDrawer={toggleDrawer} isOpen={sideNav} /> */}
             <AppBar position="static">
               <Toolbar>
