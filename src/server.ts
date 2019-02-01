@@ -62,14 +62,14 @@ server.express.use(async (req, res, next) => {
   next();
 });
 
-const errorHandler = (err, req, res, next) => {
-  if (res.headersSent) {
-    return next(err);
-  }
-  const { status } = err;
-  res.status(status).json(err);
-};
-server.express.use(errorHandler);
+// const errorHandler = (err, req, res, next) => {
+//   if (res.headersSent) {
+//     return next(err);
+//   }
+//   const { status } = err;
+//   res.status(status).json(err);
+// };
+// server.express.use(errorHandler);
 
 server.start(
   {
