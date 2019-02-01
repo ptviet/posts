@@ -1,6 +1,6 @@
-// import { createServer } from "http";
-import express from "express";
-import cors from "cors";
+import { createServer } from "http";
+// import express from "express";
+// import cors from "cors";
 import { parse } from "url";
 import next from "next";
 import { $log } from "ts-log-debug";
@@ -14,42 +14,42 @@ const app = next({ dev });
 const handle = routes.getRequestHandler(app);
 
 app.prepare().then(() => {
-  // createServer((req: any, res: any) => {
-  //   const parsedUrl = parse(req.url, true);
-  //   handle(req, res, parsedUrl);
-  // }).listen(port, (err: any) => {
-  //   if (err) {
-  //     throw err;
-  //   }
-  //   $log.debug(`> Ready on http://localhost:${port}`);
-  // });
-
-  const server = express();
-  server.use(cors());
-  server.options("*", cors());
-
-  server.get("*", (req, res) => {
+  createServer((req: any, res: any) => {
     const parsedUrl = parse(req.url, true);
-
-    return handle(req, res, parsedUrl);
-  });
-
-  server.post("*", (req, res) => {
-    const parsedUrl = parse(req.url, true);
-
-    return handle(req, res, parsedUrl);
-  });
-
-  server.options("*", (req, res) => {
-    const parsedUrl = parse(req.url, true);
-
-    return handle(req, res, parsedUrl);
-  });
-
-  server.listen(port, (err: any) => {
+    handle(req, res, parsedUrl);
+  }).listen(port, (err: any) => {
     if (err) {
       throw err;
     }
     $log.debug(`> Ready on http://localhost:${port}`);
   });
+
+  // const server = express();
+  // server.use(cors());
+  // server.options("*", cors());
+
+  // server.get("*", (req, res) => {
+  //   const parsedUrl = parse(req.url, true);
+
+  //   return handle(req, res, parsedUrl);
+  // });
+
+  // server.post("*", (req, res) => {
+  //   const parsedUrl = parse(req.url, true);
+
+  //   return handle(req, res, parsedUrl);
+  // });
+
+  // server.options("*", (req, res) => {
+  //   const parsedUrl = parse(req.url, true);
+
+  //   return handle(req, res, parsedUrl);
+  // });
+
+  // server.listen(port, (err: any) => {
+  //   if (err) {
+  //     throw err;
+  //   }
+  //   $log.debug(`> Ready on http://localhost:${port}`);
+  // });
 });
