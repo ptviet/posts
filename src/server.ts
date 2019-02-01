@@ -71,7 +71,7 @@ server.start(
       credentials: true,
       origin: process.env.FRONTEND_URL
     },
-    port: process.env.PORT || 40001
+    port: parseInt(process.env.PORT, 10) || 40001
   },
   deets => {
     $log.debug(`Server is now running on: http://localhost:${deets.port}`);
