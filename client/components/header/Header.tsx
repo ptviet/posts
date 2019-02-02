@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import Router from 'next/router';
-import NProgress from 'nprogress';
-import { withStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import MenuIcon from '@material-ui/icons/Menu';
-import Fab from '@material-ui/core/Fab';
-import Chat from '@material-ui/icons/Chat';
-import LockOpen from '@material-ui/icons/LockOpen';
-import AccountBalance from '@material-ui/icons/AccountBalance';
-import Badge from '@material-ui/core/Badge';
-import PersonAdd from '@material-ui/icons/PersonAdd';
-import AddBox from '@material-ui/icons/AddBox';
-import { DesktopMenu, MobileMenu } from './Nav';
+import React, { useState } from "react";
+import Router from "next/router";
+import NProgress from "nprogress";
+import { withStyles } from "@material-ui/core/styles";
+import { fade } from "@material-ui/core/styles/colorManipulator";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import MenuIcon from "@material-ui/icons/Menu";
+import Fab from "@material-ui/core/Fab";
+import Chat from "@material-ui/icons/Chat";
+import LockOpen from "@material-ui/icons/LockOpen";
+import AccountBalance from "@material-ui/icons/AccountBalance";
+import Badge from "@material-ui/core/Badge";
+import PersonAdd from "@material-ui/icons/PersonAdd";
+import AddBox from "@material-ui/icons/AddBox";
+import { DesktopMenu, MobileMenu } from "./Nav";
 // import SideNav from "./SideNav";
-import SignOut from '../auth/SignOut';
-import Auth from '../auth/Auth';
-import Search from './Search';
+import SignOut from "../auth/SignOut";
+import Auth from "../auth/Auth";
+import Search from "./Search";
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -41,37 +41,37 @@ const styles: any = (theme: any) => ({
     flexGrow: 1
   },
   link: {
-    textDecoration: 'none',
-    color: 'inherit'
+    textDecoration: "none",
+    color: "inherit"
   },
   menuButton: {
     marginLeft: -12,
     marginRight: 20
   },
   title: {
-    display: 'block'
+    display: "block"
   },
   fab: {
     top: 5,
     right: 10,
-    position: 'fixed'
+    position: "fixed"
   },
   navBtnText: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'block'
+    display: "none",
+    [theme.breakpoints.up("md")]: {
+      display: "block"
     }
   },
   sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'flex'
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "flex"
     }
   },
   sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('sm')]: {
-      display: 'none'
+    display: "flex",
+    [theme.breakpoints.up("sm")]: {
+      display: "none"
     }
   }
 });
@@ -107,32 +107,20 @@ const Header = ({ classes }: any) => {
 
   return (
     <Auth>
-      {({ data, error, loading }) => {
-        if (loading) {
-          return <CircularProgress color='primary' />;
-        }
-        if (error) {
-          return (
-            <Typography variant='body1' color='error'>
-              Not Found.
-            </Typography>
-          );
-        }
-
-        const { currentUser } = data;
+      {({ data: { currentUser } }) => {
         return (
           <div
             className={classes.root}
             style={{
-              position: 'fixed',
+              position: "fixed",
               left: 0,
               top: 0,
-              width: '100%',
+              width: "100%",
               zIndex: 2
             }}
           >
             {/* <SideNav toggleDrawer={toggleDrawer} isOpen={sideNav} /> */}
-            <AppBar position='static'>
+            <AppBar position="static">
               <Toolbar>
                 {/* <IconButton
                   className={classes.menuButton}
@@ -145,12 +133,12 @@ const Header = ({ classes }: any) => {
                 <IconButton
                   onClick={() =>
                     Router.push({
-                      pathname: '/'
+                      pathname: "/"
                     })
                   }
-                  color='inherit'
+                  color="inherit"
                 >
-                  <Typography variant='h6'>POSTS</Typography>
+                  <Typography variant="h6">POSTS</Typography>
                 </IconButton>
                 <Search />
                 <div className={classes.grow} />
@@ -158,14 +146,14 @@ const Header = ({ classes }: any) => {
                   <IconButton
                     onClick={() =>
                       Router.push({
-                        pathname: '/posts'
+                        pathname: "/posts"
                       })
                     }
-                    color='inherit'
+                    color="inherit"
                   >
-                    <Badge badgeContent={4} color='secondary'>
+                    <Badge badgeContent={4} color="secondary">
                       <span className={classes.navBtnText}>
-                        <Typography variant='button'>ALL POSTS </Typography>
+                        <Typography variant="button">ALL POSTS </Typography>
                       </span>
                       <Chat />
                     </Badge>
@@ -175,26 +163,26 @@ const Header = ({ classes }: any) => {
                       <IconButton
                         onClick={() =>
                           Router.push({
-                            pathname: '/signin'
+                            pathname: "/signin"
                           })
                         }
-                        color='inherit'
+                        color="inherit"
                       >
                         <span className={classes.navBtnText}>
-                          <Typography variant='button'>SIGN IN</Typography>
+                          <Typography variant="button">SIGN IN</Typography>
                         </span>
                         <LockOpen />
                       </IconButton>
                       <IconButton
                         onClick={() =>
                           Router.push({
-                            pathname: '/signup'
+                            pathname: "/signup"
                           })
                         }
-                        color='inherit'
+                        color="inherit"
                       >
                         <span className={classes.navBtnText}>
-                          <Typography variant='button'>SIGN UP</Typography>
+                          <Typography variant="button">SIGN UP</Typography>
                         </span>
                         <PersonAdd />
                       </IconButton>
@@ -205,24 +193,24 @@ const Header = ({ classes }: any) => {
                       <IconButton
                         onClick={() =>
                           Router.push({
-                            pathname: '/post/new'
+                            pathname: "/post/new"
                           })
                         }
-                        color='inherit'
+                        color="inherit"
                       >
                         <span className={classes.navBtnText}>
-                          <Typography variant='button'>NEW POST</Typography>
+                          <Typography variant="button">NEW POST</Typography>
                         </span>
                         <AddBox />
                       </IconButton>
                       <IconButton
-                        aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                        aria-haspopup='true'
+                        aria-owns={isMenuOpen ? "material-appbar" : undefined}
+                        aria-haspopup="true"
                         onClick={handleProfileMenuOpen}
-                        color='inherit'
+                        color="inherit"
                       >
                         <span className={classes.navBtnText}>
-                          <Typography variant='button'>MY ACCOUNT</Typography>
+                          <Typography variant="button">MY ACCOUNT</Typography>
                         </span>
                         <AccountBalance />
                       </IconButton>
@@ -232,11 +220,11 @@ const Header = ({ classes }: any) => {
                 </div>
                 <div className={classes.sectionMobile}>
                   <Fab
-                    size='medium'
-                    color='primary'
-                    aria-haspopup='true'
+                    size="medium"
+                    color="primary"
+                    aria-haspopup="true"
                     onClick={handleMobileMenuOpen}
-                    aria-label='Add'
+                    aria-label="Add"
                     className={classes.fab}
                   >
                     <MenuIcon />
