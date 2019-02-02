@@ -1,23 +1,20 @@
-import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
-import cookieParser from "cookie-parser";
+import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
 // import bodyParser from "body-parser";
-import { $log } from "ts-log-debug";
-import dotenv from "dotenv";
-import createServer from "./createServer";
-import User from "./models/User";
+import { $log } from 'ts-log-debug';
+import dotenv from 'dotenv';
+import createServer from './createServer';
+import User from './models/User';
 
-dotenv.config({ path: "variables.env" });
+dotenv.config({ path: 'variables.env' });
 
 mongoose
-  .connect(
-    process.env.MONGODB_URI,
-    {
-      useCreateIndex: true,
-      useNewUrlParser: true
-    }
-  )
-  .then(() => $log.debug("MongoDB: Connected"))
+  .connect(process.env.MONGODB_URI, {
+    useCreateIndex: true,
+    useNewUrlParser: true
+  })
+  .then(() => $log.debug('MongoDB: Connected'))
   .catch(error => $log.debug(`MongoDB Error: ${error}`));
 
 const server = createServer();
@@ -37,7 +34,7 @@ server.express.use(cookieParser());
 // });
 
 // Decode the JWT to get userId on each request
-server.express.use((req, res, next) => {
+server.express.use(async (req, res, next) => {
   const { POSTS__TOKEN_ } = req.cookies;
   if (POSTS__TOKEN_) {
     // @ts-ignore
