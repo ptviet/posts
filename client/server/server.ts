@@ -86,7 +86,7 @@ app.prepare().then(() => {
     app.render(req, res, actualPage, queryParams);
   });
 
-  server.all('*', (req, res, next) => {
+  server.all('*', (req, res) => {
     const parsedUrl = parse(req.url, true);
     // if (req.path.startsWith('/graphql')) return next();
 
