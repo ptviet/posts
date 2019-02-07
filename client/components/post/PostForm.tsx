@@ -1,38 +1,38 @@
-import React, { useState } from "react";
-import Router from "next/router";
-import PropTypes from "prop-types";
-import { withSnackbar } from "notistack";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import FormControl from "@material-ui/core/FormControl";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import Create from "@material-ui/icons/Create";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import Select from "@material-ui/core/Select";
-import Chip from "@material-ui/core/Chip";
-import MenuItem from "@material-ui/core/MenuItem";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { withStyles } from "@material-ui/core/styles";
-import CategoryModel from "../../models/Category";
-import { Mutation, Query } from "react-apollo";
-import { ADD_POST_MUTATION } from "../../lib/Mutations";
+import React, { useState } from 'react';
+import Router from 'next/router';
+import PropTypes from 'prop-types';
+import { withSnackbar } from 'notistack';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import Create from '@material-ui/icons/Create';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Select from '@material-ui/core/Select';
+import Chip from '@material-ui/core/Chip';
+import MenuItem from '@material-ui/core/MenuItem';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { withStyles } from '@material-ui/core/styles';
+import CategoryModel from '../../models/Category';
+import { Mutation, Query } from 'react-apollo';
+import { ADD_POST_MUTATION } from '../../lib/Mutations';
 import {
   ALL_CATEGORIES_QUERY,
   INFINITE_SCROLL_POSTS_QUERY
-} from "../../lib/Queries";
-import { styles, MenuProps, getStyles, getCategoryName } from "./PostFormUtils";
-import Auth from "../auth/Auth";
+} from '../../lib/Queries';
+import { styles, MenuProps, getStyles, getCategoryName } from './PostFormUtils';
+import Auth from '../auth/Auth';
 
 const initialFormState = {
-  title: "",
-  imageUrl: "",
+  title: '',
+  imageUrl: '',
   categories: [],
-  description: ""
+  description: ''
 };
 
 const PostForm = (props: any) => {
@@ -49,19 +49,26 @@ const PostForm = (props: any) => {
 
   const onSubmit = async (event: any, addPostMutation: any) => {
     event.preventDefault();
-    setSubmitted(true);
-    try {
-      await addPostMutation();
-      setForm(initialFormState);
-      setSubmitted(false);
-      enqueueSnackbar("Post created.", {
-        variant: "success"
-      });
-      Router.push({
-        pathname: "/posts"
-      });
-    } catch (error) {
-      setSubmitted(false);
+    if (form.categories.length > 0) {
+      setSubmitted(true);
+      try {
+        const res = await addPostMutation();
+        const newPost = res.data.addPost;
+        setForm(initialFormState);
+        setSubmitted(false);
+        enqueueSnackbar('Post created.', {
+          variant: 'success'
+        });
+        Router.push(
+          {
+            pathname: '/post',
+            query: { _id: newPost._id }
+          },
+          `/post/${newPost._id}`
+        );
+      } catch (error) {
+        setSubmitted(false);
+      }
     }
   };
 
@@ -69,25 +76,25 @@ const PostForm = (props: any) => {
     <Auth>
       {({ data: { currentUser } }) => {
         if (!currentUser) {
-          Router.push("/signin");
+          Router.push('/signin');
         }
 
         return (
           <Query query={ALL_CATEGORIES_QUERY}>
             {({ data, error, loading }) => {
               if (loading) {
-                return <CircularProgress color="primary" />;
+                return <CircularProgress color='primary' />;
               }
               if (error) {
                 return (
-                  <Typography variant="body1" color="error">
-                    {error.message.replace("GraphQL error: ", "")}
+                  <Typography variant='body1' color='error'>
+                    {error.message.replace('GraphQL error: ', '')}
                   </Typography>
                 );
               }
               if (data.categories.length === 0) {
                 return (
-                  <Typography variant="body1">No Categories Found.</Typography>
+                  <Typography variant='body1'>No Categories Found.</Typography>
                 );
               }
               return (
@@ -104,58 +111,58 @@ const PostForm = (props: any) => {
                           <Avatar className={classes.avatar}>
                             <Create />
                           </Avatar>
-                          <Typography component="h1" variant="h5">
+                          <Typography component='h1' variant='h5'>
                             CREATE A NEW POST
                           </Typography>
                           <form
                             className={classes.form}
                             onSubmit={e => onSubmit(e, addPost)}
                           >
-                            <FormControl margin="normal" required fullWidth>
-                              <InputLabel htmlFor="title">Title</InputLabel>
+                            <FormControl margin='normal' required fullWidth>
+                              <InputLabel htmlFor='title'>Title</InputLabel>
                               <Input
-                                id="title"
-                                name="title"
-                                autoComplete="title"
+                                id='title'
+                                name='title'
+                                autoComplete='title'
                                 onChange={onChange}
                                 value={form.title}
                                 autoFocus
                               />
                             </FormControl>
-                            <FormControl margin="normal" required fullWidth>
-                              <InputLabel htmlFor="email">Image URL</InputLabel>
+                            <FormControl margin='normal' required fullWidth>
+                              <InputLabel htmlFor='email'>Image URL</InputLabel>
                               <Input
-                                id="imageUrl"
-                                name="imageUrl"
-                                autoComplete="imageUrl"
+                                id='imageUrl'
+                                name='imageUrl'
+                                autoComplete='imageUrl'
                                 onChange={onChange}
                                 value={form.imageUrl}
                               />
                             </FormControl>
                             {form.imageUrl && (
-                              <FormControl margin="normal" required fullWidth>
+                              <FormControl margin='normal' required fullWidth>
                                 <Card
                                   className={classes.card}
-                                  id="imagePreview"
+                                  id='imagePreview'
                                 >
                                   <CardMedia
                                     className={classes.media}
                                     image={form.imageUrl}
-                                    title="Image Preview"
+                                    title='Image Preview'
                                   />
                                 </Card>
                               </FormControl>
                             )}
-                            <FormControl margin="normal" required fullWidth>
-                              <InputLabel htmlFor="categories">
+                            <FormControl margin='normal' required fullWidth>
+                              <InputLabel htmlFor='categories'>
                                 Categories
                               </InputLabel>
                               <Select
                                 multiple
-                                name="categories"
+                                name='categories'
                                 value={form.categories}
                                 onChange={onChange}
-                                input={<Input id="categories" />}
+                                input={<Input id='categories' />}
                                 renderValue={(selected: any) => {
                                   return (
                                     <div className={classes.chips}>
@@ -191,25 +198,25 @@ const PostForm = (props: any) => {
                                 )}
                               </Select>
                             </FormControl>
-                            <FormControl margin="normal" required fullWidth>
-                              <InputLabel htmlFor="description">
+                            <FormControl margin='normal' required fullWidth>
+                              <InputLabel htmlFor='description'>
                                 Description
                               </InputLabel>
                               <Input
-                                name="description"
-                                type="description"
-                                id="description"
+                                name='description'
+                                type='description'
+                                id='description'
                                 multiline={true}
-                                rowsMax="16"
-                                rows="16"
+                                rowsMax='16'
+                                rows='16'
                                 onChange={onChange}
                                 value={form.description}
                               />
                             </FormControl>
                             <Button
-                              type="submit"
-                              variant="contained"
-                              color="secondary"
+                              type='submit'
+                              variant='contained'
+                              color='secondary'
                               className={classes.submit}
                               disabled={submitted}
                             >
@@ -218,11 +225,11 @@ const PostForm = (props: any) => {
                           </form>
                           <br />
                           {(isLoading || submitted) && (
-                            <CircularProgress color="primary" />
+                            <CircularProgress color='primary' />
                           )}
                           {err && (
-                            <Typography variant="body1" color="error">
-                              {err.message.replace("GraphQL error: ", "")}
+                            <Typography variant='body1' color='error'>
+                              {err.message.replace('GraphQL error: ', '')}
                             </Typography>
                           )}
                         </Paper>
