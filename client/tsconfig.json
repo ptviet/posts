@@ -1,8 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "es6",
+    "module": "commonjs",
     "jsx": "preserve",
     "allowJs": true,
     "strict": true,
@@ -19,7 +19,7 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "typeRoots": ["./node_modules/@types"],
-    "lib": ["dom", "es2015", "es2016", "esnext"]
+    "lib": ["dom", "es6", "esnext"]
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "__test__", "__mocks__"]
