@@ -14,9 +14,9 @@ class Page extends Component {
           // '-moz-background-size': 'cover',
           // '-o-background-size': 'cover',
           // 'background-size': 'cover',
-          'min-height': '100vh',
+          minHeight: '100vh',
           display: 'flex',
-          'flex-direction': 'column'
+          flexDirection: 'column'
         }}
       >
         <Head>

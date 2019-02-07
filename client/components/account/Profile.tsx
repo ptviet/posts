@@ -1,15 +1,23 @@
-import React from "react";
-import Router from "next/router";
-import Auth from "../auth/Auth";
+import React from 'react';
+import Head from 'next/head';
+import Router from 'next/router';
+import Auth from '../auth/Auth';
 
 const Profile = () => (
   <Auth>
     {({ data: { currentUser } }) => {
       if (!currentUser) {
-        Router.push("/signin");
+        Router.push('/signin');
       }
 
-      return <p>My Profile</p>;
+      return (
+        <>
+          <Head>
+            <title>My Profile</title>
+          </Head>
+          <p>My Profile</p>
+        </>
+      );
     }}
   </Auth>
 );

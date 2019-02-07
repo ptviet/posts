@@ -1,36 +1,37 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Query } from "react-apollo";
-import { withStyles } from "@material-ui/core/styles";
-import SyncIcon from "@material-ui/icons/Sync";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Grid from "@material-ui/core/Grid";
-import Post from "./Post";
-import PostModel from "../../models/Post";
-import { POSTS_BY_USERID_INFINITE_SCROLL_QUERY } from "../../lib/Queries";
-import { pageSize } from "../../config";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Head from 'next/head';
+import { Query } from 'react-apollo';
+import { withStyles } from '@material-ui/core/styles';
+import SyncIcon from '@material-ui/icons/Sync';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
+import Post from './Post';
+import PostModel from '../../models/Post';
+import { POSTS_BY_USERID_INFINITE_SCROLL_QUERY } from '../../lib/Queries';
+import { pageSize } from '../../config';
 
 const styles = (theme: any) => ({
   root: {
-    width: "96%",
-    margin: "auto",
+    width: '96%',
+    margin: 'auto',
     paddingTop: theme.spacing.unit
   },
   grid: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    overflow: "hidden"
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden'
   },
   gridList: {
-    width: "100%",
-    height: "auto"
+    width: '100%',
+    height: 'auto'
   },
   link: {
-    textDecoration: "none",
-    color: "inherit"
+    textDecoration: 'none',
+    color: 'inherit'
   }
 });
 
@@ -72,11 +73,11 @@ const ByUser = (props: any) => {
       {({ data, error, loading, fetchMore }) => {
         hasMore = data.postsByUserId.hasMore;
         if (loading) {
-          return <CircularProgress className={classes.root} color="primary" />;
+          return <CircularProgress className={classes.root} color='primary' />;
         }
         if (error) {
           return (
-            <Typography className={classes.root} variant="body1" color="error">
+            <Typography className={classes.root} variant='body1' color='error'>
               No Posts Found.
             </Typography>
           );
@@ -84,37 +85,42 @@ const ByUser = (props: any) => {
         const posts: PostModel[] = data.postsByUserId.posts;
         if (posts.length === 0) {
           return (
-            <Typography className={classes.root} variant="body1">
+            <Typography className={classes.root} variant='body1'>
               No Posts Found.
             </Typography>
           );
         }
         return (
-          <div className={classes.root}>
-            <Grid container spacing={16} style={{ padding: 16 }}>
-              {posts.map((post: PostModel) => (
-                <Grid key={post._id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-                  <Post post={post} returnEnabled={false} />
-                </Grid>
-              ))}
-            </Grid>
-            {hasMore && (
-              <div
-                style={{
-                  textAlign: "center",
-                  marginBottom: "10px",
-                  marginTop: "10px"
-                }}
-              >
-                <Button
-                  color="inherit"
-                  onClick={event => fetchMorePosts(event, fetchMore)}
+          <>
+            <Head>
+              <title>POSTS | {posts[0].createdBy.name}</title>
+            </Head>
+            <div className={classes.root}>
+              <Grid container spacing={16} style={{ padding: 16 }}>
+                {posts.map((post: PostModel) => (
+                  <Grid key={post._id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+                    <Post post={post} returnEnabled={false} />
+                  </Grid>
+                ))}
+              </Grid>
+              {hasMore && (
+                <div
+                  style={{
+                    textAlign: 'center',
+                    marginBottom: '10px',
+                    marginTop: '10px'
+                  }}
                 >
-                  <SyncIcon />
-                </Button>
-              </div>
-            )}
-          </div>
+                  <Button
+                    color='inherit'
+                    onClick={event => fetchMorePosts(event, fetchMore)}
+                  >
+                    <SyncIcon />
+                  </Button>
+                </div>
+              )}
+            </div>
+          </>
         );
       }}
     </Query>
