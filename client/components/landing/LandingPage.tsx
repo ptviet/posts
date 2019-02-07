@@ -1,38 +1,38 @@
-import React from "react";
-import Link from "next/link";
-import { Query } from "react-apollo";
-import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
-import { withStyles } from "@material-ui/core/styles";
-import SyncIcon from "@material-ui/icons/Sync";
-import Typography from "@material-ui/core/Typography";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import PostModel from "../../models/Post";
+import React from 'react';
+import Link from 'next/link';
+import { Query } from 'react-apollo';
+import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import { withStyles } from '@material-ui/core/styles';
+import SyncIcon from '@material-ui/icons/Sync';
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import PostModel from '../../models/Post';
 // @ts-ignore
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import PaginationModel from "../../models/Pagination";
-import { INFINITE_SCROLL_POSTS_QUERY } from "../../lib/Queries";
-import { pageSize } from "../../config";
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import PaginationModel from '../../models/Pagination';
+import { INFINITE_SCROLL_POSTS_QUERY } from '../../lib/Queries';
+import { pageSize } from '../../config';
 
 const styles = (theme: any) => ({
   root: {
-    width: "80%",
-    margin: "auto",
+    width: '80%',
+    margin: 'auto',
     paddingTop: theme.spacing.unit,
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    overflow: "hidden"
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden'
   },
   link: {
-    textDecoration: "none",
-    color: "inherit"
+    textDecoration: 'none',
+    color: 'inherit'
   },
   media: {
     // ⚠️ object-fit is not supported by IE 11.
-    objectFit: "cover"
+    objectFit: 'cover'
   }
 });
 
@@ -74,19 +74,19 @@ const LandingPage = ({ classes }: any) => {
         const infiniteScrollPosts: PaginationModel = data.infiniteScrollPosts;
         hasMore = infiniteScrollPosts.hasMore;
         if (loading) {
-          return <CircularProgress className={classes.root} color="primary" />;
+          return <CircularProgress className={classes.root} color='primary' />;
         }
         if (error) {
           return (
-            <Typography className={classes.root} variant="body1" color="error">
-              {error.message.replace("GraphQL error: ", "")}
+            <Typography className={classes.root} variant='body1' color='error'>
+              {error.message.replace('GraphQL error: ', '')}
             </Typography>
           );
         }
         const posts: PostModel[] = infiniteScrollPosts.posts;
         if (posts.length === 0) {
           return (
-            <Typography className={classes.root} variant="body1">
+            <Typography className={classes.root} variant='body1'>
               No Posts Found.
             </Typography>
           );
@@ -94,9 +94,17 @@ const LandingPage = ({ classes }: any) => {
         return (
           <div className={classes.root}>
             <ResponsiveMasonry
-              columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+              // columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+              // {xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920}
+              columnsCountBreakPoints={{
+                0: 1,
+                500: 2,
+                900: 3,
+                1200: 4,
+                1900: 5
+              }}
             >
-              <Masonry gutter="16px">
+              <Masonry gutter='16px'>
                 {posts.map((post: PostModel) => (
                   <Link
                     key={post._id}
@@ -105,13 +113,13 @@ const LandingPage = ({ classes }: any) => {
                   >
                     <a
                       style={{
-                        textDecoration: "none",
-                        color: "inherit"
+                        textDecoration: 'none',
+                        color: 'inherit'
                       }}
                     >
                       <Card>
                         <CardMedia
-                          component="img"
+                          component='img'
                           className={classes.media}
                           image={post.imageUrl}
                           title={post.title}
@@ -126,13 +134,13 @@ const LandingPage = ({ classes }: any) => {
             {hasMore && (
               <div
                 style={{
-                  textAlign: "center",
-                  marginBottom: "10px",
-                  marginTop: "10px"
+                  textAlign: 'center',
+                  marginBottom: '10px',
+                  marginTop: '10px'
                 }}
               >
                 <Button
-                  color="inherit"
+                  color='inherit'
                   onClick={event => fetchMorePosts(event, fetchMore)}
                 >
                   <SyncIcon />

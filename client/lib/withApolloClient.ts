@@ -16,6 +16,4 @@ const createApolloClient = ({ headers }: any) =>
     }
   });
 
-export default withApollo(createApolloClient, {
-  getDataFromTree: 'always'
-});
+export default withApollo(createApolloClient);
