@@ -4,7 +4,7 @@
   "description": "posts-be",
   "main": "dist/server.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cd client && npm run build",
     "server:dev": "nodemon",
     "server": "NODE_ENV=production PORT=40001 node dist/server.js",
     "client:dev": "cd client && npm run dev",
@@ -44,9 +44,5 @@
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",
     "tslint-plugin-prettier": "^2.0.1"
-  },
-  "engines": {
-    "node": "11.6.0",
-    "npm": "6.5.0"
   }
 }

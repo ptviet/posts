@@ -4,7 +4,7 @@
   "description": "posts",
   "private": true,
   "scripts": {
-    "dev": "nodemon src/server.ts",
+    "dev": "nodemon server/server.ts",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "NODE_ENV=production node .next/production-server/server.js",
     "test": "jest --watch",
@@ -112,10 +112,6 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/mocks.ts",
       "\\.(css|less)$": "<rootDir>/__mocks__/mocks.ts"
     }
-  },
-  "engines": {
-    "node": "11.6.0",
-    "npm": "6.5.0"
   },
   "browserslist": [
     ">0.2%",
