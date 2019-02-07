@@ -27,7 +27,6 @@ app.prepare().then(() => {
   const server = express();
   server.use(cors());
   server.options('*', cors());
-  server.post('*', cors());
 
   server.get('/', (req, res) => {
     const actualPage = '/';
