@@ -6,7 +6,19 @@ import Header from './header/Header';
 class Page extends Component {
   render() {
     return (
-      <div>
+      <div
+        style={{
+          // background:
+          //   'linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url(/static/bg.jpg) no-repeat center center fixed',
+          // '-webkit-background-size': 'cover',
+          // '-moz-background-size': 'cover',
+          // '-o-background-size': 'cover',
+          // 'background-size': 'cover',
+          'min-height': '100vh',
+          display: 'flex',
+          'flex-direction': 'column'
+        }}
+      >
         <Head>
           <title>Posts</title>
         </Head>
@@ -18,14 +30,15 @@ class Page extends Component {
             left: 0,
             bottom: 0,
             height: 50,
-            width: '100%'
+            width: '100%',
+            marginTop: 'auto'
           }}
         >
           <div
             style={{
               textAlign: 'center',
               paddingTop: 30,
-              paddingBottom: 5
+              marginBottom: 5
             }}
           >
             <Typography variant='caption' gutterBottom>
