@@ -1,8 +1,9 @@
-import bcrypt from "bcryptjs";
-import dotenv from "dotenv";
-import { createToken, checkAuth } from "./Utils";
+import bcrypt from 'bcryptjs';
+// import dotenv from "dotenv";
+import { createToken, checkAuth } from './Utils';
 
-dotenv.config({ path: "variables.env" });
+// dotenv.config({ path: "variables.env" });
+require('now-env');
 
 const Mutation = {
   // SIGN IN
@@ -12,18 +13,18 @@ const Mutation = {
     const user = await User.findOne({ username });
 
     if (!user) {
-      throw new Error("Invalid credentials.");
+      throw new Error('Invalid credentials.');
     }
 
     // Check if the account is locked
     if (user.isLocked) {
-      throw new Error("Your account is locked.");
+      throw new Error('Your account is locked.');
     }
 
     // Verify the password
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) {
-      throw new Error("Invalid password.");
+      throw new Error('Invalid password.');
     }
 
     // Generate JWT Token
@@ -43,7 +44,7 @@ const Mutation = {
   // SIGN OUT
   async signout(_, args, ctx) {
     ctx.response.clearCookie(process.env.TOKEN);
-    return { message: "See you later!" };
+    return { message: 'See you later!' };
   },
 
   // SIGN UP
@@ -52,12 +53,12 @@ const Mutation = {
 
     let user = await User.findOne({ username });
     if (user) {
-      throw new Error("Username unavailable.");
+      throw new Error('Username unavailable.');
     }
 
     user = await User.findOne({ email });
     if (user) {
-      throw new Error("Email unavailable.");
+      throw new Error('Email unavailable.');
     }
 
     // Hash the password
@@ -87,7 +88,7 @@ const Mutation = {
     const { Category } = ctx;
     const cat = await Category.findOne({ name });
     if (cat) {
-      throw new Error("Category already exists.");
+      throw new Error('Category already exists.');
     }
 
     const newCategory = await new Category({
@@ -114,12 +115,12 @@ const Mutation = {
     newPost = await newPost.save().then(post =>
       post
         .populate({
-          path: "categories",
-          model: "Category"
+          path: 'categories',
+          model: 'Category'
         })
         .populate({
-          path: "createdBy",
-          model: "User"
+          path: 'createdBy',
+          model: 'User'
         })
         // .populate({
         //   path: "messages",

@@ -1,0 +1,7 @@
+{
+  "APP_SECRET": "@app-secret",
+  "FRONTEND_URL": "@frontend-url",
+  "GRAPHQL_URI": "@graphql-uri",
+  "MONGODB_URI": "@mongodb-uri",
+  "TOKEN": "@app-token"
+}

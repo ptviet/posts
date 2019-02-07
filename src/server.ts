@@ -3,11 +3,12 @@ import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 // import bodyParser from "body-parser";
 import { $log } from 'ts-log-debug';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 import createServer from './createServer';
 import User from './models/User';
 
-dotenv.config({ path: 'variables.env' });
+// dotenv.config({ path: 'variables.env' });
+require('now-env');
 
 mongoose
   .connect(process.env.MONGODB_URI, {
