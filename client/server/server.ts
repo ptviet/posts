@@ -13,11 +13,13 @@ const app = next({ dev });
 const handler = routes.getRequestHandler(app);
 // const handler = app.getRequestHandler();
 
-app.prepare().then(() => {
-  createServer((req: any, res: any) => {
+const startServer = () => {
+  const server = createServer((req: any, res: any) => {
     const parsedUrl = parse(req.url, true);
     handler(req, res, parsedUrl);
-  }).listen(port, (err: any) => {
+  });
+
+  server.listen(port, (err: any) => {
     if (err) {
       throw err;
     }
@@ -100,4 +102,12 @@ app.prepare().then(() => {
   //   }
   //   $log.debug(`> Ready on http://localhost:${port}`);
   // });
-});
+};
+
+const startApp = () => {
+  app.prepare().then(() => startServer());
+};
+
+startApp();
+
+export default startApp;
