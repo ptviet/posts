@@ -1,6 +1,6 @@
-import withApollo from "next-with-apollo";
-import ApolloClient from "apollo-boost";
-import { GRAPHQL_URI } from "../config";
+import withApollo from 'next-with-apollo';
+import ApolloClient from 'apollo-boost';
+import { GRAPHQL_URI } from '../config';
 
 const createApolloClient = ({ headers }: any) =>
   // @ts-ignore
@@ -9,12 +9,13 @@ const createApolloClient = ({ headers }: any) =>
     request: operation => {
       operation.setContext({
         fetchOptions: {
-          credentials: "include"
-          // mode: "no-cors"
+          credentials: 'include'
         },
         headers
       });
     }
   });
 
-export default withApollo(createApolloClient);
+export default withApollo(createApolloClient, {
+  getDataFromTree: 'always'
+});

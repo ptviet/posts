@@ -28,10 +28,11 @@ app.prepare().then(() => {
   server.use(cors());
   server.options('*', cors());
 
-  server.all('*', (req, res) => {
+  server.all('*', (req, res, next) => {
     const parsedUrl = parse(req.url, true);
+    if (req.path.startsWith('/graphql')) return next();
 
-    return handler(req, res, parsedUrl);
+    return handler(req, res, parsedUrl, next);
   });
 
   server.listen(port, (err: any) => {

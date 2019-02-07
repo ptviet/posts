@@ -33,7 +33,7 @@ const styles: any = (theme: any) => ({
     maxWidth: '100%'
   },
   chip: {
-    margin: theme.spacing.unit
+    margin: 2
   },
   media: {
     height: 0,
@@ -181,20 +181,22 @@ const Post = (props: any) => {
           />
         </a>
       </Link>
-      <CardContent>
-        <Typography component='p'>{post.title}</Typography>
-      </CardContent>
-      {/* <Divider variant="middle" /> */}
-      {post.categories.map((cat: any) => (
-        <Chip
-          key={cat._id}
-          color='secondary'
-          label={cat.name}
-          onClick={event => handleCategoryClick(event, cat._id)}
-          className={classes.chip}
-        />
-      ))}
-
+      <div style={{ textAlign: 'center' }}>
+        <CardContent>
+          <Typography component='p'>{post.title}</Typography>
+        </CardContent>
+        {/* <Divider variant="middle" /> */}
+        {post.categories.map((cat: any) => (
+          <Chip
+            key={cat._id}
+            // color='secondary'
+            variant='outlined'
+            label={cat.name}
+            onClick={event => handleCategoryClick(event, cat._id)}
+            className={classes.chip}
+          />
+        ))}
+      </div>
       {returnEnabled && (
         <Collapse in={expanded} timeout='auto' unmountOnExit>
           <Divider variant='middle' />
