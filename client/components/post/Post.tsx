@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import Head from 'next/head';
 import Router from 'next/router';
 import classnames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';

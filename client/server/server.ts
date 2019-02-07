@@ -4,7 +4,7 @@ import cors from 'cors';
 import { parse } from 'url';
 import next from 'next';
 import { $log } from 'ts-log-debug';
-import { routes } from './routes';
+import routes from './routes';
 
 // @ts-ignore
 const port = parseInt(process.env.PORT, 10) || 3000;
@@ -28,19 +28,7 @@ app.prepare().then(() => {
   server.use(cors());
   server.options('*', cors());
 
-  server.get('*', (req, res) => {
-    const parsedUrl = parse(req.url, true);
-
-    return handler(req, res, parsedUrl);
-  });
-
-  server.post('*', (req, res) => {
-    const parsedUrl = parse(req.url, true);
-
-    return handler(req, res, parsedUrl);
-  });
-
-  server.options('*', (req, res) => {
+  server.all('*', (req, res) => {
     const parsedUrl = parse(req.url, true);
 
     return handler(req, res, parsedUrl);

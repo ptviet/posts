@@ -1,7 +1,7 @@
 import nextRoutes from 'next-routes';
 
-// @ts-ignore
-export const routes = nextRoutes();
+//@ts-ignore
+const routes = nextRoutes();
 
 routes.add('index', '/', 'index');
 routes.add('signin', '/signin', 'signin');
@@ -14,3 +14,5 @@ routes.add('post', '/post/:_id', 'post');
 routes.add('newcategory', '/category/new', 'newcategory');
 routes.add('category', '/category/:_id', 'category');
 routes.add('user', '/user/:_id', 'user');
+
+export default routes;
