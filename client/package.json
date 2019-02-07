@@ -4,7 +4,7 @@
   "description": "posts",
   "private": true,
   "scripts": {
-    "dev": "nodemon server/server.ts",
+    "dev": "nodemon src/server.ts",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "NODE_ENV=production node .next/production-server/server.js",
     "test": "jest --watch",
