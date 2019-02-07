@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import { gql } from 'apollo-boost';
 
 export const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($username: String!, $password: String!) {
@@ -99,6 +99,20 @@ export const ADD_POST_MUTATION = gql`
         #   avatar
         #   isLocked
         # }
+      }
+    }
+  }
+`;
+
+export const ADD_CATEGORY_MUTATION = gql`
+  mutation ADD_CATEGORY_MUTATION($name: String!, $description: String!) {
+    addCategory(name: $name, description: $description) {
+      _id
+      name
+      description
+      createdDate
+      createdBy {
+        _id
       }
     }
   }

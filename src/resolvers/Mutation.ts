@@ -85,6 +85,11 @@ const Mutation = {
   async addCategory(_, { name, description }, ctx) {
     checkAuth(ctx);
     const { Category } = ctx;
+    const cat = await Category.findOne({ name });
+    if (cat) {
+      throw new Error("Category already exists.");
+    }
+
     const newCategory = await new Category({
       name,
       description,

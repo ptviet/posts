@@ -1,21 +1,22 @@
-import React from "react";
-import Router from "next/router";
-import PersonAdd from "@material-ui/icons/PersonAdd";
-import Chat from "@material-ui/icons/Chat";
-import LockOpen from "@material-ui/icons/LockOpen";
-import AccountBalance from "@material-ui/icons/AccountBalance";
-import AddBox from "@material-ui/icons/AddBox";
-import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import IconButton from "@material-ui/core/IconButton";
-import SignOut from "../auth/SignOut";
+import React from 'react';
+import Router from 'next/router';
+import PersonAdd from '@material-ui/icons/PersonAdd';
+import Assignment from '@material-ui/icons/Assignment';
+import Chat from '@material-ui/icons/Chat';
+import LockOpen from '@material-ui/icons/LockOpen';
+import AccountBalance from '@material-ui/icons/AccountBalance';
+import AddBox from '@material-ui/icons/AddBox';
+import Badge from '@material-ui/core/Badge';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import IconButton from '@material-ui/core/IconButton';
+import SignOut from '../auth/SignOut';
 
 export const DesktopMenu = ({ anchorEl, isMenuOpen, handleMenuClose }: any) => (
   <Menu
     anchorEl={anchorEl}
-    anchorOrigin={{ vertical: "top", horizontal: "right" }}
-    transformOrigin={{ vertical: "top", horizontal: "right" }}
+    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
     open={isMenuOpen}
     onClose={handleMenuClose}
   >
@@ -23,7 +24,7 @@ export const DesktopMenu = ({ anchorEl, isMenuOpen, handleMenuClose }: any) => (
       onClick={() => {
         handleMenuClose();
         Router.push({
-          pathname: "/profile"
+          pathname: '/profile'
         });
       }}
     >
@@ -33,7 +34,7 @@ export const DesktopMenu = ({ anchorEl, isMenuOpen, handleMenuClose }: any) => (
       onClick={() => {
         handleMenuClose();
         Router.push({
-          pathname: "/myposts"
+          pathname: '/myposts'
         });
       }}
     >
@@ -51,8 +52,8 @@ export const MobileMenu = ({
 }: any) => (
   <Menu
     anchorEl={mobileMoreAnchorEl}
-    anchorOrigin={{ vertical: "top", horizontal: "right" }}
-    transformOrigin={{ vertical: "top", horizontal: "right" }}
+    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
     open={isMobileMenuOpen}
     onClose={handleMobileMenuClose}
   >
@@ -60,12 +61,12 @@ export const MobileMenu = ({
       onClick={() => {
         handleMobileMenuClose();
         Router.push({
-          pathname: "/posts"
+          pathname: '/posts'
         });
       }}
     >
-      <IconButton color="inherit">
-        <Badge badgeContent={4} color="secondary">
+      <IconButton color='inherit'>
+        <Badge badgeContent={4} color='secondary'>
           <Chat />
         </Badge>
       </IconButton>
@@ -76,11 +77,11 @@ export const MobileMenu = ({
         onClick={() => {
           handleMobileMenuClose();
           Router.push({
-            pathname: "/signin"
+            pathname: '/signin'
           });
         }}
       >
-        <IconButton color="inherit">
+        <IconButton color='inherit'>
           <LockOpen />
         </IconButton>
         <p>SIGN IN</p>
@@ -91,14 +92,29 @@ export const MobileMenu = ({
         onClick={() => {
           handleMobileMenuClose();
           Router.push({
-            pathname: "/signup"
+            pathname: '/signup'
           });
         }}
       >
-        <IconButton color="inherit">
+        <IconButton color='inherit'>
           <PersonAdd />
         </IconButton>
         <p>SIGN UP</p>
+      </MenuItem>
+    )}
+    {currentUser && currentUser.permission === 'ADMIN' && (
+      <MenuItem
+        onClick={() => {
+          handleMobileMenuClose();
+          Router.push({
+            pathname: '/category/new'
+          });
+        }}
+      >
+        <IconButton color='inherit'>
+          <Assignment />
+        </IconButton>
+        <p>NEW CATEGORY</p>
       </MenuItem>
     )}
     {currentUser && (
@@ -106,11 +122,11 @@ export const MobileMenu = ({
         onClick={() => {
           handleMobileMenuClose();
           Router.push({
-            pathname: "/post/new"
+            pathname: '/post/new'
           });
         }}
       >
-        <IconButton color="inherit">
+        <IconButton color='inherit'>
           <AddBox />
         </IconButton>
         <p>NEW POST</p>
@@ -118,7 +134,7 @@ export const MobileMenu = ({
     )}
     {currentUser && (
       <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton color="inherit">
+        <IconButton color='inherit'>
           <AccountBalance />
         </IconButton>
         <p>MY ACCOUNT</p>

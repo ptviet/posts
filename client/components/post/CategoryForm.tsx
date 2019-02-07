@@ -14,12 +14,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
-import { Mutation, Query } from 'react-apollo';
-import { ADD_POST_MUTATION } from '../../lib/Mutations';
-import {
-  ALL_CATEGORIES_QUERY,
-  INFINITE_SCROLL_POSTS_QUERY
-} from '../../lib/Queries';
+import { Mutation } from 'react-apollo';
+import { ADD_CATEGORY_MUTATION } from '../../lib/Mutations';
 import { styles } from './PostFormUtils';
 import Auth from '../auth/Auth';
 
@@ -40,22 +36,22 @@ const CategoryForm = (props: any) => {
     });
   };
 
-  const onSubmit = async (event: any, addPostMutation: any) => {
+  const onSubmit = async (event: any, addCategoryMutation: any) => {
     event.preventDefault();
-    // setSubmitted(true);
-    // try {
-    //   await addPostMutation();
-    //   setForm(initialFormState);
-    //   setSubmitted(false);
-    //   enqueueSnackbar('Post created.', {
-    //     variant: 'success'
-    //   });
-    //   Router.push({
-    //     pathname: '/posts'
-    //   });
-    // } catch (error) {
-    //   setSubmitted(false);
-    // }
+    setSubmitted(true);
+    try {
+      await addCategoryMutation();
+      setForm(initialFormState);
+      setSubmitted(false);
+      enqueueSnackbar('Category created.', {
+        variant: 'success'
+      });
+      Router.push({
+        pathname: '/'
+      });
+    } catch (error) {
+      setSubmitted(false);
+    }
   };
 
   return (
@@ -81,99 +77,72 @@ const CategoryForm = (props: any) => {
             <Head>
               <title>New Category</title>
             </Head>
-            <Query query={ALL_CATEGORIES_QUERY}>
-              {({ data, error, loading }) => {
-                if (loading) {
-                  return <CircularProgress color='primary' />;
-                }
-                if (error) {
-                  return (
-                    <Typography variant='body1' color='error'>
-                      {error.message.replace('GraphQL error: ', '')}
-                    </Typography>
-                  );
-                }
-                if (data.categories.length === 0) {
-                  return (
-                    <Typography variant='body1'>
-                      No Categories Found.
-                    </Typography>
-                  );
-                }
-                return (
-                  <Mutation
-                    mutation={ADD_POST_MUTATION}
-                    variables={form}
-                    refetchQueries={[{ query: INFINITE_SCROLL_POSTS_QUERY }]}
-                  >
-                    {(addPost, { error: err, loading: isLoading }) => (
-                      <div className={classes.root}>
-                        <main className={classes.main}>
-                          <CssBaseline />
-                          <Paper className={classes.paper}>
-                            <Avatar className={classes.avatar}>
-                              <Create />
-                            </Avatar>
-                            <Typography component='h1' variant='h5'>
-                              CREATE A NEW CATEGORY
-                            </Typography>
-                            <form
-                              className={classes.form}
-                              onSubmit={e => onSubmit(e, addPost)}
-                            >
-                              <FormControl margin='normal' required fullWidth>
-                                <InputLabel htmlFor='name'>Name</InputLabel>
-                                <Input
-                                  id='name'
-                                  name='name'
-                                  autoComplete='name'
-                                  onChange={onChange}
-                                  value={form.name}
-                                  autoFocus
-                                />
-                              </FormControl>
-                              <FormControl margin='normal' required fullWidth>
-                                <InputLabel htmlFor='description'>
-                                  Description
-                                </InputLabel>
-                                <Input
-                                  name='description'
-                                  type='description'
-                                  id='description'
-                                  multiline={true}
-                                  rowsMax='6'
-                                  rows='6'
-                                  onChange={onChange}
-                                  value={form.description}
-                                />
-                              </FormControl>
-                              <Button
-                                type='submit'
-                                variant='contained'
-                                color='secondary'
-                                className={classes.submit}
-                                disabled={submitted}
-                              >
-                                SUBMIT
-                              </Button>
-                            </form>
-                            <br />
-                            {(isLoading || submitted) && (
-                              <CircularProgress color='primary' />
-                            )}
-                            {err && (
-                              <Typography variant='body1' color='error'>
-                                {err.message.replace('GraphQL error: ', '')}
-                              </Typography>
-                            )}
-                          </Paper>
-                        </main>
-                      </div>
-                    )}
-                  </Mutation>
-                );
-              }}
-            </Query>
+            <Mutation mutation={ADD_CATEGORY_MUTATION} variables={form}>
+              {(addCategory, { error, loading }) => (
+                <div className={classes.root}>
+                  <main className={classes.main}>
+                    <CssBaseline />
+                    <Paper className={classes.paper}>
+                      <Avatar className={classes.avatar}>
+                        <Create />
+                      </Avatar>
+                      <Typography component='h1' variant='h5'>
+                        CREATE A NEW CATEGORY
+                      </Typography>
+                      <form
+                        className={classes.form}
+                        onSubmit={e => onSubmit(e, addCategory)}
+                      >
+                        <FormControl margin='normal' required fullWidth>
+                          <InputLabel htmlFor='name'>Name</InputLabel>
+                          <Input
+                            id='name'
+                            name='name'
+                            autoComplete='name'
+                            onChange={onChange}
+                            value={form.name}
+                            autoFocus
+                          />
+                        </FormControl>
+                        <FormControl margin='normal' required fullWidth>
+                          <InputLabel htmlFor='description'>
+                            Description
+                          </InputLabel>
+                          <Input
+                            name='description'
+                            type='description'
+                            id='description'
+                            multiline={true}
+                            rowsMax='6'
+                            rows='6'
+                            onChange={onChange}
+                            value={form.description}
+                          />
+                        </FormControl>
+                        <Button
+                          type='submit'
+                          variant='contained'
+                          color='secondary'
+                          className={classes.submit}
+                          disabled={submitted}
+                        >
+                          SUBMIT
+                        </Button>
+                      </form>
+                      <br />
+                      {(loading || submitted) && (
+                        <CircularProgress color='primary' />
+                      )}
+                      {error && (
+                        <Typography variant='body1' color='error'>
+                          {error.message.replace('GraphQL error: ', '')}
+                        </Typography>
+                      )}
+                    </Paper>
+                  </main>
+                </div>
+              )}
+            </Mutation>
           </>
         );
       }}

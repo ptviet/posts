@@ -93,7 +93,7 @@ const SignUp = (props: any) => {
         setForm(initialFormState);
         setConfirmPassword('');
         setSubmitted(false);
-        enqueueSnackbar('You are now signed in.', {
+        enqueueSnackbar('Welcome!', {
           variant: 'success'
         });
         Router.push({
