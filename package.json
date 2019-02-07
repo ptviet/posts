@@ -4,7 +4,7 @@
   "description": "posts-be",
   "main": "dist/server.js",
   "scripts": {
-    "build": "tsc && cd client && npm install && run build",
+    "build": "tsc && cd client && npm install && npm run build",
     "server:dev": "nodemon",
     "server": "NODE_ENV=production PORT=40001 node dist/server.js",
     "client:dev": "cd client && npm run dev",
