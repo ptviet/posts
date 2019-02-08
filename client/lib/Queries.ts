@@ -1,5 +1,4 @@
-import { gql } from "apollo-boost";
-import { pageSize } from "../config";
+import { gql } from 'apollo-boost';
 
 export const CURRENT_USER_QUERY = gql`
   query CURRENT_USER_QUERY {
@@ -41,65 +40,75 @@ export const ALL_CATEGORIES_QUERY = gql`
 `;
 
 export const POSTS_BY_CATEGORY_INFINITE_SCROLL_QUERY = gql`
-  query POSTS_BY_CATEGORY_INFINITE_SCROLL_QUERY($catId: String!, $pageNumber: Int = 1, $pageSize: Int = ${pageSize}) {
+  query POSTS_BY_CATEGORY_INFINITE_SCROLL_QUERY(
+    $catId: String!
+    $pageNumber: Int!
+    $pageSize: Int!
+  ) {
     postsByCatId(catId: $catId, pageNumber: $pageNumber, pageSize: $pageSize) {
       hasMore
-      posts
-        {
+      posts {
+        _id
+        title
+        imageUrl
+        categories {
           _id
-          title
-          imageUrl
-          categories {
-            _id
-            name
-          }
-          description
-          createdDate
-          likes
-          createdBy {
-            _id
-            username
-            name
-            email
-            permission
-            avatar
-          }
-          messages {
-            _id
-          }
+          name
         }
+        description
+        createdDate
+        likes
+        createdBy {
+          _id
+          username
+          name
+          email
+          permission
+          avatar
+        }
+        messages {
+          _id
+        }
+      }
     }
   }
 `;
 
 export const POSTS_BY_USERID_INFINITE_SCROLL_QUERY = gql`
-  query POSTS_BY_USERID_INFINITE_SCROLL_QUERY($userId: String!, $pageNumber: Int = 1, $pageSize: Int = ${pageSize}) {
-    postsByUserId(userId: $userId, pageNumber: $pageNumber, pageSize: $pageSize) {
+  query POSTS_BY_USERID_INFINITE_SCROLL_QUERY(
+    $userId: String!
+    $pageNumber: Int!
+    $pageSize: Int!
+  ) {
+    postsByUserId(
+      userId: $userId
+      pageNumber: $pageNumber
+      pageSize: $pageSize
+    ) {
       hasMore
-      posts
-        {
+      posts {
+        _id
+        title
+        imageUrl
+        categories {
           _id
-          title
-          imageUrl
-          categories {
-            _id
-            name
-          }
-          description
-          createdDate
-          likes
-          createdBy {
-            _id
-            username
-            name
-            email
-            permission
-            avatar
-          }
-          messages {
-            _id
-          }
+          name
         }
+        description
+        createdDate
+        likes
+        createdBy {
+          _id
+          username
+          name
+          email
+          permission
+          avatar
+        }
+        messages {
+          _id
+        }
+      }
     }
   }
 `;
@@ -155,7 +164,7 @@ export const SEARCH_POSTS_QUERY = gql`
 `;
 
 export const INFINITE_SCROLL_POSTS_QUERY = gql`
-  query INFINITE_SCROLL_POSTS_QUERY($pageNumber: Int = 1, $pageSize: Int = ${pageSize}) {
+  query INFINITE_SCROLL_POSTS_QUERY($pageNumber: Int!, $pageSize: Int!) {
     infiniteScrollPosts(pageNumber: $pageNumber, pageSize: $pageSize) {
       hasMore
       posts {

@@ -1,5 +1,5 @@
 import { createServer } from 'http';
-import bodyParser from 'body-parser';
+// import bodyParser from 'body-parser';
 // import express from 'express';
 // import cors from 'cors';
 import { parse } from 'url';
@@ -13,14 +13,20 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handler = routes.getRequestHandler(app);
 // const handler = app.getRequestHandler();
-const jsonParser = bodyParser.json();
+// const jsonParser = bodyParser.json();
 
 const startServer = () => {
+  // const server = createServer(handler);
   const server = createServer((req: any, res: any) => {
-    const parsedUrl = parse(req.url, true);
-    jsonParser(req, res, () => {
+    // jsonParser(req, res, () => {
+    try {
+      const parsedUrl = parse(req.url, true);
       handler(req, res, parsedUrl);
-    });
+    } catch (err) {
+      $log.debug(err);
+    }
+
+    // });
   });
 
   server.listen(port, (err: any) => {

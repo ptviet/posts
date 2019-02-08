@@ -1,36 +1,36 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Query } from "react-apollo";
-import { withStyles } from "@material-ui/core/styles";
-import SyncIcon from "@material-ui/icons/Sync";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Grid from "@material-ui/core/Grid";
-import Post from "./Post";
-import PostModel from "../../models/Post";
-import { POSTS_BY_CATEGORY_INFINITE_SCROLL_QUERY } from "../../lib/Queries";
-import { pageSize } from "../../config";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Query } from 'react-apollo';
+import { withStyles } from '@material-ui/core/styles';
+import SyncIcon from '@material-ui/icons/Sync';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
+import Post from './Post';
+import PostModel from '../../models/Post';
+import { POSTS_BY_CATEGORY_INFINITE_SCROLL_QUERY } from '../../lib/Queries';
+import { pageSize } from '../../config';
 
 const styles = (theme: any) => ({
   root: {
-    width: "96%",
-    margin: "auto",
+    width: '96%',
+    margin: 'auto',
     paddingTop: theme.spacing.unit
   },
   grid: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    overflow: "hidden"
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden'
   },
   gridList: {
-    width: "100%",
-    height: "auto"
+    width: '100%',
+    height: 'auto'
   },
   link: {
-    textDecoration: "none",
-    color: "inherit"
+    textDecoration: 'none',
+    color: 'inherit'
   }
 });
 
@@ -70,13 +70,12 @@ const ByCategory = (props: any) => {
       variables={{ catId: _id, pageNumber, pageSize }}
     >
       {({ data, error, loading, fetchMore }) => {
-        hasMore = data.postsByCatId.hasMore;
         if (loading) {
-          return <CircularProgress className={classes.root} color="primary" />;
+          return <CircularProgress className={classes.root} color='primary' />;
         }
         if (error) {
           return (
-            <Typography className={classes.root} variant="body1" color="error">
+            <Typography className={classes.root} variant='body1' color='error'>
               No Posts Found.
             </Typography>
           );
@@ -84,11 +83,12 @@ const ByCategory = (props: any) => {
         const posts: PostModel[] = data.postsByCatId.posts;
         if (posts.length === 0) {
           return (
-            <Typography className={classes.root} variant="body1">
+            <Typography className={classes.root} variant='body1'>
               No Posts Found.
             </Typography>
           );
         }
+        hasMore = data.postsByCatId.hasMore;
         return (
           <div className={classes.root}>
             <Grid container spacing={16} style={{ padding: 16 }}>
@@ -101,13 +101,13 @@ const ByCategory = (props: any) => {
             {hasMore && (
               <div
                 style={{
-                  textAlign: "center",
-                  marginBottom: "10px",
-                  marginTop: "10px"
+                  textAlign: 'center',
+                  marginBottom: '10px',
+                  marginTop: '10px'
                 }}
               >
                 <Button
-                  color="inherit"
+                  color='inherit'
                   onClick={event => fetchMorePosts(event, fetchMore)}
                 >
                   <SyncIcon />

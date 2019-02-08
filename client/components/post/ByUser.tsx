@@ -71,7 +71,6 @@ const ByUser = (props: any) => {
       variables={{ userId: _id, pageNumber, pageSize }}
     >
       {({ data, error, loading, fetchMore }) => {
-        hasMore = data.postsByUserId.hasMore;
         if (loading) {
           return <CircularProgress className={classes.root} color='primary' />;
         }
@@ -90,6 +89,7 @@ const ByUser = (props: any) => {
             </Typography>
           );
         }
+        hasMore = data.postsByUserId.hasMore;
         return (
           <>
             <Head>

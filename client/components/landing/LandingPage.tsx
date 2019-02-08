@@ -31,7 +31,6 @@ const styles = (theme: any) => ({
     color: 'inherit'
   },
   media: {
-    // ⚠️ object-fit is not supported by IE 11.
     objectFit: 'cover'
   }
 });
@@ -72,7 +71,6 @@ const LandingPage = ({ classes }: any) => {
     >
       {({ data, error, loading, fetchMore }) => {
         const infiniteScrollPosts: PaginationModel = data.infiniteScrollPosts;
-        hasMore = infiniteScrollPosts.hasMore;
         if (loading) {
           return <CircularProgress className={classes.root} color='primary' />;
         }
@@ -91,6 +89,7 @@ const LandingPage = ({ classes }: any) => {
             </Typography>
           );
         }
+        hasMore = infiniteScrollPosts.hasMore;
         return (
           <div className={classes.root}>
             <ResponsiveMasonry

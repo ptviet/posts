@@ -1,38 +1,38 @@
-import React from "react";
-import { Query } from "react-apollo";
-import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import { withStyles } from "@material-ui/core/styles";
-import SyncIcon from "@material-ui/icons/Sync";
-import Typography from "@material-ui/core/Typography";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Post from "./Post";
-import PostModel from "../../models/Post";
-import PaginationModel from "../../models/Pagination";
+import React from 'react';
+import { Query } from 'react-apollo';
+import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import SyncIcon from '@material-ui/icons/Sync';
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Post from './Post';
+import PostModel from '../../models/Post';
+import PaginationModel from '../../models/Pagination';
 // import PostCarousel from "./PostCarousel";
-import { INFINITE_SCROLL_POSTS_QUERY } from "../../lib/Queries";
-import { pageSize } from "../../config";
+import { INFINITE_SCROLL_POSTS_QUERY } from '../../lib/Queries';
+import { pageSize } from '../../config';
 
 const styles = (theme: any) => ({
   root: {
-    width: "96%",
-    margin: "auto",
+    width: '96%',
+    margin: 'auto',
     paddingTop: theme.spacing.unit
   },
   grid: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    overflow: "hidden"
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden'
   },
   gridList: {
-    width: "100%",
-    height: "auto"
+    width: '100%',
+    height: 'auto'
   },
   link: {
-    textDecoration: "none",
-    color: "inherit"
+    textDecoration: 'none',
+    color: 'inherit'
   }
 });
 
@@ -71,25 +71,25 @@ const Posts = ({ classes }: any) => {
       variables={{ pageNumber, pageSize }}
     >
       {({ data, error, loading, fetchMore }) => {
-        const infiniteScrollPosts: PaginationModel = data.infiniteScrollPosts;
-        hasMore = infiniteScrollPosts.hasMore;
         if (loading) {
-          return <CircularProgress className={classes.root} color="primary" />;
+          return <CircularProgress className={classes.root} color='primary' />;
         }
         if (error) {
           return (
-            <Typography className={classes.root} variant="body1" color="error">
+            <Typography className={classes.root} variant='body1' color='error'>
               No Posts Found.
             </Typography>
           );
         }
+        const infiniteScrollPosts: PaginationModel = data.infiniteScrollPosts;
         if (infiniteScrollPosts.posts.length === 0) {
           return (
-            <Typography className={classes.root} variant="body1">
+            <Typography className={classes.root} variant='body1'>
               No Posts Found.
             </Typography>
           );
         }
+        hasMore = infiniteScrollPosts.hasMore;
         return (
           <div className={classes.root}>
             {/* <div
@@ -114,13 +114,13 @@ const Posts = ({ classes }: any) => {
             {hasMore && (
               <div
                 style={{
-                  textAlign: "center",
-                  marginBottom: "10px",
-                  marginTop: "10px"
+                  textAlign: 'center',
+                  marginBottom: '10px',
+                  marginTop: '10px'
                 }}
               >
                 <Button
-                  color="inherit"
+                  color='inherit'
                   onClick={event => fetchMorePosts(event, fetchMore)}
                 >
                   <SyncIcon />

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
-import bodyParser from 'body-parser';
+// import bodyParser from 'body-parser';
 import { $log } from 'ts-log-debug';
 // import dotenv from 'dotenv';
 import createServer from './createServer';
@@ -20,32 +20,43 @@ mongoose
 
 const server = createServer();
 
-server.express.use(bodyParser.json());
+// server.express.use(bodyParser.json());
 
 // Use Express middleware to handle cookies (JWT)
 server.express.use(cookieParser());
 
-server.express.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', process.env.APP_SECRET);
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
-  next();
-});
+// server.express.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', process.env.APP_SECRET);
+//   res.header(
+//     'Access-Control-Allow-Headers',
+//     'Origin, X-Requested-With, Content-Type, Accept'
+//   );
+//   next();
+// });
 
 // Decode the JWT to get userId on each request
 server.express.use(async (req, res, next) => {
-  const { POSTS__TOKEN_ } = req.cookies;
-  if (POSTS__TOKEN_) {
-    // @ts-ignore
-    const { userId } = jwt.verify(POSTS__TOKEN_, process.env.APP_SECRET);
-    // Put the userId onto the req for future requests to access
-    // @ts-ignore
-    req.userId = userId;
+  // @ts-ignore
+  req.userId = '';
+  if (req.cookies) {
+    const { POSTS__TOKEN_ } = req.cookies;
+    if (POSTS__TOKEN_) {
+      // @ts-ignore
+      const data = jwt.verify(POSTS__TOKEN_, process.env.APP_SECRET);
+      if (data) {
+        // @ts-ignore
+        const { userId } = data;
+        // Put the userId onto the req for future requests to access
+
+        if (userId) {
+          // @ts-ignore
+          req.userId = userId;
+        }
+      }
+    }
   }
 
-  next();
+  return next();
 });
 
 // Use Express middleware to populate current user
@@ -58,9 +69,13 @@ server.express.use(async (req, res, next) => {
 
   // @ts-ignore
   const user = await User.findById(req.userId);
-  // @ts-ignore
-  req.user = user;
-  next();
+
+  if (user) {
+    // @ts-ignore
+    req.user = user;
+  }
+
+  return next();
 });
 
 server.start(
