@@ -27,6 +27,7 @@
     "@types/mongoose": "^5.3.8",
     "@types/node": "^10.12.18",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
     "cookie-parser": "^1.4.3",
     "dotenv": "^6.2.0",
