@@ -67,11 +67,9 @@ server.start(
   {
     cors: {
       credentials: true,
-      origin: process.env.FRONTEND_URL
+      origin: [process.env.FRONTEND_URL, 'http://localhost:3000']
     },
-    port: parseInt(process.env.PORT, 10) || 40001,
-    endpoint: '/',
-    playground: '/'
+    port: parseInt(process.env.PORT, 10) || 40001
   },
   deets => {
     $log.debug(`Server is now running on: http://localhost:${deets.port}`);

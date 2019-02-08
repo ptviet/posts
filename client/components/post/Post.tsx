@@ -36,9 +36,9 @@ const styles: any = (theme: any) => ({
     margin: 2
   },
   media: {
-    objectFit: 'cover'
-    // height: 0,
-    // paddingTop: '56.25%' // 16:9
+    // objectFit: 'cover'
+    height: 0,
+    paddingTop: '56.25%' // 16:9
   },
   actions: {
     display: 'flex'

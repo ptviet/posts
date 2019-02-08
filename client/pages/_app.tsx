@@ -1,14 +1,14 @@
-import React from "react";
-import { ApolloProvider } from "react-apollo";
-import App, { Container } from "next/app";
-import { SnackbarProvider } from "notistack";
-import Button from "@material-ui/core/Button";
-import { MuiThemeProvider } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import JssProvider from "react-jss/lib/JssProvider";
-import getPageContext from "../lib/getPageContext";
-import Page from "../components/Page";
-import withApolloClient from "../lib/withApolloClient";
+import React from 'react';
+import { ApolloProvider } from 'react-apollo';
+import App, { Container } from 'next/app';
+import { SnackbarProvider } from 'notistack';
+import Button from '@material-ui/core/Button';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import JssProvider from 'react-jss/lib/JssProvider';
+import getPageContext from '../lib/getPageContext';
+import Page from '../components/Page';
+import withApolloClient from '../lib/withApolloClient';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }: any) {
@@ -23,7 +23,7 @@ class MyApp extends App {
 
   componentDidMount() {
     // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector("#jss-server-side");
+    const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
@@ -50,25 +50,25 @@ class MyApp extends App {
             <CssBaseline />
             {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server-side. */}
-            <ApolloProvider client={apollo}>
-              <SnackbarProvider
-                maxSnack={1}
-                hideIconVariant={false}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "center"
-                }}
-                action={
-                  <Button color="inherit" size="small">
-                    Dismiss
-                  </Button>
-                }
-              >
+            <SnackbarProvider
+              maxSnack={1}
+              hideIconVariant={false}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center'
+              }}
+              action={
+                <Button color='inherit' size='small'>
+                  Dismiss
+                </Button>
+              }
+            >
+              <ApolloProvider client={apollo}>
                 <Page>
                   <Component pageContext={pageContext} {...pageProps} />
                 </Page>
-              </SnackbarProvider>
-            </ApolloProvider>
+              </ApolloProvider>
+            </SnackbarProvider>
           </MuiThemeProvider>
         </JssProvider>
       </Container>
