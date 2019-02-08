@@ -51,6 +51,7 @@
     "react": "next",
     "react-apollo": "^2.4.0",
     "react-dom": "next",
+    "react-image-lightbox": "^5.1.0",
     "react-jss": "^8.6.1",
     "react-responsive-masonry": "^2.0.0",
     "react-scripts": "^2.1.3",

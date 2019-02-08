@@ -25,6 +25,15 @@ server.express.use(bodyParser.json());
 // Use Express middleware to handle cookies (JWT)
 server.express.use(cookieParser());
 
+server.express.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', process.env.APP_SECRET);
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  next();
+});
+
 // Decode the JWT to get userId on each request
 server.express.use(async (req, res, next) => {
   const { POSTS__TOKEN_ } = req.cookies;

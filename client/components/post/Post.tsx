@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 import Link from 'next/link';
 import Router from 'next/router';
 import classnames from 'classnames';
@@ -24,8 +26,8 @@ import Textsms from '@material-ui/icons/Textsms';
 import ShareIcon from '@material-ui/icons/Share';
 import SendIcon from '@material-ui/icons/Send';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import { millisecToDate } from '../../lib/formatDate';
-// import { FRONTEND_URL } from "../../config";
 import _ from 'lodash';
 
 const styles: any = (theme: any) => ({
@@ -36,7 +38,6 @@ const styles: any = (theme: any) => ({
     margin: 2
   },
   media: {
-    // objectFit: 'cover'
     height: 0,
     paddingTop: '56.25%' // 16:9
   },
@@ -61,6 +62,7 @@ const styles: any = (theme: any) => ({
 const Post = (props: any) => {
   const { classes, post, returnEnabled } = props;
   const [expanded, setExpanded] = useState(false);
+  const [openModal, setModal] = useState(false);
   const [commentAreaOpen, setCommentAreaOpen] = useState(false);
   const [tooltipOpen, setTooltipOpen] = React.useState(false);
 
@@ -82,6 +84,13 @@ const Post = (props: any) => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
     scrollToBottom();
+  };
+
+  const handleModalOpen = () => {
+    setModal(true);
+  };
+  const handleModalClose = () => {
+    setModal(false);
   };
 
   const toggleCommentArea = () => {
@@ -107,7 +116,6 @@ const Post = (props: any) => {
     setTooltipOpen(true);
     const textField = document.createElement('textarea');
     textField.innerText = `${getUrl()}/post/${post._id}`;
-    // textField.innerText = `${FRONTEND_URL}/post/${post._id}`;
     document.body.appendChild(textField);
     textField.select();
     document.execCommand('copy');
@@ -168,29 +176,23 @@ const Post = (props: any) => {
           </Link>
         }
       />
-      <Link as={`/post/${post._id}`} href={`/post?_id=${post._id}`}>
-        <a
-          style={{
-            textDecoration: 'none',
-            color: 'inherit'
-          }}
-        >
-          <CardMedia
-            className={classes.media}
-            image={post.imageUrl}
-            title={post.title}
-          />
-        </a>
-      </Link>
+      <CardActionArea onClick={handleModalOpen}>
+        <CardMedia
+          className={classes.media}
+          image={post.imageUrl}
+          title={post.title}
+        />
+      </CardActionArea>
+      {openModal && (
+        <Lightbox mainSrc={post.imageUrl} onCloseRequest={handleModalClose} />
+      )}
       <div style={{ textAlign: 'center' }}>
         <CardContent>
           <Typography component='p'>{post.title}</Typography>
         </CardContent>
-        {/* <Divider variant="middle" /> */}
         {post.categories.map((cat: any) => (
           <Chip
             key={cat._id}
-            // color='secondary'
             variant='outlined'
             label={cat.name}
             onClick={event => handleCategoryClick(event, cat._id)}
