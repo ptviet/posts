@@ -4,4 +4,4 @@ projects:
     includes: ['**/*.graphql']
     extensions:
       endpoints:
-        default: 'http://localhost:40001'
+        default: 'http://localhost:40001/graphql'

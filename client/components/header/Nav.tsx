@@ -107,7 +107,8 @@ export const MobileMenu = ({
         onClick={() => {
           handleMobileMenuClose();
           Router.push({
-            pathname: '/category/new'
+            pathname: '/newcategory'
+            // pathname: '/category/new'
           });
         }}
       >
@@ -122,7 +123,8 @@ export const MobileMenu = ({
         onClick={() => {
           handleMobileMenuClose();
           Router.push({
-            pathname: '/post/new'
+            pathname: '/newpost'
+            // pathname: '/post/new'
           });
         }}
       >

@@ -85,7 +85,7 @@ server.start(
       origin: [process.env.FRONTEND_URL, 'http://localhost:3000']
     },
     port: parseInt(process.env.PORT, 10) || 40001,
-    endpoint: '/',
+    endpoint: '/graphql',
     playground: '/playground'
   },
   deets => {

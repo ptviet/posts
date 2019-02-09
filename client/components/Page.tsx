@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Typography from '@material-ui/core/Typography';
 import Header from './header/Header';
 
-class Page extends Component {
+export default class Page extends Component {
   render() {
     return (
       <div
@@ -50,5 +50,3 @@ class Page extends Component {
     );
   }
 }
-
-export default Page;

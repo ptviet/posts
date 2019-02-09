@@ -102,8 +102,8 @@ const Post = (props: any) => {
         {
           pathname: '/post',
           query: { _id: post._id }
-        },
-        `/post/${post._id}`
+        }
+        // `/post/${post._id}`
       );
     }
   };
@@ -132,8 +132,8 @@ const Post = (props: any) => {
       {
         pathname: '/category',
         query: { _id: catId }
-      },
-      `/category/${catId}`
+      }
+      // `/category/${catId}`
     );
   };
 
@@ -142,7 +142,7 @@ const Post = (props: any) => {
       <CardHeader
         avatar={
           <Link
-            as={`/user/${post.createdBy._id}`}
+            // as={`/user/${post.createdBy._id}`}
             href={`/user?_id=${post.createdBy._id}`}
           >
             <a>
@@ -162,7 +162,7 @@ const Post = (props: any) => {
         subheader={millisecToDate(post.createdDate)}
         title={
           <Link
-            as={`/user/${post.createdBy._id}`}
+            // as={`/user/${post.createdBy._id}`}
             href={`/user?_id=${post.createdBy._id}`}
           >
             <a
@@ -251,8 +251,8 @@ const Post = (props: any) => {
                 {
                   pathname: '/post',
                   query: { _id: post._id }
-                },
-                `/post/${post._id}`
+                }
+                // `/post/${post._id}`
               )
             }
           >

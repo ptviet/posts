@@ -64,8 +64,8 @@ const PostForm = (props: any) => {
           {
             pathname: '/post',
             query: { _id: newPost._id }
-          },
-          `/post/${newPost._id}`
+          }
+          // `/post/${newPost._id}`
         );
       } catch (error) {
         setSubmitted(false);

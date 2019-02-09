@@ -107,7 +107,7 @@ const LandingPage = ({ classes }: any) => {
                 {posts.map((post: PostModel) => (
                   <Link
                     key={post._id}
-                    as={`/post/${post._id}`}
+                    // as={`/post/${post._id}`}
                     href={`/post?_id=${post._id}`}
                   >
                     <a

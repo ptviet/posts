@@ -192,7 +192,8 @@ const Header = ({ classes }: any) => {
                     <IconButton
                       onClick={() =>
                         Router.push({
-                          pathname: '/category/new'
+                          // pathname: '/category/new'
+                          pathname: '/newcategory'
                         })
                       }
                       color='inherit'
@@ -208,7 +209,8 @@ const Header = ({ classes }: any) => {
                       <IconButton
                         onClick={() =>
                           Router.push({
-                            pathname: '/post/new'
+                            pathname: '/newpost'
+                            // pathname: '/post/new'
                           })
                         }
                         color='inherit'

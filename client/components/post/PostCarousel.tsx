@@ -1,21 +1,21 @@
-import React from "react";
-import Link from "next/link";
-import PropTypes from "prop-types";
-import Slider from "react-slick";
-import Card from "@material-ui/core/Card";
-import Avatar from "@material-ui/core/Avatar";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
-import { withStyles } from "@material-ui/core/styles";
-import { millisecToDate } from "../../lib/formatDate";
+import React from 'react';
+import Link from 'next/link';
+import PropTypes from 'prop-types';
+import Slider from 'react-slick';
+import Card from '@material-ui/core/Card';
+import Avatar from '@material-ui/core/Avatar';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import { withStyles } from '@material-ui/core/styles';
+import { millisecToDate } from '../../lib/formatDate';
 
 const styles: any = (theme: any) => ({
   card: {
-    maxWidth: "auto"
+    maxWidth: 'auto'
   },
   media: {
     height: 0,
-    paddingTop: "56.25%" // 16:9
+    paddingTop: '56.25%' // 16:9
   }
 });
 
@@ -34,11 +34,14 @@ const PostCarousel = (props: any) => {
     <Slider {...settings}>
       {posts.map((post: any) => (
         <div key={post._id}>
-          <Link as={`/post/${post._id}`} href={`/post?_id=${post._id}`}>
+          <Link
+            // as={`/post/${post._id}`}
+            href={`/post?_id=${post._id}`}
+          >
             <a
               style={{
-                textDecoration: "none",
-                color: "inherit"
+                textDecoration: 'none',
+                color: 'inherit'
               }}
             >
               {/* <Typography variant="overline" gutterBottom>
@@ -47,7 +50,7 @@ const PostCarousel = (props: any) => {
               <Card className={classes.card}>
                 <CardHeader
                   avatar={
-                    <Avatar aria-label="Avatar">
+                    <Avatar aria-label='Avatar'>
                       <img
                         src={post.createdBy.avatar}
                         alt={post.createdBy.username}
@@ -61,7 +64,7 @@ const PostCarousel = (props: any) => {
                 <CardMedia
                   className={classes.media}
                   image={post.imageUrl}
-                  title="Image Preview"
+                  title='Image Preview'
                 />
               </Card>
             </a>

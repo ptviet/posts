@@ -4,9 +4,12 @@
   "description": "posts",
   "private": true,
   "scripts": {
-    "dev": "nodemon server/server.ts",
-    "build": "next build && tsc --project tsconfig.server.json",
-    "start": "NODE_ENV=production node .next/production-server/server.js",
+    "dev": "next -p 3000",
+    "start": "NODE_ENV=production next start",
+    "//": "nodemon server/server.ts",
+    "///": "next build && tsc --project tsconfig.server.json",
+    "build": "next build",
+    "/": "NODE_ENV=production node .next/production-server/server.js",
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
     "ts:check": "tsc --noEmit"
