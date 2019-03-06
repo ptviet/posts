@@ -1,10 +1,12 @@
 import React from 'react';
-import Link from 'next/link';
+// import Link from 'next/link';
+import Router from 'next/router';
 import { Query } from 'react-apollo';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import { withStyles } from '@material-ui/core/styles';
 import SyncIcon from '@material-ui/icons/Sync';
 import Typography from '@material-ui/core/Typography';
@@ -105,31 +107,40 @@ const LandingPage = ({ classes }: any) => {
             >
               <Masonry gutter='16px'>
                 {posts.map((post: PostModel) => (
-                  <Link
+                  // <Link
+                  //   key={post._id}
+                  //   // as={`/post/${post._id}`}
+                  //   href={`/post?_id=${post._id}`}
+                  // >
+                  //   <a
+                  //     style={{
+                  //       textDecoration: 'none',
+                  //       color: 'inherit'
+                  //     }}
+                  //   >
+                  <CardActionArea
                     key={post._id}
-                    // as={`/post/${post._id}`}
-                    href={`/post?_id=${post._id}`}
+                    onClick={() =>
+                      Router.push({
+                        pathname: '/post',
+                        query: { _id: post._id }
+                      })
+                    }
                   >
-                    <a
-                      style={{
-                        textDecoration: 'none',
-                        color: 'inherit'
-                      }}
-                    >
-                      <Card>
-                        <CardMedia
-                          component='img'
-                          className={classes.media}
-                          image={post.imageUrl}
-                          title={post.title}
-                        />
-                      </Card>
-                    </a>
-                  </Link>
+                    <Card>
+                      <CardMedia
+                        component='img'
+                        className={classes.media}
+                        image={post.imageUrl}
+                        title={post.title}
+                      />
+                    </Card>
+                  </CardActionArea>
+                  //   </a>
+                  // </Link>
                 ))}
               </Masonry>
             </ResponsiveMasonry>
-
             {hasMore && (
               <div
                 style={{
